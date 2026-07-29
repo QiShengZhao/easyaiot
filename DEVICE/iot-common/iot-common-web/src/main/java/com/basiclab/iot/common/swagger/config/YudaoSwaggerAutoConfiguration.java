@@ -51,6 +51,7 @@ public class YudaoSwaggerAutoConfiguration {
     // ========== 全局 OpenAPI 配置 ==========
 
     @Bean
+    @Primary // iot-common-swagger 迁移到 springdoc 后同样产出 OpenAPI Bean，以本配置为主消除注入歧义
     public OpenAPI createApi(SwaggerProperties properties) {
         Map<String, SecurityScheme> securitySchemas = buildSecuritySchemes();
         OpenAPI openAPI = new OpenAPI()

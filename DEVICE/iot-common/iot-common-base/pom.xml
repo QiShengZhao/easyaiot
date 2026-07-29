@@ -179,7 +179,7 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.3.2</version>
+            <version>6.1.1</version> <!-- 与 pagehelper-spring-boot-starter 2.1.1 配套；5.x 依赖 jsqlparser 4.6 旧 API，与统一后的 4.9 运行时冲突 -->
             <scope>compile</scope>
         </dependency>
         <dependency>
