@@ -10,7 +10,7 @@ import com.basiclab.iot.dataset.service.DatasetTaskUserService;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static com.basiclab.iot.common.exception.util.ServiceExceptionUtil.exception;
 import static com.basiclab.iot.dataset.enums.ErrorCodeConstants.DATASET_TASK_USER_NOT_EXISTS;

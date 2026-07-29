@@ -2,7 +2,7 @@ package com.basiclab.iot.tdengine.domain.model;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @program: EasyAIoT

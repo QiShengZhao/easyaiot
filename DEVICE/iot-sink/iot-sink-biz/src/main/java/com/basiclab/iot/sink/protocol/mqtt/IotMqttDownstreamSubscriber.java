@@ -7,7 +7,7 @@ import com.basiclab.iot.sink.util.IotDeviceMessageUtils;
 import com.basiclab.iot.sink.protocol.mqtt.router.IotMqttDownstreamHandler;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  * IotMqttDownstreamSubscriber

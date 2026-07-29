@@ -3,7 +3,7 @@ package com.basiclab.iot.tdengine.domain.visual;
 import com.basiclab.iot.tdengine.domain.SelectDto;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * SelectVisualDto

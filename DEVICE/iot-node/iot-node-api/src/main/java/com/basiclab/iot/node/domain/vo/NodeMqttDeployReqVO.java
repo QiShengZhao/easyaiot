@@ -3,7 +3,7 @@ package com.basiclab.iot.node.domain.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Map;
 
 @Schema(description = "MQTT 网关 Agent 部署请求")

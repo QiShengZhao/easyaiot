@@ -4,7 +4,7 @@ import com.basiclab.iot.common.config.RedisTestConfiguration;
 import com.basiclab.iot.common.config.SqlInitializationTestConfiguration;
 import com.basiclab.iot.common.config.YudaoMybatisAutoConfiguration;
 import com.basiclab.iot.common.config.YudaoRedisAutoConfiguration;
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
+import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

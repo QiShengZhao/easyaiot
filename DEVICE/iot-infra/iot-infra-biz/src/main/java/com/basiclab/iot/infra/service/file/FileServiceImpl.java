@@ -18,7 +18,7 @@ import com.basiclab.iot.infra.framework.file.core.utils.FileTypeUtils;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static com.basiclab.iot.common.exception.util.ServiceExceptionUtil.exception;
 

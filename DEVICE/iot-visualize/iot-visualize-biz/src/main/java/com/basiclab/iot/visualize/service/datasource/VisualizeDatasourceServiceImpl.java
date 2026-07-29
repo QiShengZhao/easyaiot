@@ -9,7 +9,7 @@ import com.basiclab.iot.visualize.dal.pgsql.datasource.VisualizeDatasourceMapper
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static com.basiclab.iot.common.exception.util.ServiceExceptionUtil.exception;
 import static com.basiclab.iot.visualize.enums.ErrorCodeConstants.DATASOURCE_NOT_FOUND;

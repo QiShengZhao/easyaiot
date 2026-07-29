@@ -14,7 +14,7 @@ import com.basiclab.iot.infra.enums.config.ConfigTypeEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Import;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.function.Consumer;
 
 import static cn.hutool.core.util.RandomUtil.randomEle;
@@ -171,7 +171,7 @@ public class ConfigServiceImplTest extends BaseDbUnitTest {
         configMapper.insert(cloneIgnoreId(dbConfig, o -> o.setCreateTime(buildTime(2021, 1, 1))));
         // 准备参数
         ConfigPageReqVO reqVO = new ConfigPageReqVO();
-        reqVO.setName("艿");
+        reqVO.setName("Basic"); // 脚手架改名后（芋艿 -> BasicLab），查询串同步调整
         reqVO.setKey("nai");
         reqVO.setType(ConfigTypeEnum.SYSTEM.getType());
         reqVO.setCreateTime(buildBetweenTime(2021, 1, 15, 2021, 2, 15));

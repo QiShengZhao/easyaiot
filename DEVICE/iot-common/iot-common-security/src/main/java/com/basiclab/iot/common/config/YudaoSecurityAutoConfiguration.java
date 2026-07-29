@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static com.basiclab.iot.common.utils.RpcApiBeanUtils.resolveLocalApi;
 

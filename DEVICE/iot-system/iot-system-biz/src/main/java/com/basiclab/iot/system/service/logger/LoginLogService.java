@@ -5,7 +5,7 @@ import com.basiclab.iot.system.api.logger.dto.LoginLogCreateReqDTO;
 import com.basiclab.iot.system.controller.admin.logger.vo.loginlog.LoginLogPageReqVO;
 import com.basiclab.iot.system.dal.dataobject.logger.LoginLogDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * LoginLogService

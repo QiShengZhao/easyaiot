@@ -1,7 +1,7 @@
 package com.genersoft.iot.vmp.utils;
 
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.time.Instant;

@@ -8,7 +8,7 @@ import com.basiclab.iot.infra.framework.file.core.client.s3.S3FileClientConfig;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import javax.validation.Validation;
+import jakarta.validation.Validation;
 
 /**
  * S3FileClientTest

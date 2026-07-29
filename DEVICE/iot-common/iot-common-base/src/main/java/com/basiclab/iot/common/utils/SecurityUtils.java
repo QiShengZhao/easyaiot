@@ -1,6 +1,6 @@
 package com.basiclab.iot.common.utils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import com.basiclab.iot.common.constant.UserConstants;
 import com.basiclab.iot.common.constant.SecurityConstants;

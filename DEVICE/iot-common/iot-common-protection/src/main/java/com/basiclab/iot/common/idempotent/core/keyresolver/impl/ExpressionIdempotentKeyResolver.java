@@ -5,7 +5,7 @@ import com.basiclab.iot.common.idempotent.core.annotation.Idempotent;
 import com.basiclab.iot.common.idempotent.core.keyresolver.IdempotentKeyResolver;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  */
 public class ExpressionIdempotentKeyResolver implements IdempotentKeyResolver {
 
-    private final ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
+    private final ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
     private final ExpressionParser expressionParser = new SpelExpressionParser();
 
     @Override

@@ -5,7 +5,7 @@ import com.basiclab.iot.infra.controller.admin.config.vo.ConfigPageReqVO;
 import com.basiclab.iot.infra.controller.admin.config.vo.ConfigSaveReqVO;
 import com.basiclab.iot.infra.dal.dataobject.config.ConfigDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 参数配置 Service 接口

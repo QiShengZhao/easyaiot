@@ -9,7 +9,7 @@ import com.basiclab.iot.dataset.domain.dataset.vo.DatasetImageUploadRespVO;
 import com.basiclab.iot.dataset.domain.dataset.vo.DatasetSyncCheckRespVO;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.util.List;

@@ -10,8 +10,8 @@ import com.basiclab.iot.device.domain.device.vo.ProductProperties;
 import com.basiclab.iot.device.service.product.ProductPropertiesService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 

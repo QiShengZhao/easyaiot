@@ -4,8 +4,8 @@ import com.basiclab.iot.infra.controller.admin.codegen.vo.column.CodegenColumnSa
 import com.basiclab.iot.infra.controller.admin.codegen.vo.table.CodegenTableSaveReqVO;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 /**

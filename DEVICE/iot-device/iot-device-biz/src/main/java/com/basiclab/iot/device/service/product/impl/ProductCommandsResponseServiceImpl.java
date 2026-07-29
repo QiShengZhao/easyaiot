@@ -2,7 +2,7 @@ package com.basiclab.iot.device.service.product.impl;
 
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 import com.basiclab.iot.device.domain.device.vo.ProductCommandsResponse;

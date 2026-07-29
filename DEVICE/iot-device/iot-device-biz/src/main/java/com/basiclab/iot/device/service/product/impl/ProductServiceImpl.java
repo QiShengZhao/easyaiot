@@ -53,7 +53,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -124,7 +124,7 @@ public class ProductServiceImpl implements ProductService {
     public int insertOrUpdate(Product record) {
         record.setCreateBy("admin");
         record.setUpdateBy("admin");
-        return productMapper.insertOrUpdate(record);
+        return productMapper.insertOrUpdateRecord(record);
     }
 
     @Override

@@ -55,7 +55,7 @@ public class AlertNotificationConsumer {
     public void consumeAlertNotification(
             @Payload String messageJson,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
-            @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
             @Header(KafkaHeaders.OFFSET) long offset,
             Acknowledgment acknowledgment) {
         
@@ -156,24 +156,21 @@ public class AlertNotificationConsumer {
                             
                             // 发送到通知主题
                             iotKafkaTemplate.send(notificationSendTopic, message.getDeviceId(), notificationMessageJson)
-                                    .addCallback(
-                                            result -> {
-                                                if (result != null) {
-                                                    log.info("✅ 告警通知消息已发送到通知主题: alertId={}, topic={}, partition={}, offset={}, " +
-                                                            "notifyUsers数量={}, notifyMethods={}", 
-                                                            finalAlertId,
-                                                            result.getRecordMetadata().topic(),
-                                                            result.getRecordMetadata().partition(),
-                                                            result.getRecordMetadata().offset(),
-                                                            (notifyUsers != null ? notifyUsers.size() : 0),
-                                                            notifyMethods);
-                                                }
-                                            },
-                                            failure -> {
-                                                log.error("❌ 发送告警通知消息到通知主题失败: alertId={}, deviceId={}, error={}", 
-                                                        finalAlertId, message.getDeviceId(), failure.getMessage(), failure);
-                                            }
-                                    );
+                                    .whenComplete((result, failure) -> {
+                                        if (failure != null) {
+                                            log.error("❌ 发送告警通知消息到通知主题失败: alertId={}, deviceId={}, error={}",
+                                                    finalAlertId, message.getDeviceId(), failure.getMessage(), failure);
+                                        } else if (result != null) {
+                                            log.info("✅ 告警通知消息已发送到通知主题: alertId={}, topic={}, partition={}, offset={}, " +
+                                                    "notifyUsers数量={}, notifyMethods={}",
+                                                    finalAlertId,
+                                                    result.getRecordMetadata().topic(),
+                                                    result.getRecordMetadata().partition(),
+                                                    result.getRecordMetadata().offset(),
+                                                    (notifyUsers != null ? notifyUsers.size() : 0),
+                                                    notifyMethods);
+                                        }
+                                    });
                         } catch (Exception e) {
                             log.error("❌ 发送告警通知消息到通知主题异常: alertId={}, deviceId={}, error={}", 
                                     alertIdRef[0], message.getDeviceId(), e.getMessage(), e);

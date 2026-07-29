@@ -1,6 +1,6 @@
 package com.basiclab.iot.common.core.ut;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
+import com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.basiclab.iot.common.config.SqlInitializationTestConfiguration;
 import com.basiclab.iot.common.config.YudaoMybatisAutoConfiguration;

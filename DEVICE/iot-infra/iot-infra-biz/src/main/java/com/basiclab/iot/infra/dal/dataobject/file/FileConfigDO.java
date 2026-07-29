@@ -67,8 +67,16 @@ public class FileConfigDO extends BaseDO {
 
     public static class FileClientConfigTypeHandler extends AbstractJsonTypeHandler<Object> {
 
+        public FileClientConfigTypeHandler(Class<?> type) {
+            super(type);
+        }
+
+        public FileClientConfigTypeHandler(Class<?> type, java.lang.reflect.Field field) {
+            super(type, field);
+        }
+
         @Override
-        protected Object parse(String json) {
+        public Object parse(String json) {
             FileClientConfig config = JsonUtils.parseObjectQuietly(json, new TypeReference<FileClientConfig>() {});
             if (config != null) {
                 return config;
@@ -94,7 +102,7 @@ public class FileConfigDO extends BaseDO {
         }
 
         @Override
-        protected String toJson(Object obj) {
+        public String toJson(Object obj) {
             return JsonUtils.toJsonString(obj);
         }
 

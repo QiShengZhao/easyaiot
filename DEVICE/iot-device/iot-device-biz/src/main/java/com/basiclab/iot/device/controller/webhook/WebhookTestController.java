@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class WebhookTestController {
     /**
      * 初始化日志，确认Controller是否被加载
      */
-    @javax.annotation.PostConstruct
+    @jakarta.annotation.PostConstruct
     public void init() {
         log.info("========== WebhookTestController 已初始化 ==========");
         log.info("Controller路径映射: /device/webhook/test");

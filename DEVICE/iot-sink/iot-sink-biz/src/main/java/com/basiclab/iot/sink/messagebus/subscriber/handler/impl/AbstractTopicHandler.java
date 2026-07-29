@@ -7,7 +7,7 @@ import com.basiclab.iot.sink.mq.message.IotDeviceMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * AbstractTopicHandler

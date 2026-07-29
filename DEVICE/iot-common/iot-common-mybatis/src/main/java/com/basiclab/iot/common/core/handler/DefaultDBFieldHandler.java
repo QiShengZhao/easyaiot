@@ -8,6 +8,7 @@ import com.basiclab.iot.common.web.core.util.WebFrameworkUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -19,16 +20,28 @@ import java.util.Objects;
  */
 public class DefaultDBFieldHandler implements MetaObjectHandler {
 
+    /**
+     * JDK 9+ 的 LocalDateTime.now() 为纳秒精度，MySQL/PostgreSQL/H2 的时间戳列只存微秒，
+     * 截断后保证内存对象与落库回读值一致
+     */
+    private static LocalDateTime now() {
+        return LocalDateTime.now().truncatedTo(ChronoUnit.MICROS);
+    }
+
     @Override
     public void insertFill(MetaObject metaObject) {
         if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO) {
             BaseDO baseDO = (BaseDO) metaObject.getOriginalObject();
 
-            LocalDateTime current = LocalDateTime.now();
+            LocalDateTime current = now();
             // 创建时间为空，则以当前时间为插入时间
-            baseDO.setCreateTime(current);
+            if (Objects.isNull(baseDO.getCreateTime())) {
+                baseDO.setCreateTime(current);
+            }
             // 更新时间为空，则以当前时间为更新时间
-            baseDO.setUpdateTime(current);
+            if (Objects.isNull(baseDO.getUpdateTime())) {
+                baseDO.setUpdateTime(current);
+            }
 
             Long userId = WebFrameworkUtils.getLoginUserId();
             // 当前登录用户不为空，创建人为空，则当前登录用户为创建人
@@ -42,11 +55,15 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
         } else if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity) {//兼容旧代码
             BaseEntity baseEntity = (BaseEntity) metaObject.getOriginalObject();
 
-            LocalDateTime current = LocalDateTime.now();
+            LocalDateTime current = now();
             // 创建时间为空，则以当前时间为插入时间
-            baseEntity.setCreateTime(current);
+            if (Objects.isNull(baseEntity.getCreateTime())) {
+                baseEntity.setCreateTime(current);
+            }
             // 更新时间为空，则以当前时间为更新时间
-            baseEntity.setUpdateTime(current);
+            if (Objects.isNull(baseEntity.getUpdateTime())) {
+                baseEntity.setUpdateTime(current);
+            }
 
             Long userId = WebFrameworkUtils.getLoginUserId();
             // 当前登录用户不为空，创建人为空，则当前登录用户为创建人
@@ -60,11 +77,15 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
         } else if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity2) {//兼容旧代码
             BaseEntity2 baseEntity = (BaseEntity2) metaObject.getOriginalObject();
 
-            LocalDateTime current = LocalDateTime.now();
+            LocalDateTime current = now();
             // 创建时间为空，则以当前时间为插入时间
-            baseEntity.setCreatedTime(current);
+            if (Objects.isNull(baseEntity.getCreatedTime())) {
+                baseEntity.setCreatedTime(current);
+            }
             // 更新时间为空，则以当前时间为更新时间
-            baseEntity.setUpdatedTime(current);
+            if (Objects.isNull(baseEntity.getUpdatedTime())) {
+                baseEntity.setUpdatedTime(current);
+            }
 
             Long userId = WebFrameworkUtils.getLoginUserId();
             // 当前登录用户不为空，创建人为空，则当前登录用户为创建人
@@ -82,7 +103,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseDO) {
             // 更新时间为空，则以当前时间为更新时间
-            setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+            setFieldValByName("updateTime", now(), metaObject);
 
             // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
             Object modifier = getFieldValByName("updater", metaObject);
@@ -92,7 +113,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
             }
         } else if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity) {//兼容旧代码
             // 更新时间为空，则以当前时间为更新时间
-            setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
+            setFieldValByName("updateTime", now(), metaObject);
 
             // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
             Object modifier = getFieldValByName("updateBy", metaObject);
@@ -102,7 +123,7 @@ public class DefaultDBFieldHandler implements MetaObjectHandler {
             }
         } else if (Objects.nonNull(metaObject) && metaObject.getOriginalObject() instanceof BaseEntity2) {//兼容旧代码
             // 更新时间为空，则以当前时间为更新时间
-            setFieldValByName("updatedTime", LocalDateTime.now(), metaObject);
+            setFieldValByName("updatedTime", now(), metaObject);
 
             // 当前登录用户不为空，更新人为空，则当前登录用户为更新人
             Object modifier = getFieldValByName("updatedBy", metaObject);

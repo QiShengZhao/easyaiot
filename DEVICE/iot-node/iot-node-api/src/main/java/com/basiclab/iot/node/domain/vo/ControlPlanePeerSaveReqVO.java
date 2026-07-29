@@ -3,7 +3,7 @@ package com.basiclab.iot.node.domain.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Schema(description = "管理后台 - 添加对等中心节点 Request VO")

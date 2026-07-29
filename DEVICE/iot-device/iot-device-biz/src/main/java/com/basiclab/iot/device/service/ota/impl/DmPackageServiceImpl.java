@@ -2,7 +2,7 @@ package com.basiclab.iot.device.service.ota.impl;
 
 import cn.hutool.core.map.MapUtil;
 import com.alibaba.fastjson2.JSONObject;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.basiclab.iot.common.domain.LoginUser;
 import com.basiclab.iot.common.domain.R;
 import com.basiclab.iot.common.utils.JSONUtils;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;

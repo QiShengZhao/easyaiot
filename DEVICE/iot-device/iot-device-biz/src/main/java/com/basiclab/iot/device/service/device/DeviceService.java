@@ -1,12 +1,12 @@
 package com.basiclab.iot.device.service.device;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.spring.service.IService;
 import com.basiclab.iot.device.domain.device.qo.DeviceIsExistQo;
 import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.domain.device.vo.*;
 import com.basiclab.iot.device.domain.device.oo.DeviceReportOo;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

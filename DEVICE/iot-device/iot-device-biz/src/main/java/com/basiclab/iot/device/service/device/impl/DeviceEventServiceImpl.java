@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.service.device.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.basiclab.iot.device.dal.pgsql.device.DeviceEventMapper;
 import com.basiclab.iot.device.domain.device.vo.DeviceEvent;
 import com.basiclab.iot.device.service.device.DeviceEventService;

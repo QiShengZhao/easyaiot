@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.sms.vo.template.SmsTemplatePageR
 import com.basiclab.iot.system.controller.admin.sms.vo.template.SmsTemplateSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.sms.SmsTemplateDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Map;
 
 /**

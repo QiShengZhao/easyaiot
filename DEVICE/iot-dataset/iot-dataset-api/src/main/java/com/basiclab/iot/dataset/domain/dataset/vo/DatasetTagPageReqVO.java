@@ -4,7 +4,7 @@ import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.basiclab.iot.common.domain.PageParam;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * DatasetTagPageReqVO

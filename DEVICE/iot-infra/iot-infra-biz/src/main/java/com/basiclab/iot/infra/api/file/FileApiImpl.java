@@ -5,7 +5,7 @@ import com.basiclab.iot.infra.api.file.dto.FileCreateReqDTO;
 import com.basiclab.iot.infra.service.file.FileService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import static com.basiclab.iot.common.domain.CommonResult.success;
 

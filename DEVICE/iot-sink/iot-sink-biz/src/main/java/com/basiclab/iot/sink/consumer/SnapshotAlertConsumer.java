@@ -13,8 +13,8 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -193,7 +193,7 @@ public class SnapshotAlertConsumer {
     public void consumeSnapshotAlert(
             @Payload String messageJson,
             @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
-            @Header(KafkaHeaders.RECEIVED_PARTITION_ID) int partition,
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
             @Header(KafkaHeaders.OFFSET) long offset,
             Acknowledgment acknowledgment) {
         
@@ -322,24 +322,21 @@ public class SnapshotAlertConsumer {
                             
                             // 发送到抓拍算法任务通知主题
                             iotKafkaTemplate.send(snapshotNotificationSendTopic, message.getDeviceId(), notificationMessageJson)
-                                    .addCallback(
-                                            result -> {
-                                                if (result != null) {
-                                                    log.info("✅ 抓拍算法任务告警通知消息已发送到通知主题: alertId={}, topic={}, partition={}, offset={}, " +
-                                                            "notifyUsers数量={}, notifyMethods={}", 
-                                                            finalAlertId,
-                                                            result.getRecordMetadata().topic(),
-                                                            result.getRecordMetadata().partition(),
-                                                            result.getRecordMetadata().offset(),
-                                                            (notifyUsers != null ? notifyUsers.size() : 0),
-                                                            notifyMethods);
-                                                }
-                                            },
-                                            failure -> {
-                                                log.error("❌ 发送抓拍算法任务告警通知消息到通知主题失败: alertId={}, deviceId={}, error={}", 
-                                                        finalAlertId, message.getDeviceId(), failure.getMessage(), failure);
-                                            }
-                                    );
+                                    .whenComplete((result, failure) -> {
+                                        if (failure != null) {
+                                            log.error("❌ 发送抓拍算法任务告警通知消息到通知主题失败: alertId={}, deviceId={}, error={}",
+                                                    finalAlertId, message.getDeviceId(), failure.getMessage(), failure);
+                                        } else if (result != null) {
+                                            log.info("✅ 抓拍算法任务告警通知消息已发送到通知主题: alertId={}, topic={}, partition={}, offset={}, " +
+                                                    "notifyUsers数量={}, notifyMethods={}",
+                                                    finalAlertId,
+                                                    result.getRecordMetadata().topic(),
+                                                    result.getRecordMetadata().partition(),
+                                                    result.getRecordMetadata().offset(),
+                                                    (notifyUsers != null ? notifyUsers.size() : 0),
+                                                    notifyMethods);
+                                        }
+                                    });
                         } catch (Exception e) {
                             log.error("❌ 发送抓拍算法任务告警通知消息到通知主题异常: alertId={}, deviceId={}, error={}", 
                                     alertIdRef[0], message.getDeviceId(), e.getMessage(), e);

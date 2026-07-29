@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +80,7 @@ public class FileController {
 //        String path = applicationHome.getDir().getParentFile().getParentFile().getAbsolutePath() + FILE_PATH;
 //        //获取文件
 //        File file = new File(path+fileName);
-//        ServletUtil.write(response, file);
+//        JakartaServletUtil.write(response, file);
         fileService.download(fileName,response);
     }
 

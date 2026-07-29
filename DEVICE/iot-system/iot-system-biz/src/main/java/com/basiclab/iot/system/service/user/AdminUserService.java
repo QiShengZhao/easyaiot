@@ -11,7 +11,7 @@ import com.basiclab.iot.system.controller.admin.user.vo.user.UserPageReqVO;
 import com.basiclab.iot.system.controller.admin.user.vo.user.UserSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.user.AdminUserDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;

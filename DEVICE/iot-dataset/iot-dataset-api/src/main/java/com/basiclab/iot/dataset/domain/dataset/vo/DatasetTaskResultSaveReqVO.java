@@ -3,7 +3,7 @@ package com.basiclab.iot.dataset.domain.dataset.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * DatasetTaskResultSaveReqVO
