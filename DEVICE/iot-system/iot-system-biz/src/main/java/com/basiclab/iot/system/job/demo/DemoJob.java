@@ -7,7 +7,7 @@ import com.basiclab.iot.system.dal.dataobject.user.AdminUserDO;
 import com.basiclab.iot.system.dal.pgsql.user.AdminUserMapper;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**

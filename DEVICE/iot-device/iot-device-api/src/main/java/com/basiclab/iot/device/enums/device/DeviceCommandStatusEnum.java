@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.enums.device;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,31 +32,31 @@ import java.util.Optional;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "DeviceCommandStatusEnum", description = "Enumeration for Device Command Status")
+@Schema(description = "Enumeration for Device Command Status")
 public enum DeviceCommandStatusEnum {
 
     /**
      * Pending status.
      */
-    @ApiModelProperty(value = "Pending status")
+    @Schema(description = "Pending status")
     PENDING(0, "待处理"),
 
     /**
      * Success status.
      */
-    @ApiModelProperty(value = "Success status")
+    @Schema(description = "Success status")
     SUCCESS(1, "成功"),
 
     /**
      * Failure status.
      */
-    @ApiModelProperty(value = "Failure status")
+    @Schema(description = "Failure status")
     FAILURE(2, "失败");
 
-    @ApiModelProperty(value = "Command status value")
+    @Schema(description = "Command status value")
     private Integer value;
 
-    @ApiModelProperty(value = "Command status description")
+    @Schema(description = "Command status description")
     private String desc;
 
     public void setValue(Integer value) {

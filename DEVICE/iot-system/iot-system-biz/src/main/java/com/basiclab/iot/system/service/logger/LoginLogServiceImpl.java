@@ -9,7 +9,7 @@ import com.basiclab.iot.system.dal.pgsql.logger.LoginLogMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * LoginLogServiceImpl

@@ -14,8 +14,8 @@ import com.basiclab.iot.sink.service.DeviceServerIdService;
 import com.basiclab.iot.sink.util.IotDeviceMessageUtils;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;

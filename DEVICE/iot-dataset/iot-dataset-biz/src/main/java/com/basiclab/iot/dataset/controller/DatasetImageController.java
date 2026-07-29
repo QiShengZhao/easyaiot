@@ -19,7 +19,6 @@ import com.basiclab.iot.dataset.domain.dataset.vo.DatasetImageUploadRespVO;
 import com.basiclab.iot.dataset.service.DatasetChunkUploadService;
 import com.basiclab.iot.dataset.service.DatasetImageImportTaskService;
 import com.basiclab.iot.dataset.service.DatasetImageService;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,9 +26,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -266,7 +265,7 @@ public class DatasetImageController {
     }
 
     @PostMapping("/upload-file")
-    @ApiOperation("上传数据集文件")
+    @Operation(summary = "上传数据集文件")
     R<String> uploadFile(@RequestPart("file") MultipartFile file) {
         try {
             return R.ok(datasetImageService.uploadFile(file), "上传数据集文件成功");

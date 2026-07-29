@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.enums.device;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,25 +32,25 @@ import java.util.Optional;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(value = "DeviceCommandTypeEnum", description = "Enumeration for Device Command Types")
+@Schema(description = "Enumeration for Device Command Types")
 public enum DeviceCommandTypeEnum {
 
     /**
      * Command issue.
      */
-    @ApiModelProperty(value = "Command issue")
+    @Schema(description = "Command issue")
     COMMAND_ISSUE(0, "命名下发"),
 
     /**
      * Command response.
      */
-    @ApiModelProperty(value = "Command response")
+    @Schema(description = "Command response")
     COMMAND_RESPONSE(1, "命令响应");
 
-    @ApiModelProperty(value = "Command type value")
+    @Schema(description = "Command type value")
     private Integer value;
 
-    @ApiModelProperty(value = "Command type description")
+    @Schema(description = "Command type description")
     private String desc;
 
     public void setValue(Integer value) {

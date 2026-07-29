@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.service.protocol;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.spring.service.IService;
 import com.basiclab.iot.device.domain.device.vo.Protocol;
 
 import java.util.Collection;

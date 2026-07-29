@@ -10,13 +10,13 @@ import com.basiclab.iot.message.common.PreviewUserDataHandler;
 import com.basiclab.iot.message.service.TPreviewUserService;
 import com.basiclab.iot.message.util.ExcelUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,24 +34,24 @@ public class PreviewUserController extends BaseController {
     private PreviewUserDataHandler dataHandler;
 
     @PostMapping("/add")
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public AjaxResult add(@RequestBody TPreviewUser tPreviewUser){
         return tPreviewUserService.add(tPreviewUser);
     }
     @PostMapping("/update")
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public AjaxResult update(@RequestBody TPreviewUser tPreviewUser){
         return AjaxResult.success(tPreviewUserService.update(tPreviewUser));
     }
 
     @GetMapping("/delete")
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public AjaxResult delete(String id){
         return AjaxResult.success(tPreviewUserService.delete(id));
     }
 
     @GetMapping("/query")
-    @ApiOperation("查询")
+    @Operation(summary = "查询")
     public TableDataInfo query(@ModelAttribute TPreviewUser tPreviewUser){
         startPage();
         List<TPreviewUser> list = tPreviewUserService.query(tPreviewUser);
@@ -59,14 +59,14 @@ public class PreviewUserController extends BaseController {
     }
 
     @GetMapping("/queryByMsgType")
-    @ApiOperation("通过消息类型查询")
+    @Operation(summary = "通过消息类型查询")
     public AjaxResult queryByMsgType(int msgType){
         return AjaxResult.success(tPreviewUserService.queryByMsgType(msgType));
 
     }
 
     @GetMapping("/exportExcel")
-    @ApiOperation("导入excel")
+    @Operation(summary = "导入excel")
     public void exportExcel(HttpServletResponse response) throws IOException {
         List<TPreviewUserExcelVo> tPreviewUsers = new ArrayList<>();
         TPreviewUserExcelVo wxExample = new TPreviewUserExcelVo();
@@ -85,7 +85,7 @@ public class PreviewUserController extends BaseController {
     }
 
     @PostMapping("/import")
-    @ApiOperation("导入")
+    @Operation(summary = "导入")
     public AjaxResult importUser(@RequestPart("file") MultipartFile file) throws IOException {
         List<TPreviewUserExcelVo> tPreviewUsers = ExcelUtils.read(file, TPreviewUserExcelVo.class);
         List<String> errorList = new ArrayList<>();

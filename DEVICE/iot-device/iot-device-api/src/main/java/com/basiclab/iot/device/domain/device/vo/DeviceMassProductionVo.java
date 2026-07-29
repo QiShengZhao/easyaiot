@@ -2,7 +2,7 @@ package com.basiclab.iot.device.domain.device.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @email andywebjava@163.com
  * @wechat EasyAIoT2025
  */
-@ApiModel(value = "设备量产信息")
+@Schema(description = "设备量产信息")
 @Getter
 @Setter
 public class DeviceMassProductionVo implements Serializable{

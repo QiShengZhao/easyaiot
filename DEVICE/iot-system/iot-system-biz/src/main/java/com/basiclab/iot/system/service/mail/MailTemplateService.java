@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.mail.vo.template.MailTemplatePag
 import com.basiclab.iot.system.controller.admin.mail.vo.template.MailTemplateSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.mail.MailTemplateDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 

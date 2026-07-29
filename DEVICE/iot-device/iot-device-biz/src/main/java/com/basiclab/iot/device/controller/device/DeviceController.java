@@ -17,10 +17,11 @@ import com.basiclab.iot.device.domain.device.vo.*;
 import com.basiclab.iot.device.enums.device.DeviceConnectStatusEnum;
 import com.basiclab.iot.device.service.device.DeviceService;
 import com.basiclab.iot.device.service.product.ProductService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -28,10 +29,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotEmpty;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotEmpty;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +57,7 @@ public class DeviceController extends BaseController {
     private ProductService productService;
 
     @PostMapping("/isExist")
-    @ApiOperation("判断设备是否存在")
+    @Operation(summary = "判断设备是否存在")
     public R<Boolean> isExist(@RequestBody DeviceIsExistQo deviceIsExistQo) {
         try {
             return R.ok(deviceService.isExist(deviceIsExistQo));
@@ -67,7 +68,7 @@ public class DeviceController extends BaseController {
     }
 
     @PostMapping("/alarm")
-    @ApiOperation("边缘网关告警")
+    @Operation(summary = "边缘网关告警")
     public R<String> alarm(@RequestBody DeviceAlarmQo data) {
         try {
             log.info("收到边缘网关告警, params=" + JSONObject.toJSONString(data));
@@ -80,8 +81,8 @@ public class DeviceController extends BaseController {
     }
 
     @PostMapping("/report")
-    @ApiOperation("设备上报")
-    public R<String> report(@ApiParam("设备上报实体") @Validated @NotEmpty @RequestBody DeviceReportOo deviceReportOo) {
+    @Operation(summary = "设备上报")
+    public R<String> report(@Parameter(description = "设备上报实体") @Validated @NotEmpty @RequestBody DeviceReportOo deviceReportOo) {
         try {
             log.info("设备上报, params=" + JSONObject.toJSONString(deviceReportOo));
             deviceService.report(deviceReportOo);
@@ -98,7 +99,7 @@ public class DeviceController extends BaseController {
      *
      * @param params
      */
-    @ApiOperation("EMQX钩子回调")
+    @Operation(summary = "EMQX钩子回调")
     @PostMapping("/webHook")
     @PermitAll
     public void webHook(@RequestBody Map<String, Object> params) {
@@ -118,12 +119,12 @@ public class DeviceController extends BaseController {
     /**
      * 查询设备管理列表
      */
-    @ApiOperation("查询设备列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页码", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "1", required = true),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "10", required = true),
-            @ApiImplicitParam(name = "orderByColumn", value = "排序字段", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "isAsc", value = "排序方式（asc/desc）", dataType = "string", dataTypeClass = String.class, paramType = "query")
+    @Operation(summary = "查询设备列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "页码", in = ParameterIn.QUERY, example = "1", required = true),
+            @Parameter(name = "pageSize", description = "每页显示记录数", in = ParameterIn.QUERY, example = "10", required = true),
+            @Parameter(name = "orderByColumn", description = "排序字段", in = ParameterIn.QUERY),
+            @Parameter(name = "isAsc", description = "排序方式（asc/desc）", in = ParameterIn.QUERY)
     })
     // @PreAuthorize("@ss.hasPermission('link:device:list')")
     @GetMapping("/list")
@@ -133,7 +134,7 @@ public class DeviceController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation("查询设备地图分布点位（供地图展示）")
+    @Operation(summary = "查询设备地图分布点位（供地图展示）")
     @GetMapping("/locations")
     public AjaxResult listDeviceLocations(
             @RequestParam(value = "has_location", required = false, defaultValue = "true") String hasLocation) {
@@ -210,7 +211,7 @@ public class DeviceController extends BaseController {
         util.exportExcel(response, list, "设备管理数据");
     }
 
-    @ApiOperation("查询网关下已绑定的子设备")
+    @Operation(summary = "查询网关下已绑定的子设备")
     @GetMapping("/subDevices")
     public TableDataInfo listSubDevices(@RequestParam("gatewayIdentification") String gatewayIdentification) {
         startPage();
@@ -221,7 +222,7 @@ public class DeviceController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation("查询可绑定的网关子设备（未关联）")
+    @Operation(summary = "查询可绑定的网关子设备（未关联）")
     @GetMapping("/unboundSubDevices")
     public TableDataInfo listUnboundSubDevices(
             @RequestParam(value = "deviceName", required = false) String deviceName) {
@@ -237,7 +238,7 @@ public class DeviceController extends BaseController {
     /**
      * 获取设备管理详细信息
      */
-    @ApiOperation("获取设备详细信息")
+    @Operation(summary = "获取设备详细信息")
     // @PreAuthorize("@ss.hasPermission('link:device:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
@@ -253,7 +254,7 @@ public class DeviceController extends BaseController {
     /**
      * 新增设备管理
      */
-    @ApiOperation("添加设备")
+    @Operation(summary = "添加设备")
     @NoRepeatSubmit
     // @PreAuthorize("@ss.hasPermission('link:device:add')")
     ////@Log(title = "设备管理", businessType = BusinessType.INSERT)
@@ -279,7 +280,7 @@ public class DeviceController extends BaseController {
     /**
      * 修改设备管理
      */
-    @ApiOperation("编辑设备信息")
+    @Operation(summary = "编辑设备信息")
     @NoRepeatSubmit
     // @PreAuthorize("@ss.hasPermission('link:device:edit')")
     ////@Log(title = "设备管理", businessType = BusinessType.UPDATE)
@@ -295,7 +296,7 @@ public class DeviceController extends BaseController {
     /**
      * 查询设备扩展信息
      */
-    @ApiOperation("查询设备扩展信息")
+    @Operation(summary = "查询设备扩展信息")
     @PostMapping("/extension/query")
     public R<DeviceExtensionDataVO> queryDeviceExtensionData(@Validated @RequestBody DeviceExtensionQueryRequest request) {
         try {
@@ -313,7 +314,7 @@ public class DeviceController extends BaseController {
     /**
      * 删除设备管理
      */
-    @ApiOperation("删除设备")
+    @Operation(summary = "删除设备")
     // @PreAuthorize("@ss.hasPermission('link:device:remove')")
     ////@Log(title = "设备管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
@@ -430,7 +431,7 @@ public class DeviceController extends BaseController {
         return R.ok(deviceService.selectDeviceByDeviceIdentificationList(deviceIdentificationList));
     }
 
-    @ApiOperation("关联网关子设备")
+    @Operation(summary = "关联网关子设备")
     @PostMapping("/associateGateway")
     public AjaxResult associateGateway(@RequestBody AssociateGatewayRequest associateGatewayRequest) {
         try {
@@ -445,7 +446,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("解绑网关子设备")
+    @Operation(summary = "解绑网关子设备")
     @PostMapping("/disassociateGateway")
     public AjaxResult disassociateGateway(@RequestBody List<Long> idList) {
         try {
@@ -460,7 +461,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("网关代报时确保子设备存在（自动创建并绑定）")
+    @Operation(summary = "网关代报时确保子设备存在（自动创建并绑定）")
     @PostMapping("/ensureGatewaySubDevice")
     public R<Device> ensureGatewaySubDevice(@RequestBody EnsureGatewaySubDeviceParam param) {
         try {
@@ -473,7 +474,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("网关删除子设备拓扑关系")
+    @Operation(summary = "网关删除子设备拓扑关系")
     @PostMapping("/detachGatewaySubDevices")
     public R<Integer> detachGatewaySubDevices(@RequestParam("gatewayIdentification") String gatewayIdentification,
                                               @RequestBody List<String> subDeviceIdentifications) {
@@ -485,7 +486,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("网关上报子设备在线状态")
+    @Operation(summary = "网关上报子设备在线状态")
     @PostMapping("/updateGatewaySubDeviceStatus")
     public R<Integer> updateGatewaySubDeviceStatus(@RequestParam("gatewayIdentification") String gatewayIdentification,
                                                    @RequestBody List<Map<String, Object>> statusItems) {
@@ -497,7 +498,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("上行时确保设备存在（GATEWAY/COMMON 自动建档）")
+    @Operation(summary = "上行时确保设备存在（GATEWAY/COMMON 自动建档）")
     @PostMapping("/ensureDeviceOnUplink")
     public R<Device> ensureDeviceOnUplink(@RequestBody EnsureDeviceOnUplinkParam param) {
         try {
@@ -510,7 +511,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("调用设备服务（MQTT 下行）")
+    @Operation(summary = "调用设备服务（MQTT 下行）")
     @PostMapping("/{deviceId}/invokeService")
     public AjaxResult invokeService(@PathVariable("deviceId") Long deviceId,
                                     @RequestParam String serviceIdentifier,
@@ -524,7 +525,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("下发设备属性期望值（MQTT 下行 thing.property.set）")
+    @Operation(summary = "下发设备属性期望值（MQTT 下行 thing.property.set）")
     @PostMapping("/{deviceId}/setProperties")
     public AjaxResult setProperties(@PathVariable("deviceId") Long deviceId,
                                     @RequestBody Object params) {
@@ -537,28 +538,28 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("获取设备连接状态统计")
+    @Operation(summary = "获取设备连接状态统计")
     @GetMapping("/getConnectStatusStatistics")
     public AjaxResult getConnectStatusStatistics() {
         ConnectStatusStatisticsVo connectStatusStatisticsVo = deviceService.getConnectStatusStatistics();
         return AjaxResult.success(connectStatusStatisticsVo);
     }
 
-    @ApiOperation("获取设备统计")
+    @Operation(summary = "获取设备统计")
     @GetMapping("/getDeviceStatistics")
     public AjaxResult getDeviceStatistics() {
         DeviceStatisticsVo connectStatusStatisticsVo = deviceService.getDeviceStatistics();
         return AjaxResult.success(connectStatusStatisticsVo);
     }
 
-    @ApiOperation("获取设备激活状态统计")
+    @Operation(summary = "获取设备激活状态统计")
     @GetMapping("/getDeviceStatusStatistics")
     public AjaxResult getDeviceStatusStatistics() {
         DeviceStatusStatisticsVo connectStatusStatisticsVo = deviceService.getDeviceStatusStatistics();
         return AjaxResult.success(connectStatusStatisticsVo);
     }
 
-    @ApiOperation("查询 IoT 设备已关联的流媒体摄像头")
+    @Operation(summary = "查询 IoT 设备已关联的流媒体摄像头")
     @GetMapping("/cameraLinks")
     public TableDataInfo listCameraLinks(@RequestParam("iotDeviceId") Long iotDeviceId) {
         startPage();
@@ -566,13 +567,13 @@ public class DeviceController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation("查询已被绑定的流媒体摄像头 ID")
+    @Operation(summary = "查询已被绑定的流媒体摄像头 ID")
     @GetMapping("/boundCameraIds")
     public AjaxResult listBoundCameraIds() {
         return AjaxResult.success(deviceService.listBoundCameraIds());
     }
 
-    @ApiOperation("关联流媒体摄像头")
+    @Operation(summary = "关联流媒体摄像头")
     @PostMapping("/associateCameras")
     public AjaxResult associateCameras(@RequestBody AssociateCamerasRequest request) {
         try {
@@ -588,7 +589,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("解绑流媒体摄像头")
+    @Operation(summary = "解绑流媒体摄像头")
     @PostMapping("/disassociateCameras")
     public AjaxResult disassociateCameras(@RequestBody List<Long> linkIds) {
         try {
@@ -603,7 +604,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("查询单个设备地图位置")
+    @Operation(summary = "查询单个设备地图位置")
     @GetMapping("/{id}/location")
     public AjaxResult getDeviceLocation(@PathVariable("id") Long id) {
         try {
@@ -614,7 +615,7 @@ public class DeviceController extends BaseController {
         }
     }
 
-    @ApiOperation("保存或更新设备地图坐标")
+    @Operation(summary = "保存或更新设备地图坐标")
     @PutMapping("/{id}/location")
     public AjaxResult updateDeviceLocation(
             @PathVariable("id") Long id,

@@ -2,7 +2,7 @@ package com.basiclab.iot.sink.biz.dto;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 /**
  * IotDeviceAuthReqDTO

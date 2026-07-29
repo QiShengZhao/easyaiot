@@ -5,7 +5,7 @@ import com.basiclab.iot.dataset.dal.dataobject.DatasetVideoDO;
 import com.basiclab.iot.dataset.domain.dataset.vo.DatasetVideoPageReqVO;
 import com.basiclab.iot.dataset.domain.dataset.vo.DatasetVideoSaveReqVO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 视频数据集 Service 接口

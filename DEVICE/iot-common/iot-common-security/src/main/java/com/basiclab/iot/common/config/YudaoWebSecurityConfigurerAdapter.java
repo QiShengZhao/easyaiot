@@ -28,8 +28,8 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.util.pattern.PathPattern;
 
-import javax.annotation.Resource;
-import javax.annotation.security.PermitAll;
+import jakarta.annotation.Resource;
+import jakarta.annotation.security.PermitAll;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -128,26 +128,25 @@ public class YudaoWebSecurityConfigurerAdapter {
         // 设置每个请求的权限
         httpSecurity
                 // ①：全局共享规则
-                .authorizeRequests()
-                // 1.1 静态资源，可匿名访问
-                .antMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
-                // 1.2 设置 @PermitAll 无需认证
-                .antMatchers(HttpMethod.GET, permitAllUrls.get(HttpMethod.GET).toArray(new String[0])).permitAll()
-                .antMatchers(HttpMethod.POST, permitAllUrls.get(HttpMethod.POST).toArray(new String[0])).permitAll()
-                .antMatchers(HttpMethod.PUT, permitAllUrls.get(HttpMethod.PUT).toArray(new String[0])).permitAll()
-                .antMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
-                // 1.3 基于 iot.security.permit-all-urls 无需认证
-                .antMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
-                // 1.4 设置 App API 无需认证
-                .antMatchers(buildAppApi("/**")).permitAll()
-                // 1.5 验证码captcha 允许匿名访问
-                .antMatchers("/system/captcha/get", "/system/captcha/check", "/rpc-api/system/oauth2/token/check").permitAll()
+                .authorizeHttpRequests(registry -> registry
+                        // 1.1 静态资源，可匿名访问
+                        .requestMatchers(HttpMethod.GET, "/*.html", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
+                        // 1.2 设置 @PermitAll 无需认证
+                        .requestMatchers(HttpMethod.GET, permitAllUrls.get(HttpMethod.GET).toArray(new String[0])).permitAll()
+                        .requestMatchers(HttpMethod.POST, permitAllUrls.get(HttpMethod.POST).toArray(new String[0])).permitAll()
+                        .requestMatchers(HttpMethod.PUT, permitAllUrls.get(HttpMethod.PUT).toArray(new String[0])).permitAll()
+                        .requestMatchers(HttpMethod.DELETE, permitAllUrls.get(HttpMethod.DELETE).toArray(new String[0])).permitAll()
+                        // 1.3 基于 iot.security.permit-all-urls 无需认证
+                        .requestMatchers(securityProperties.getPermitAllUrls().toArray(new String[0])).permitAll()
+                        // 1.4 设置 App API 无需认证
+                        .requestMatchers(buildAppApi("/**")).permitAll()
+                        // 1.5 验证码captcha 允许匿名访问
+                        .requestMatchers("/system/captcha/get", "/system/captcha/check", "/rpc-api/system/oauth2/token/check").permitAll())
                 // ②：每个项目的自定义规则
-                .and().authorizeRequests(registry -> // 下面，循环设置自定义规则
+                .authorizeHttpRequests(registry -> // 下面，循环设置自定义规则
                         authorizeRequestsCustomizers.forEach(customizer -> customizer.customize(registry)))
                 // ③：兜底规则，必须认证
-                .authorizeRequests()
-                .anyRequest().authenticated();
+                .authorizeHttpRequests(registry -> registry.anyRequest().authenticated());
 
         // 添加 Token Filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

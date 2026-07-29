@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -347,7 +347,7 @@ public class CodegenServiceImplTest extends BaseDbUnitTest {
         // 准备参数
         CodegenTablePageReqVO reqVO = new CodegenTablePageReqVO();
         reqVO.setTableName("yunai");
-        reqVO.setTableComment("芋");
+        reqVO.setTableComment("Basic"); // 脚手架改名后（芋道 -> BasicLab），查询串同步调整
         reqVO.setClassName("Yunai");
         reqVO.setCreateTime(buildBetweenTime(2021, 3, 1, 2021, 3, 31));
 

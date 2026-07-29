@@ -6,7 +6,7 @@ import com.basiclab.iot.system.controller.admin.sms.vo.channel.SmsChannelPageReq
 import com.basiclab.iot.system.controller.admin.sms.vo.channel.SmsChannelSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.sms.SmsChannelDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

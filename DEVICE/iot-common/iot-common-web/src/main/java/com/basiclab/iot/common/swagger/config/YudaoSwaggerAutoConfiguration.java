@@ -10,7 +10,11 @@ import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springdoc.core.*;
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.service.OpenAPIService;
+import org.springdoc.core.service.SecurityService;
+import org.springdoc.core.utils.PropertyResolverUtils;
 import org.springdoc.core.customizers.OpenApiBuilderCustomizer;
 import org.springdoc.core.customizers.ServerBaseUrlCustomizer;
 import org.springdoc.core.providers.JavadocProvider;
@@ -47,6 +51,7 @@ public class YudaoSwaggerAutoConfiguration {
     // ========== 全局 OpenAPI 配置 ==========
 
     @Bean
+    @Primary // iot-common-swagger 迁移到 springdoc 后同样产出 OpenAPI Bean，以本配置为主消除注入歧义
     public OpenAPI createApi(SwaggerProperties properties) {
         Map<String, SecurityScheme> securitySchemas = buildSecuritySchemes();
         OpenAPI openAPI = new OpenAPI()

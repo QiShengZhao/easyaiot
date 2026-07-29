@@ -7,11 +7,11 @@ import com.basiclab.iot.common.utils.SecurityUtils;
 import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.device.domain.device.vo.ProductEvent;
 import com.basiclab.iot.device.service.product.ProductEventService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
  * @wechat EasyAIoT2025
  */
 
-@Api(tags = "产品事件管理")
+@Tag(name = "产品事件管理")
 @RestController
 @RequestMapping("/productEvent")
 public class ProductEventController extends BaseController {
@@ -33,7 +33,7 @@ public class ProductEventController extends BaseController {
     /**
      * 查询产品事件列表
      */
-    @ApiOperation("查询产品事件列表")
+    @Operation(summary = "查询产品事件列表")
     @GetMapping("/list")
     public TableDataInfo list(ProductEvent productEvent) {
         startPage();
@@ -44,7 +44,7 @@ public class ProductEventController extends BaseController {
     /**
      * 获取产品事件详细信息
      */
-    @ApiOperation("获取产品事件详细信息")
+    @Operation(summary = "获取产品事件详细信息")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(productEventService.queryById(id));
@@ -53,7 +53,7 @@ public class ProductEventController extends BaseController {
     /**
      * 新增产品事件
      */
-    @ApiOperation("新增产品事件")
+    @Operation(summary = "新增产品事件")
     @PostMapping
     public AjaxResult add(@RequestBody ProductEvent productEvent) {
         productEvent.setCreateBy(SecurityUtils.getUsername());
@@ -63,7 +63,7 @@ public class ProductEventController extends BaseController {
     /**
      * 修改产品事件
      */
-    @ApiOperation("修改产品事件")
+    @Operation(summary = "修改产品事件")
     @PutMapping
     public AjaxResult edit(@RequestBody ProductEvent productEvent) {
         productEvent.setUpdateBy(SecurityUtils.getUsername());
@@ -73,7 +73,7 @@ public class ProductEventController extends BaseController {
     /**
      * 删除产品事件
      */
-    @ApiOperation("删除产品事件")
+    @Operation(summary = "删除产品事件")
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(productEventService.deleteByIds(ids));

@@ -81,7 +81,7 @@ public class FaceMatchingServiceImpl implements FaceMatchingService {
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
         if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new IllegalStateException("VIDEO 人脸匹配接口返回异常: status=" + response.getStatusCodeValue()
+            throw new IllegalStateException("VIDEO 人脸匹配接口返回异常: status=" + response.getStatusCode().value()
                     + ", body=" + response.getBody());
         }
 

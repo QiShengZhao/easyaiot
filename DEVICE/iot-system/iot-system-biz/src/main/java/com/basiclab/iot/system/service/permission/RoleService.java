@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.permission.vo.role.RolePageReqVO
 import com.basiclab.iot.system.controller.admin.permission.vo.role.RoleSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.permission.RoleDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;

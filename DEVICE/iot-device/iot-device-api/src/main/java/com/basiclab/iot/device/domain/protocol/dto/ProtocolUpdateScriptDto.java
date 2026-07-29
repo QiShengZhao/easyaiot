@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.protocol.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -12,7 +11,7 @@ import lombok.experimental.Accessors;
  * @desc
  * @created 2025-06-21
  */
-@ApiModel(value="协议更新脚本传输对象")
+@Schema(description="协议更新脚本传输对象")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,10 +20,10 @@ import lombok.experimental.Accessors;
 @Builder
 public class ProtocolUpdateScriptDto {
 
-    @ApiModelProperty("设备id")
+    @Schema(description = "设备id")
     private String deviceIdentification;
 
-    @ApiModelProperty("通知类型   ADD:新增到内存   DELETE:从内存中删除")
+    @Schema(description = "通知类型   ADD:新增到内存   DELETE:从内存中删除")
     private String notifyType;
 
 

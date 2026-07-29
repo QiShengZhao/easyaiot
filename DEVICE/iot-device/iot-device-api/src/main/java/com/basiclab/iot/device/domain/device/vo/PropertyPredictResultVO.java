@@ -1,14 +1,13 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApiModel("属性预测诊断结果")
+@Schema(description = "属性预测诊断结果")
 @Data
 public class PropertyPredictResultVO implements Serializable {
 
@@ -17,13 +16,13 @@ public class PropertyPredictResultVO implements Serializable {
     private String propertyName;
     private String unit;
 
-    @ApiModelProperty("有效样本数")
+    @Schema(description = "有效样本数")
     private Integer sampleCount;
 
-    @ApiModelProperty("最少需要样本数")
+    @Schema(description = "最少需要样本数")
     private Integer minSampleRequired = 6;
 
-    @ApiModelProperty("是否可预测")
+    @Schema(description = "是否可预测")
     private Boolean predictReady;
 
     private String message;
@@ -32,16 +31,16 @@ public class PropertyPredictResultVO implements Serializable {
     private Long latestTs;
     private String deviceStatus;
 
-    @ApiModelProperty("单位时间趋势（每小时）")
+    @Schema(description = "单位时间趋势（每小时）")
     private Double hourlyTrend;
 
-    @ApiModelProperty("综合故障风险 0-100")
+    @Schema(description = "综合故障风险 0-100")
     private Integer failureRisk;
 
-    @ApiModelProperty("风险等级 LOW/MEDIUM/HIGH")
+    @Schema(description = "风险等级 LOW/MEDIUM/HIGH")
     private String riskLevel;
 
-    @ApiModelProperty("风险说明")
+    @Schema(description = "风险说明")
     private String riskMessage;
 
     private Double anomalyRatio;

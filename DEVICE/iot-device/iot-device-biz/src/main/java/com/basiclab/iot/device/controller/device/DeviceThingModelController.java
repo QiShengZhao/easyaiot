@@ -6,16 +6,17 @@ import com.basiclab.iot.common.domain.TableSupport;
 import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.device.domain.device.vo.TDDeviceDataResp;
 import com.basiclab.iot.device.service.device.DeviceThingModelService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,13 +36,13 @@ public class DeviceThingModelController extends BaseController {
     @Resource
     private DeviceThingModelService deviceThingModelService;
 
-    @ApiOperation("获取设备运行状态")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页码", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "1"),
-            @ApiImplicitParam(name = "pageNo", value = "页码(兼容前端)", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "1"),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "10"),
-            @ApiImplicitParam(name = "orderByColumn", value = "排序字段", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "isAsc", value = "排序方式（asc/desc）", dataType = "string", dataTypeClass = String.class, paramType = "query")
+    @Operation(summary = "获取设备运行状态")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "页码", in = ParameterIn.QUERY, example = "1"),
+            @Parameter(name = "pageNo", description = "页码(兼容前端)", in = ParameterIn.QUERY, example = "1"),
+            @Parameter(name = "pageSize", description = "每页显示记录数", in = ParameterIn.QUERY, example = "10"),
+            @Parameter(name = "orderByColumn", description = "排序字段", in = ParameterIn.QUERY),
+            @Parameter(name = "isAsc", description = "排序方式（asc/desc）", in = ParameterIn.QUERY)
     })
     @GetMapping(value = "/runtimeStatus")
     // @PreAuthorize("@ss.hasPermission('link:deviceThingModel:query')")

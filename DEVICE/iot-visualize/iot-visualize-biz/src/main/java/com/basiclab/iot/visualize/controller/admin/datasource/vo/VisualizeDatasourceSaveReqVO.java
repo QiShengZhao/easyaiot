@@ -3,8 +3,8 @@ package com.basiclab.iot.visualize.controller.admin.datasource.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Schema(description = "管理后台 - 数据源保存 Request VO")
 @Data

@@ -6,7 +6,7 @@ import com.basiclab.iot.message.domain.model.SendResult;
 import com.basiclab.iot.message.sendlogic.msgsender.MailMsgSender;
 import com.basiclab.iot.message.service.MessageConfigService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,26 +33,26 @@ public class MessageConfigController {
     private MailMsgSender mailMsgSender;
 
     @PostMapping("/add")
-    @ApiOperation("新增消息配置")
+    @Operation(summary = "新增消息配置")
     public AjaxResult add(@RequestBody MessageConfig messageConfig){
        return messageConfigService.add(messageConfig);
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新消息配置")
+    @Operation(summary = "更新消息配置")
     public AjaxResult update(@RequestBody MessageConfig messageConfig){
         return AjaxResult.success(messageConfigService.update(messageConfig));
     }
 
     @GetMapping("/delete")
-    @ApiOperation("删除消息配置")
+    @Operation(summary = "删除消息配置")
     public AjaxResult delete(String id){
         return  AjaxResult.success(messageConfigService.delete(id));
     }
 
 
     @GetMapping("/query")
-    @ApiOperation("查询消息配置")
+    @Operation(summary = "查询消息配置")
     public AjaxResult query(@ModelAttribute MessageConfig messageConfig){
         List<MessageConfig> messageConfigs = messageConfigService.query(messageConfig);
         return AjaxResult.success(messageConfigs);
@@ -65,7 +65,7 @@ public class MessageConfigController {
      * @return
      */
     @GetMapping("/mailSendTest")
-    @ApiOperation("邮件发送消息配置")
+    @Operation(summary = "邮件发送消息配置")
     public SendResult sendTestMail(String tos){
         return mailMsgSender.sendTestMail(tos);
     }

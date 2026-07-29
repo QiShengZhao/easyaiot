@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@ApiModel("设备阈值告警记录")
+@Schema(description = "设备阈值告警记录")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,7 +35,7 @@ public class DeviceThresholdAlarm implements Serializable {
     private Double maxValue;
     private String alarmLevel;
 
-    @ApiModelProperty("OPEN/CLEARED")
+    @Schema(description = "OPEN/CLEARED")
     private String alarmStatus;
 
     private String message;

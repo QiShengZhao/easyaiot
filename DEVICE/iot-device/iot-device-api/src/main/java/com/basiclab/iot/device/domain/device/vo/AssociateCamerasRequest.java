@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 public class AssociateCamerasRequest {
 
-    @ApiModelProperty(value = "IoT设备主键")
+    @Schema(description = "IoT设备主键")
     private Long iotDeviceId;
 
-    @ApiModelProperty(value = "流媒体摄像头ID列表")
+    @Schema(description = "流媒体摄像头ID列表")
     private List<String> cameraDeviceIds;
 }

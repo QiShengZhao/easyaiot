@@ -7,14 +7,14 @@ import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.device.dal.dataobject.AppDO;
 import com.basiclab.iot.device.domain.app.vo.App;
 import com.basiclab.iot.device.service.app.AppService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**
@@ -35,7 +35,7 @@ public class AppController extends BaseController {
     private AppService appService;
 
     @PostMapping("/create")
-    @ApiOperation("创建应用密钥")
+    @Operation(summary = "创建应用密钥")
     public AjaxResult createApp(@RequestBody AppDO app) {
         try {
             AppDO result = appService.createApp(app);
@@ -47,7 +47,7 @@ public class AppController extends BaseController {
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新应用密钥")
+    @Operation(summary = "更新应用密钥")
     public AjaxResult updateApp(@RequestBody AppDO app) {
         try {
             boolean result = appService.updateApp(app);
@@ -59,7 +59,7 @@ public class AppController extends BaseController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除应用密钥")
+    @Operation(summary = "删除应用密钥")
     @Parameter(name = "id", description = "应用ID", required = true)
     public AjaxResult deleteApp(@RequestParam("id") Long id) {
         try {
@@ -72,7 +72,7 @@ public class AppController extends BaseController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获取应用密钥")
+    @Operation(summary = "获取应用密钥")
     @Parameter(name = "id", description = "应用ID", required = true, example = "1")
     public AjaxResult getApp(@RequestParam("id") Long id) {
         try {
@@ -85,7 +85,7 @@ public class AppController extends BaseController {
     }
 
     @GetMapping("/get-by-app-id")
-    @ApiOperation("根据AppId获取应用密钥")
+    @Operation(summary = "根据AppId获取应用密钥")
     @Parameter(name = "appId", description = "应用ID", required = true)
     public R<App> getAppByAppId(@RequestParam("appId") String appId) {
         try {
@@ -102,7 +102,7 @@ public class AppController extends BaseController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获取所有应用密钥列表")
+    @Operation(summary = "获取所有应用密钥列表")
     public AjaxResult getAllApps() {
         try {
             List<AppDO> apps = appService.getAllApps();
@@ -114,7 +114,7 @@ public class AppController extends BaseController {
     }
 
     @PostMapping("/verify")
-    @ApiOperation("验证AppId、AppKey、AppSecret")
+    @Operation(summary = "验证AppId、AppKey、AppSecret")
     public R<App> verifyApp(@RequestParam("appId") String appId,
                              @RequestParam("appKey") String appKey,
                              @RequestParam("appSecret") String appSecret) {

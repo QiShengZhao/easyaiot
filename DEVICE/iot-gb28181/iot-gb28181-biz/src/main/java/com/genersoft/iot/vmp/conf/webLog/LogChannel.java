@@ -2,8 +2,8 @@ package com.genersoft.iot.vmp.conf.webLog;
 
 import lombok.extern.slf4j.Slf4j;
 
-import javax.websocket.*;
-import javax.websocket.server.ServerEndpoint;
+import jakarta.websocket.*;
+import jakarta.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;

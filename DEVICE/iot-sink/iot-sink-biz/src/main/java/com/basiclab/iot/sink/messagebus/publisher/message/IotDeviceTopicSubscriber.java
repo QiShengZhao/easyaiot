@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.context.annotation.Lazy;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * IotDeviceTopicSubscriber

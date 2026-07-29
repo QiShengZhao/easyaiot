@@ -8,8 +8,8 @@ import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.LongValue;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
-import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
+import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
 import net.sf.jsqlparser.schema.Column;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @email andywebjava@163.com
  * @wechat EasyAIoT2025
  */
-public class DataPermissionDatabaseInterceptorTest2 extends BaseMockitoUnitTest {
+public class DataPermissionDatabaseInterceptor2Test extends BaseMockitoUnitTest {
 
     @InjectMocks
     private DataPermissionDatabaseInterceptor interceptor;
@@ -73,7 +73,8 @@ public class DataPermissionDatabaseInterceptorTest2 extends BaseMockitoUnitTest 
             @Override
             public Expression getExpression(String tableName, Alias tableAlias) {
                 Column column = MyBatisUtils.buildColumn(tableName, tableAlias, COLUMN);
-                ExpressionList values = new ExpressionList(new LongValue(10L),
+                // jsqlparser 4.9：IN 右侧需要 ParenthesedExpressionList 才会渲染括号
+                ParenthesedExpressionList<LongValue> values = new ParenthesedExpressionList<>(new LongValue(10L),
                         new LongValue(20L));
                 return new InExpression(column, values);
             }
@@ -262,9 +263,11 @@ public class DataPermissionDatabaseInterceptorTest2 extends BaseMockitoUnitTest 
         assertSql("SELECT * FROM entity e " +
                         "left join entity1 e1 on e1.id = e.id " +
                         "right join entity2 e2 on e1.id = e2.id",
+                // MP 3.5.17 BaseMultiTableInnerInterceptor：LEFT JOIN 后主表 e 仍是后续 RIGHT JOIN 的左侧归属
+                // （旧实现挂在 e1 上，e1 因 LEFT JOIN 可能为 NULL，会误过滤行）
                 "SELECT * FROM entity e " +
                         "LEFT JOIN entity1 e1 ON e1.id = e.id AND e1.tenant_id = 1 " +
-                        "RIGHT JOIN entity2 e2 ON e1.id = e2.id AND e1.tenant_id = 1 " +
+                        "RIGHT JOIN entity2 e2 ON e1.id = e2.id AND e.tenant_id = 1 " +
                         "WHERE e2.tenant_id = 1");
 
         assertSql("SELECT * FROM entity e " +

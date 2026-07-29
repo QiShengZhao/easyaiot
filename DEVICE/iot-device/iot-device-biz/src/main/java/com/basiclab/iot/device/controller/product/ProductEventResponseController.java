@@ -7,11 +7,11 @@ import com.basiclab.iot.common.utils.SecurityUtils;
 import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.device.domain.device.vo.ProductEventResponse;
 import com.basiclab.iot.device.service.product.ProductEventResponseService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
  * @wechat EasyAIoT2025
  */
 
-@Api(tags = "产品事件响应管理")
+@Tag(name = "产品事件响应管理")
 @RestController
 @RequestMapping("/productEventResponse")
 public class ProductEventResponseController extends BaseController {
@@ -33,7 +33,7 @@ public class ProductEventResponseController extends BaseController {
     /**
      * 查询产品事件响应列表
      */
-    @ApiOperation("查询产品事件响应列表")
+    @Operation(summary = "查询产品事件响应列表")
     @GetMapping("/list")
     public TableDataInfo list(ProductEventResponse productEventResponse) {
         startPage();
@@ -44,7 +44,7 @@ public class ProductEventResponseController extends BaseController {
     /**
      * 获取产品事件响应详细信息
      */
-    @ApiOperation("获取产品事件响应详细信息")
+    @Operation(summary = "获取产品事件响应详细信息")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(productEventResponseService.queryById(id));
@@ -53,7 +53,7 @@ public class ProductEventResponseController extends BaseController {
     /**
      * 新增产品事件响应
      */
-    @ApiOperation("新增产品事件响应")
+    @Operation(summary = "新增产品事件响应")
     @PostMapping
     public AjaxResult add(@RequestBody ProductEventResponse productEventResponse) {
         productEventResponse.setCreateBy(SecurityUtils.getUsername());
@@ -63,7 +63,7 @@ public class ProductEventResponseController extends BaseController {
     /**
      * 修改产品事件响应
      */
-    @ApiOperation("修改产品事件响应")
+    @Operation(summary = "修改产品事件响应")
     @PutMapping
     public AjaxResult edit(@RequestBody ProductEventResponse productEventResponse) {
         productEventResponse.setUpdateBy(SecurityUtils.getUsername());
@@ -73,7 +73,7 @@ public class ProductEventResponseController extends BaseController {
     /**
      * 删除产品事件响应
      */
-    @ApiOperation("删除产品事件响应")
+    @Operation(summary = "删除产品事件响应")
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(productEventResponseService.deleteByIds(ids));

@@ -4,7 +4,7 @@ import com.basiclab.iot.infra.controller.admin.demo.demo02.vo.Demo02CategoryList
 import com.basiclab.iot.infra.controller.admin.demo.demo02.vo.Demo02CategorySaveReqVO;
 import com.basiclab.iot.infra.dal.dataobject.demo.demo02.Demo02CategoryDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

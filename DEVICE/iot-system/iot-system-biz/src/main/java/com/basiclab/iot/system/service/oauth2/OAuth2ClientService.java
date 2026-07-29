@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.oauth2.vo.client.OAuth2ClientPag
 import com.basiclab.iot.system.controller.admin.oauth2.vo.client.OAuth2ClientSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.oauth2.OAuth2ClientDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Collection;
 
 /**

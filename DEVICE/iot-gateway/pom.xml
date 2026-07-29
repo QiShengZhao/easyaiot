@@ -30,11 +30,11 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-ui</artifactId>
+                    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springdoc</groupId>
-                    <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                    <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -43,6 +43,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <!-- Guava 本地缓存（TokenAuthenticationFilter 使用；原经 knife4j/springfox 传递引入） -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <!-- RPC 远程调用相关 -->
@@ -61,6 +67,13 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- Test 测试相关 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

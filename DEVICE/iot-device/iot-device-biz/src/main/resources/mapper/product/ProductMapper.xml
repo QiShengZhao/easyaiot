@@ -517,7 +517,7 @@
             #{item.updateBy,jdbcType=VARCHAR}, #{item.updateTime,jdbcType=TIMESTAMP})
         </foreach>
     </insert>
-    <insert id="insertOrUpdate" keyColumn="id" keyProperty="id"
+    <insert id="insertOrUpdateRecord" keyColumn="id" keyProperty="id"
             parameterType="com.basiclab.iot.device.domain.device.vo.Product" useGeneratedKeys="true">
         <!--@mbg.generated-->
         insert into product

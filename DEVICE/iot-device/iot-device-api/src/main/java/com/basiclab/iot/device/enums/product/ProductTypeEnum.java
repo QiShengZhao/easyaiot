@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.enums.product;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "ProductTypeEnum", description = "产品类型")
+@Schema(description = "产品类型")
 public enum ProductTypeEnum {
 
     /**

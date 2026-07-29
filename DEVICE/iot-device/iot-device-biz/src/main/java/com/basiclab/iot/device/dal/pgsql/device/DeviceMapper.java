@@ -40,7 +40,7 @@ public interface DeviceMapper extends BaseMapper<Device> {
      */
     int insert(Device record);
 
-    int insertOrUpdate(Device record);
+    int insertOrUpdateRecord(Device record);
 
     int insertOrUpdateSelective(Device record);
 

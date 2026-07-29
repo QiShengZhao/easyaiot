@@ -5,7 +5,7 @@ import com.basiclab.iot.common.domain.TableDataInfo;
 import com.basiclab.iot.message.domain.entity.TPushHistory;
 import com.basiclab.iot.message.service.PushHistoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +27,7 @@ public class PushHistoryController extends BaseController {
     private PushHistoryService pushHistoryService;
 
     @GetMapping("/query")
-    @ApiOperation("查询推送历史")
+    @Operation(summary = "查询推送历史")
     public TableDataInfo query(@ModelAttribute TPushHistory tPushHistory){
         List<TPushHistory> list = pushHistoryService.query(tPushHistory);
         return getDataTable(list);

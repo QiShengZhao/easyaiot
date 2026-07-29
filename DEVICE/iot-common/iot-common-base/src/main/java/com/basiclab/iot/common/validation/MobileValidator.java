@@ -3,8 +3,8 @@ package com.basiclab.iot.common.validation;
 import cn.hutool.core.util.StrUtil;
 import com.basiclab.iot.common.utils.validation.ValidationUtils;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class MobileValidator implements ConstraintValidator<Mobile, String> {
 

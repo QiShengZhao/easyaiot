@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -16,12 +16,12 @@ public class DeviceShadow {
     /**
      * 期望值
      */
-    @ApiModelProperty("期望值")
+    @Schema(description = "期望值")
     private List<DeviceShadowCommand> desired;
     /**
      * 实际值
      */
-    @ApiModelProperty(value = "实际值")
+    @Schema(description = "实际值")
     private List<TDDeviceDataResp> actual;
 
 }

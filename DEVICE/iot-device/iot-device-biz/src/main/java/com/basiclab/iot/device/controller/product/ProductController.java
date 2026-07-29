@@ -16,9 +16,10 @@ import com.basiclab.iot.device.domain.product.model.ProductModel;
 import com.basiclab.iot.device.service.device.DeviceService;
 import com.basiclab.iot.device.service.product.ProductService;
 import com.basiclab.iot.file.RemoteFileService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -87,14 +88,14 @@ public class ProductController extends BaseController {
      * @param device                可选筛选条件（设备名称、设备标识、连接状态、SN 等）
      * @return 分页设备列表
      */
-    @ApiOperation("查询产品关联设备列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页码", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "1", required = true),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "10", required = true),
-            @ApiImplicitParam(name = "deviceName", value = "设备名称", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "deviceIdentification", value = "设备标识", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "connectStatus", value = "连接状态", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "deviceSn", value = "设备SN号", dataType = "string", dataTypeClass = String.class, paramType = "query")
+    @Operation(summary = "查询产品关联设备列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "页码", in = ParameterIn.QUERY, example = "1", required = true),
+            @Parameter(name = "pageSize", description = "每页显示记录数", in = ParameterIn.QUERY, example = "10", required = true),
+            @Parameter(name = "deviceName", description = "设备名称", in = ParameterIn.QUERY),
+            @Parameter(name = "deviceIdentification", description = "设备标识", in = ParameterIn.QUERY),
+            @Parameter(name = "connectStatus", description = "连接状态", in = ParameterIn.QUERY),
+            @Parameter(name = "deviceSn", description = "设备SN号", in = ParameterIn.QUERY)
     })
     @GetMapping("/devices/{productIdentification}")
     public Object listDevicesByProduct(@PathVariable("productIdentification") String productIdentification, Device device) {
@@ -137,12 +138,12 @@ public class ProductController extends BaseController {
     /**
      * 查询产品管理列表
      */
-    @ApiOperation("查询产品列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "页码", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "1", required = true),
-            @ApiImplicitParam(name = "pageSize", value = "每页显示记录数", dataType = "int", dataTypeClass = Integer.class, paramType = "query", example = "10", required = true),
-            @ApiImplicitParam(name = "orderByColumn", value = "排序字段", dataType = "string", dataTypeClass = String.class, paramType = "query"),
-            @ApiImplicitParam(name = "isAsc", value = "排序方式（asc/desc）", dataType = "string", dataTypeClass = String.class, paramType = "query")
+    @Operation(summary = "查询产品列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "页码", in = ParameterIn.QUERY, example = "1", required = true),
+            @Parameter(name = "pageSize", description = "每页显示记录数", in = ParameterIn.QUERY, example = "10", required = true),
+            @Parameter(name = "orderByColumn", description = "排序字段", in = ParameterIn.QUERY),
+            @Parameter(name = "isAsc", description = "排序方式（asc/desc）", in = ParameterIn.QUERY)
     })
     // @PreAuthorize("@ss.hasPermission('link:product:list')")
     @GetMapping("/list")
@@ -167,7 +168,7 @@ public class ProductController extends BaseController {
     /**
      * 获取产品管理详细信息
      */
-    @ApiOperation("获取产品详细信息")
+    @Operation(summary = "获取产品详细信息")
     // @PreAuthorize("@ss.hasPermission('link:product:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
@@ -187,7 +188,7 @@ public class ProductController extends BaseController {
     /**
      * 新增产品管理
      */
-    @ApiOperation("添加产品")
+    @Operation(summary = "添加产品")
     @NoRepeatSubmit
     // @PreAuthorize("@ss.hasPermission('link:product:add')")
     ////@Log(title = "产品管理", businessType = BusinessType.INSERT)
@@ -206,7 +207,7 @@ public class ProductController extends BaseController {
     /**
      * 修改产品管理
      */
-    @ApiOperation("编辑产品")
+    @Operation(summary = "编辑产品")
     @NoRepeatSubmit
     // @PreAuthorize("@ss.hasPermission('link:product:edit')")
     ////@Log(title = "产品管理", businessType = BusinessType.UPDATE)
@@ -218,7 +219,7 @@ public class ProductController extends BaseController {
     /**
      * 删除产品管理
      */
-    @ApiOperation("删除产品")
+    @Operation(summary = "删除产品")
     // @PreAuthorize("@ss.hasPermission('link:product:remove')")
     ////@Log(title = "产品管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
@@ -281,7 +282,7 @@ public class ProductController extends BaseController {
 
 
 //    // @PreAuthorize("@ss.hasPermission('link:product:empowerment')")
-//    @ApiOperation(value = "产品赋能", httpMethod = "GET", notes = "产品赋能")
+//    @Operation(summary = "产品赋能", description = "产品赋能")
 
     /// /@Log(title = "产品管理", businessType = BusinessType.OTHER)
     @GetMapping(value = "/productEmpowerment/{productIds}")

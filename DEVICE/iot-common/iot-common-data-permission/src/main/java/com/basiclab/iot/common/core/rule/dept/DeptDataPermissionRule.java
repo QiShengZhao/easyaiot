@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
 import net.sf.jsqlparser.expression.operators.relational.EqualsTo;
-import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
+import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -157,8 +157,9 @@ public class DeptDataPermissionRule implements DataPermissionRule {
             return null;
         }
         // 拼接条件
+        // jsqlparser 4.9：IN 右侧需要 ParenthesedExpressionList 才会渲染括号
         return new InExpression(MyBatisUtils.buildColumn(tableName, tableAlias, columnName),
-                new ExpressionList(CollectionUtils.convertList(deptIds, LongValue::new)));
+                new ParenthesedExpressionList<>(CollectionUtils.convertList(deptIds, LongValue::new)));
     }
 
     private Expression buildUserExpression(String tableName, Alias tableAlias, Boolean self, Long userId) {

@@ -1,7 +1,6 @@
 package com.basiclab.iot.common.domain;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,16 +17,16 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "分页查询参数", description = "用于指定分页查询相关参数")
+@Schema(description = "用于指定分页查询相关参数")
 public class PageQo implements Serializable {
 
-    @ApiModelProperty(value = "当前页", example = "1")
+    @Schema(description = "当前页", example = "1")
     protected int pageNo = 1;
 
-    @ApiModelProperty(value = "每页显示大小", example = "10")
+    @Schema(description = "每页显示大小", example = "10")
     protected int pageSize = 10;
 
-    @ApiModelProperty(value = "排序字段列表")
+    @Schema(description = "排序字段列表")
     protected List<SortOrder> sortOrders = new ArrayList<>();
 
     public void addSortOrder(String property, Direction direction) {

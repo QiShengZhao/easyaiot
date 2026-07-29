@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -15,11 +15,11 @@ public class AssociateGatewayRequest {
     /**
      * 设备id列表
      */
-    @ApiModelProperty(value = "设备id列表")
+    @Schema(description = "设备id列表")
     private List<Long> idList;
     /**
      * 目标网关设备标识
      */
-    @ApiModelProperty(value = "目标网关设备标识")
+    @Schema(description = "目标网关设备标识")
     private String targetDeviceIdentification;
 }

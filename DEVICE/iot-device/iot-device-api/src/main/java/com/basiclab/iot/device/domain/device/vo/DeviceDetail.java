@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -11,9 +11,9 @@ import lombok.Data;
 @Data
 public class DeviceDetail {
 
-    @ApiModelProperty(value = "设备信息")
+    @Schema(description = "设备信息")
     private DeviceParams device;
 
-    @ApiModelProperty(value = "产品信息")
+    @Schema(description = "产品信息")
     private Product product;
 }

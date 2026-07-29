@@ -6,9 +6,9 @@ import com.basiclab.iot.common.utils.servlet.ServletUtils;
 import com.basiclab.iot.common.web.core.util.WebFrameworkUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import static com.basiclab.iot.common.exception.GlobalErrorStatus.DEMO_DENY;
 

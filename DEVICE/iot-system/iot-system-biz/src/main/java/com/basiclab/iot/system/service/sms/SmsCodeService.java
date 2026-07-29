@@ -5,7 +5,7 @@ import com.basiclab.iot.system.api.sms.dto.code.SmsCodeSendReqDTO;
 import com.basiclab.iot.system.api.sms.dto.code.SmsCodeUseReqDTO;
 import com.basiclab.iot.system.api.sms.dto.code.SmsCodeValidateReqDTO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 短信验证码 Service 接口

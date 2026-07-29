@@ -3,7 +3,7 @@ package com.basiclab.iot.infra.service.db;
 import com.basiclab.iot.infra.controller.admin.db.vo.DataSourceConfigSaveReqVO;
 import com.basiclab.iot.infra.dal.dataobject.db.DataSourceConfigDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

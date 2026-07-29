@@ -82,7 +82,7 @@ public class PlateMatchingServiceImpl implements PlateMatchingService {
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
         if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new IllegalStateException("VIDEO 车牌匹配接口返回异常: status=" + response.getStatusCodeValue()
+            throw new IllegalStateException("VIDEO 车牌匹配接口返回异常: status=" + response.getStatusCode().value()
                     + ", body=" + response.getBody());
         }
 

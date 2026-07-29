@@ -3,7 +3,7 @@ package com.basiclab.iot.message.util;
 import com.alibaba.excel.EasyExcel;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;

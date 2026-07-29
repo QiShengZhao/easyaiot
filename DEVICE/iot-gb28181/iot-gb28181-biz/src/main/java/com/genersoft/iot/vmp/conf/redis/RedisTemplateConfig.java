@@ -1,6 +1,6 @@
 package com.genersoft.iot.vmp.conf.redis;
 
-import com.alibaba.fastjson2.support.spring.data.redis.GenericFastJsonRedisSerializer;
+import com.alibaba.fastjson2.support.spring6.data.redis.GenericFastJsonRedisSerializer;
 import com.genersoft.iot.vmp.gb28181.bean.MobilePosition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -8,7 +8,7 @@ import com.basiclab.iot.system.dal.dataobject.tenant.TenantDO;
 import com.basiclab.iot.system.service.tenant.handler.TenantInfoHandler;
 import com.basiclab.iot.system.service.tenant.handler.TenantMenuHandler;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Set;
 

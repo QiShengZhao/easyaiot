@@ -141,7 +141,7 @@ public class PostProcessServiceImpl implements PostProcessService {
             ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             if (!response.getStatusCode().is2xxSuccessful() || !StringUtils.hasText(response.getBody())) {
                 log.warn("后处理 Worker 返回异常 taskId={} url={} status={}",
-                        request.getTaskId(), url, response.getStatusCodeValue());
+                        request.getTaskId(), url, response.getStatusCode().value());
                 return null;
             }
             return JsonUtils.parseObject(response.getBody(), new TypeReference<Map<String, Object>>() {});

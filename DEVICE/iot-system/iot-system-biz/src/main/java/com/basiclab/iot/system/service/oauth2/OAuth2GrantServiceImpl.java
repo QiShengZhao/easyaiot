@@ -11,7 +11,7 @@ import com.basiclab.iot.system.enums.ErrorCodeConstants;
 import com.basiclab.iot.system.service.auth.AdminAuthService;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 import static com.basiclab.iot.common.exception.util.ServiceExceptionUtil.exception;

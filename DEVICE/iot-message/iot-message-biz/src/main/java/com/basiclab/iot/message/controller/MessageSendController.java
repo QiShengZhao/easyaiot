@@ -5,7 +5,7 @@ import com.basiclab.iot.message.domain.model.SendResult;
 import com.basiclab.iot.message.domain.model.dto.MessageMailSendDto;
 import com.basiclab.iot.message.common.MessageSendCommon;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class MessageSendController {
     private MessageSendCommon messageSendCommon;
 
     @PostMapping("/send")
-    @ApiOperation("消息发送")
+    @Operation(summary = "消息发送")
     public SendResult send(@RequestParam int msgType, @RequestParam String msgId){
         if(msgType == 3){
             return messageSendCommon.messageMailSend(msgType,msgId,"");
@@ -37,13 +37,13 @@ public class MessageSendController {
 
 
     @PostMapping("/messageMailSend")
-    @ApiOperation("邮件消息发送")
+    @Operation(summary = "邮件消息发送")
     public SendResult messageMailSend(@RequestBody MessageMailSendDto messageMailSendDto){
         return messageSendCommon.messageMailSend(messageMailSendDto.getMsgType(),messageMailSendDto.getMsgId(),messageMailSendDto.getContent());
     }
 
     @PostMapping("/messageSend")
-    @ApiOperation("消息发送信息")
+    @Operation(summary = "消息发送信息")
     public SendResult messageSend(@RequestBody MessageMailSendDto messageMailSendDto){
         // 如果传递了完整的HTTP参数，使用新方法直接发送
         if (messageMailSendDto.getMsgType() != null && messageMailSendDto.getMsgType() == 5) {

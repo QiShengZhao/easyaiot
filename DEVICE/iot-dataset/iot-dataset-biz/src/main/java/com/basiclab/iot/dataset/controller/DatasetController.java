@@ -10,7 +10,6 @@ import com.basiclab.iot.dataset.dal.dataobject.DatasetDO;
 import com.basiclab.iot.dataset.domain.dataset.vo.*;
 import com.basiclab.iot.dataset.service.DatasetService;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,9 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -98,7 +97,7 @@ public class DatasetController {
     }
 
     @PostMapping("/upload-cover")
-    @ApiOperation("上传数据集封面(minio)")
+    @Operation(summary = "上传数据集封面(minio)")
     R<String> uploadCover(@RequestPart("file") MultipartFile file) {
         try {
             return R.ok(datasetService.uploadCover(file), "上传数据集封面成功");

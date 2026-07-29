@@ -8,7 +8,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.basiclab.iot.common.constant.CacheConstants;
 import com.basiclab.iot.common.constant.Constants;
 import com.basiclab.iot.common.core.aop.TenantIgnore;
@@ -51,9 +51,6 @@ import com.basiclab.iot.sink.mq.message.IotDeviceMessage;
 import com.basiclab.iot.tdengine.RemoteTdEngineService;
 import com.basiclab.iot.tdengine.domain.SelectDto;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeanUtils;
@@ -64,11 +61,14 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -158,7 +158,7 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     public int insertOrUpdate(Device record) {
         record.setCreateBy("admin");
         record.setUpdateBy("admin");
-        return deviceMapper.insertOrUpdate(record);
+        return deviceMapper.insertOrUpdateRecord(record);
     }
 
     @Override
@@ -262,18 +262,16 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
 
     private R<SysFileVo> upload(List<DeviceMassProductionVo> deviceMassProductionVos) {
         String fileName = "Equipment_Mass_Production_Information_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")) + ".xlsx";
-        FileItemFactory factory = new DiskFileItemFactory(16, null);
-        FileItem fileItem = factory.createItem("textField", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", true, fileName);
         MultipartFile multipartFile;
         try {
-            OutputStream os = fileItem.getOutputStream();
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
             EasyExcel.write(os, DeviceMassProductionVo.class)
                     .excelType(ExcelTypeEnum.XLSX)
                     .sheet("info")
                     .doWrite(deviceMassProductionVos);
             os.close();
-            //FileItem转MultipartFile
-            multipartFile = new CommonsMultipartFile(fileItem);
+            multipartFile = new ByteArrayMultipartFile(fileName,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", os.toByteArray());
         } catch (Exception e) {
             e.printStackTrace();
             log.error("文件生成失败");
@@ -1914,6 +1912,64 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
             existing.setRemark(param.getRemark());
         }
         return deviceLocationService.updateDeviceLocation(existing);
+    }
+
+    /**
+     * Spring 6 移除了 CommonsMultipartFile，这里用内存字节数组包装生成的 Excel 供 Feign 上传
+     */
+    private static class ByteArrayMultipartFile implements MultipartFile {
+
+        private final String name;
+        private final String contentType;
+        private final byte[] content;
+
+        private ByteArrayMultipartFile(String name, String contentType, byte[] content) {
+            this.name = name;
+            this.contentType = contentType;
+            this.content = content;
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+
+        @Override
+        public String getOriginalFilename() {
+            return name;
+        }
+
+        @Override
+        public String getContentType() {
+            return contentType;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return content.length == 0;
+        }
+
+        @Override
+        public long getSize() {
+            return content.length;
+        }
+
+        @Override
+        public byte[] getBytes() {
+            return content;
+        }
+
+        @Override
+        public InputStream getInputStream() {
+            return new ByteArrayInputStream(content);
+        }
+
+        @Override
+        public void transferTo(File dest) throws java.io.IOException {
+            try (FileOutputStream out = new FileOutputStream(dest)) {
+                out.write(content);
+            }
+        }
     }
 
 }

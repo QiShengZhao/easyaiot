@@ -3,11 +3,11 @@ package com.basiclab.iot.device.controller.webhook;
 import com.basiclab.iot.common.domain.AjaxResult;
 import com.basiclab.iot.device.domain.model.dto.WebhookTestDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class WebhookTestController {
     /**
      * 初始化日志，确认Controller是否被加载
      */
-    @javax.annotation.PostConstruct
+    @jakarta.annotation.PostConstruct
     public void init() {
         log.info("========== WebhookTestController 已初始化 ==========");
         log.info("Controller路径映射: /device/webhook/test");
@@ -47,7 +47,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @PostMapping("/testParams")
-    @ApiOperation("Webhook测试推送 - Params方式（URL参数）")
+    @Operation(summary = "Webhook测试推送 - Params方式（URL参数）")
     public AjaxResult testWebhookParams(
             @RequestParam(required = false) String webhookUrl,
             @RequestParam(required = false) String testParam1,
@@ -108,7 +108,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @GetMapping("/test")
-    @ApiOperation("Webhook测试推送 - 简单GET测试")
+    @Operation(summary = "Webhook测试推送 - 简单GET测试")
     public AjaxResult testWebhook() {
         log.info("========== Webhook测试推送 - GET测试 ==========");
         log.info("✅ 请求已到达 WebhookTestController.testWebhook 方法");
@@ -125,7 +125,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @PostMapping("/testBody")
-    @ApiOperation("Webhook测试推送 - Body方式（请求体）")
+    @Operation(summary = "Webhook测试推送 - Body方式（请求体）")
     public AjaxResult testWebhookBody(
             @RequestBody(required = false) WebhookTestDto webhookTestDto,
             HttpServletRequest request) {

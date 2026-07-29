@@ -7,7 +7,7 @@ import com.basiclab.iot.infra.dal.dataobject.file.FileConfigDO;
 
 import com.basiclab.iot.infra.framework.file.core.client.FileClient;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 文件配置 Service 接口

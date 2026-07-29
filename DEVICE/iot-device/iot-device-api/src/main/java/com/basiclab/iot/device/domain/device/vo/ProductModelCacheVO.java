@@ -2,8 +2,7 @@ package com.basiclab.iot.device.domain.device.vo;
 
 import cn.hutool.core.map.MapUtil;
 import com.basiclab.iot.device.domain.product.vo.param.ProductServiceParamVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -29,54 +28,54 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @Builder
 @AllArgsConstructor
-@ApiModel(value = "ProductModelCacheVO", description = "产品模型缓存VO")
+@Schema(description = "产品模型缓存VO")
 public class ProductModelCacheVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Map<String, Object> echoMap = MapUtil.newHashMap();
 
-    @ApiModelProperty(value = "租户ID")
+    @Schema(description = "租户ID")
     private Long tenantId;
 
-    @ApiModelProperty(value = "应用ID")
+    @Schema(description = "应用ID")
     private String appId;
 
-    @ApiModelProperty(value = "产品标识")
+    @Schema(description = "产品标识")
     private String productIdentification;
 
-    @ApiModelProperty(value = "模板ID")
+    @Schema(description = "模板ID")
     private Long templateId;
 
-    @ApiModelProperty(value = "产品名称")
+    @Schema(description = "产品名称")
     private String productName;
 
-    @ApiModelProperty(value = "产品类型")
+    @Schema(description = "产品类型")
     private Integer productType;
 
-    @ApiModelProperty(value = "厂商ID")
+    @Schema(description = "厂商ID")
     private String manufacturerId;
 
-    @ApiModelProperty(value = "厂商名称")
+    @Schema(description = "厂商名称")
     private String manufacturerName;
 
-    @ApiModelProperty(value = "产品型号")
+    @Schema(description = "产品型号")
     private String model;
 
-    @ApiModelProperty(value = "数据格式")
+    @Schema(description = "数据格式")
     private String dataFormat;
 
-    @ApiModelProperty(value = "设备类型")
+    @Schema(description = "设备类型")
     private String deviceType;
 
-    @ApiModelProperty(value = "协议类型")
+    @Schema(description = "协议类型")
     private String protocolType;
 
-    @ApiModelProperty(value = "产品版本")
+    @Schema(description = "产品版本")
     private String productVersion;
 
-    @ApiModelProperty(value = "产品描述")
+    @Schema(description = "产品描述")
     private String remark;
 
-    @ApiModelProperty(value = "产品模型服务")
+    @Schema(description = "产品模型服务")
     private List<ProductServiceParamVO> services;
 }

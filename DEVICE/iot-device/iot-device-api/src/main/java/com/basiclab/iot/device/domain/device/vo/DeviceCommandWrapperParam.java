@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -33,14 +32,14 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @Builder
-@ApiModel(value = "DeviceCommandWrapperParam", description = "Device Command Request Wrapper Data Structure")
+@Schema(description = "Device Command Request Wrapper Data Structure")
 public class DeviceCommandWrapperParam implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "List of serial command requests", notes = "List of serial command requests")
+    @Schema(description = "List of serial command requests（List of serial command requests）")
     private List<DeviceToGateWayVo> serial;
 
-    @ApiModelProperty(value = "List of parallel command requests", notes = "List of parallel command requests")
+    @Schema(description = "List of parallel command requests（List of parallel command requests）")
     private List<DeviceToGateWayVo> parallel;
 }

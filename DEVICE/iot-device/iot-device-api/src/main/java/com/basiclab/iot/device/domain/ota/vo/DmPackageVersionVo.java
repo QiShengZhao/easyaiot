@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.ota.vo;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @created 2025-05-27
  */
 @Data
-@ApiModel(value = "DmPackageVersionVo对象", description = "DmPackageVersionVo对象")
+@Schema(description = "DmPackageVersionVo对象")
 public class DmPackageVersionVo implements Serializable {
     private String version;
 }

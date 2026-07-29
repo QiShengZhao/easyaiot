@@ -11,7 +11,7 @@ import io.minio.MinioClient;
 import org.springframework.context.annotation.Primary;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  * Minio 配置信息

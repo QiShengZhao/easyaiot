@@ -5,8 +5,7 @@ import com.basiclab.iot.common.exception.ErrorCode;
 import com.basiclab.iot.common.exception.GlobalErrorStatus;
 import com.basiclab.iot.common.exception.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,19 +21,19 @@ import java.text.MessageFormat;
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(value = "接口响应数据", description = "用于返回接口响应的内容")
+@Schema(description = "用于返回接口响应的内容")
 public class Response<T> {
 
-    @ApiModelProperty(value = "请求响应状态码，0-成功，-1-未知，其他自定义", example = "0")
+    @Schema(description = "请求响应状态码，0-成功，-1-未知，其他自定义", example = "0")
     private Integer code = 0;
 
-    @ApiModelProperty(value = "请求响应消息", example = "")
+    @Schema(description = "请求响应消息", example = "")
     private String message = "";
 
-    @ApiModelProperty(value = "请求响应详细消息", example = "")
+    @Schema(description = "请求响应详细消息", example = "")
     private Object detailMessage;
 
-    @ApiModelProperty(value = "请求响应数据")
+    @Schema(description = "请求响应数据")
     private T data;
 
     public Response() {

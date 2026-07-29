@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
 
@@ -17,9 +17,9 @@ import java.io.Serializable;
 @ToString
 public class DeviceLogFileVo extends OpsDeviceLogFilePo implements Serializable {
 
-    @ApiModelProperty(value = "主键转的字符串")
+    @Schema(description = "主键转的字符串")
     private String version;
 
-    @ApiModelProperty(value = "状态名称")
+    @Schema(description = "状态名称")
     private String statusName;
 }

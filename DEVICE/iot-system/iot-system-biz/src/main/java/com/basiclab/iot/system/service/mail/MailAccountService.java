@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.mail.vo.account.MailAccountPageR
 import com.basiclab.iot.system.controller.admin.mail.vo.account.MailAccountSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.mail.MailAccountDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

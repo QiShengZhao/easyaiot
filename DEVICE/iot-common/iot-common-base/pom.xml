@@ -56,18 +56,13 @@
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <scope>provided</scope>
         </dependency>
         <!-- Excel工具 -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-        </dependency>
-        <!-- Swagger -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
         <!-- 工具类相关 -->
         <dependency>
@@ -89,7 +84,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <scope>provided</scope> <!-- 设置为 provided，只有工具类需要使用到 -->
+            <!-- compile 作用域：原先由 knife4j(springfox) 传递供给运行时，移除 springfox 后由 base 显式供给 -->
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -178,13 +173,13 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
-            <version>3.5.5</version>
+            <version>3.5.17</version> <!-- 与 iot-parent mybatis-plus.version 保持一致 -->
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.3.2</version>
+            <version>6.1.1</version> <!-- 与 pagehelper-spring-boot-starter 2.1.1 配套；5.x 依赖 jsqlparser 4.6 旧 API，与统一后的 4.9 运行时冲突 -->
             <scope>compile</scope>
         </dependency>
         <dependency>

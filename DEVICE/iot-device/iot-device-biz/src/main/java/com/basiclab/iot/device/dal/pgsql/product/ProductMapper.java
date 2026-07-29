@@ -33,7 +33,7 @@ public interface ProductMapper extends BaseMapper<Product> {
      */
     int insert(Product record);
 
-    int insertOrUpdate(Product record);
+    int insertOrUpdateRecord(Product record);
 
     int insertOrUpdateSelective(Product record);
 

@@ -5,7 +5,7 @@ import com.basiclab.iot.device.enums.ApiConstants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 
 /**
  * SecurityConfiguration
@@ -22,21 +22,21 @@ public class SecurityConfiguration {
         return new AuthorizeRequestsCustomizer() {
 
             @Override
-            public void customize(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry) {
+            public void customize(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
                 // TODO BasicLab：这个每个项目都需要重复配置，得捉摸有没通用的方案
                 // Swagger 接口文档
-                registry.antMatchers("/v3/api-docs/**").permitAll() // 元数据
-                        .antMatchers("/swagger-ui.html").permitAll() // Swagger UI
-                        .antMatchers("/index/hook/**").permitAll()
-                        .antMatchers("/api/play/uploadSnapshot").permitAll() // zlm hook
-                        .antMatchers("/**").permitAll();
+                registry.requestMatchers("/v3/api-docs/**").permitAll() // 元数据
+                        .requestMatchers("/swagger-ui.html").permitAll() // Swagger UI
+                        .requestMatchers("/index/hook/**").permitAll()
+                        .requestMatchers("/api/play/uploadSnapshot").permitAll() // zlm hook
+                        .requestMatchers("/**").permitAll();
                 // Druid 监控
-                registry.antMatchers("/druid/**").anonymous();
+                registry.requestMatchers("/druid/**").anonymous();
                 // Spring Boot Actuator 的安全配置
-                registry.antMatchers("/actuator").anonymous()
-                        .antMatchers("/actuator/**").anonymous();
+                registry.requestMatchers("/actuator").anonymous()
+                        .requestMatchers("/actuator/**").anonymous();
                 // RPC 服务的安全配置
-                registry.antMatchers(ApiConstants.PREFIX + "/**").permitAll();
+                registry.requestMatchers(ApiConstants.PREFIX + "/**").permitAll();
             }
 
         };

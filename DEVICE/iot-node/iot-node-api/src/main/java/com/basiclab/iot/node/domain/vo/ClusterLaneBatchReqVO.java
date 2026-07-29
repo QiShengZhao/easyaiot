@@ -3,7 +3,7 @@ package com.basiclab.iot.node.domain.vo;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Schema(description = "泳道工作节点批量操作 Request VO")

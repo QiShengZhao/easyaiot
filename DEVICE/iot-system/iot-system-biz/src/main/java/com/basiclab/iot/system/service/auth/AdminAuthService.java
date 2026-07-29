@@ -4,7 +4,7 @@ import com.basiclab.iot.system.controller.admin.auth.vo.*;
 import com.basiclab.iot.system.controller.admin.auth.vo.*;
 import com.basiclab.iot.system.dal.dataobject.user.AdminUserDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * 管理后台的认证 Service 接口

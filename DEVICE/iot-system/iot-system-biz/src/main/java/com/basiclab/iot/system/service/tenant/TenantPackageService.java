@@ -5,7 +5,7 @@ import com.basiclab.iot.system.controller.admin.tenant.vo.packages.TenantPackage
 import com.basiclab.iot.system.controller.admin.tenant.vo.packages.TenantPackageSaveReqVO;
 import com.basiclab.iot.system.dal.dataobject.tenant.TenantPackageDO;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.List;
 
 /**

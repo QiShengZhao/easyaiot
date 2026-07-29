@@ -116,7 +116,7 @@
         </dependency>
         <dependency>
             <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2-extension-spring5</artifactId>
+            <artifactId>fastjson2-extension-spring6</artifactId>
             <version>2.0.57</version>
         </dependency>
 
@@ -163,35 +163,6 @@
             <version>33.4.8-jre</version>
         </dependency>
 
-        <!-- Servlet API - Spring Boot 2.7.18 使用 javax.servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-        </dependency>
-        <!-- javax.annotation API - 解决 Java 9+ 中 javax.annotation.PostConstruct 缺失问题 -->
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>javax.annotation-api</artifactId>
-            <!-- 版本由父 pom 管理 -->
-        </dependency>
-        <!-- Jakarta Annotation API (兼容性) -->
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <!-- Jakarta Validation API (兼容性) -->
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <!-- WebSocket API - Spring Boot 2.7.18 使用 javax.websocket -->
-        <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.1</version>
-        </dependency>
 
         <!-- EasyExcel -->
         <dependency>
@@ -227,6 +198,13 @@
             <groupId>com.github.oshi</groupId>
             <artifactId>oshi-core</artifactId>
             <version>6.6.5</version>
+        </dependency>
+
+        <!-- Test 测试相关 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

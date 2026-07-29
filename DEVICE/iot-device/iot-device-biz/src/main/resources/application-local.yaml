@@ -3,7 +3,7 @@ spring:
   # 数据源配置项
   autoconfigure:
     exclude:
-      - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure # 排除 Druid 的自动配置，使用 dynamic-datasource-spring-boot-starter 配置多数据源
+      - com.alibaba.druid.spring.boot3.autoconfigure.DruidDataSourceAutoConfigure # 排除 Druid 的自动配置，使用 dynamic-datasource-spring-boot-starter 配置多数据源
   datasource:
     druid: # Druid 【监控】相关的全局配置
       web-stat-filter:
@@ -48,19 +48,20 @@ spring:
           password: iot45722414822
 
   # Redis 配置。Redisson 默认的配置足够使用，一般不需要进行调优
-  redis:
-    host: localhost # 地址
-    port: 6379 # 端口
-    database: 0 # 数据库索引
-    password: basiclab@iot975248395 # 密码，建议生产环境开启
-    timeout: 10000 # 超时时间
-    lettuce:
-      pool:
-        max-active: 8    # 根据业务需求设置（生产环境建议8-16）
-        max-idle: 4      # 空闲连接数（避免过多闲置）
-        min-idle: 1      # 保持最小连接
-        max-wait: 2000   # 获取连接最大等待时间
-      timeout: 1000        # 操作超时时间
+  data:
+    redis:
+      host: localhost # 地址
+      port: 6379 # 端口
+      database: 0 # 数据库索引
+      password: basiclab@iot975248395 # 密码，建议生产环境开启
+      timeout: 10000 # 超时时间
+      lettuce:
+        pool:
+          max-active: 8    # 根据业务需求设置（生产环境建议8-16）
+          max-idle: 4      # 空闲连接数（避免过多闲置）
+          min-idle: 1      # 保持最小连接
+          max-wait: 2000   # 获取连接最大等待时间
+        timeout: 1000        # 操作超时时间
     
 
 --- #################### 定时任务相关配置 ####################
