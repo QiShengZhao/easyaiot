@@ -1,0 +1,148 @@
+name: DEVICE CI/CD
+
+on:
+  push:
+    branches: [main, dev, 'feature-**', 'hotfix-**']
+    paths:
+      - 'DEVICE/**'
+      - '.github/workflows/device-ci.yml'
+  pull_request:
+    paths:
+      - 'DEVICE/**'
+      - '.github/workflows/device-ci.yml'
+  workflow_dispatch:
+    inputs:
+      push_images:
+        description: '构建并推送 Docker 镜像到 GHCR'
+        type: boolean
+        default: false
+
+env:
+  MAVEN_ARGS: -B -Drevision=1.0.0 --no-transfer-progress
+
+jobs:
+  # ============ CI：编译 + 测试门禁 ============
+  build-test:
+    name: 编译与测试（JDK 21）
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: DEVICE
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: 'DEVICE/**/pom.xml'
+
+      - name: 编译（全 reactor）
+        run: mvn $MAVEN_ARGS compile -Dmaven.test.skip=true
+
+      - name: 单元测试
+        # 关键路径测试：网关鉴权 / 设备消息 / GB28181 Redis 序列化 / springdoc 装配
+        # 存量测试一并运行；如有历史遗留失败，见 job summary 逐步修复
+        run: mvn $MAVEN_ARGS test
+
+      - name: 测试报告汇总
+        if: always()
+        run: |
+          echo "## 测试结果" >> $GITHUB_STEP_SUMMARY
+          find . -name "TEST-*.xml" -path "*/surefire-reports/*" | while read f; do
+            tests=$(grep -o 'tests="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+            failures=$(grep -o 'failures="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+            errors=$(grep -o 'errors="[0-9]*"' "$f" | head -1 | grep -o '[0-9]*')
+            name=$(basename "$f" .xml | sed 's/^TEST-//')
+            if [ "${failures:-0}" != "0" ] || [ "${errors:-0}" != "0" ]; then
+              echo "- ❌ $name: $tests tests, $failures failures, $errors errors" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- ✅ $name: $tests tests" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+
+      - name: 上传测试报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: 'DEVICE/**/target/surefire-reports/*.xml'
+          retention-days: 7
+
+  # ============ CD：打包 + 构建镜像推送 GHCR ============
+  package-images:
+    name: 打包并推送镜像（GHCR）
+    needs: build-test
+    # main 分支推送自动执行；其他情况通过 workflow_dispatch 手动勾选
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && inputs.push_images)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: 'DEVICE/**/pom.xml'
+
+      - name: Maven 打包
+        working-directory: DEVICE
+        run: mvn $MAVEN_ARGS package -Dmaven.test.skip=true
+
+      - name: 登录 GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 构建并推送各服务镜像
+        env:
+          REGISTRY: ghcr.io/${{ github.repository_owner }}
+          TAG: ${{ github.sha }}
+        run: |
+          set -e
+          OWNER_LC=$(echo "$REGISTRY" | tr '[:upper:]' '[:lower:]')
+          # 服务名 -> jar 路径
+          declare -A SERVICES=(
+            [gateway]="DEVICE/iot-gateway/target/iot-gateway.jar"
+            [system]="DEVICE/iot-system/iot-system-biz/target/iot-system-biz.jar"
+            [infra]="DEVICE/iot-infra/iot-infra-biz/target/iot-infra-biz.jar"
+            [device]="DEVICE/iot-device/iot-device-biz/target/iot-device-biz.jar"
+            [dataset]="DEVICE/iot-dataset/iot-dataset-biz/target/iot-dataset-biz.jar"
+            [file]="DEVICE/iot-file/iot-file-biz/target/iot-file-biz.jar"
+            [tdengine]="DEVICE/iot-tdengine/iot-tdengine-biz/target/iot-tdengine-biz.jar"
+            [sink]="DEVICE/iot-sink/iot-sink-biz/target/iot-sink-biz.jar"
+            [message]="DEVICE/iot-message/iot-message-biz/target/iot-message-biz.jar"
+            [node]="DEVICE/iot-node/iot-node-biz/target/iot-node-biz.jar"
+            [visualize]="DEVICE/iot-visualize/iot-visualize-biz/target/iot-visualize-biz.jar"
+            [gb28181]="DEVICE/iot-gb28181/iot-gb28181-biz/target/iot-gb28181-biz.jar"
+          )
+          # 运行时基础镜像与 DEVICE/Dockerfile 保持一致
+          cat > Dockerfile.runtime <<'EOF'
+          FROM bellsoft/liberica-openjdk-rocky:21.0.8-cds
+          RUN groupadd -r appgroup -g 1001 && useradd -r -u 1001 -g appgroup appuser && \
+              mkdir -p /app/logs /app/config /app/data && chown -R appuser:appgroup /app
+          WORKDIR /app
+          ARG JAR_FILE
+          COPY ${JAR_FILE} app.jar
+          USER appuser
+          ENTRYPOINT ["java", "-jar", "app.jar"]
+          EOF
+          for svc in "${!SERVICES[@]}"; do
+            jar="${SERVICES[$svc]}"
+            if [ ! -f "$jar" ]; then echo "::warning::$jar 不存在，跳过 $svc"; continue; fi
+            image="$OWNER_LC/easyaiot-$svc"
+            echo "==> 构建 $image"
+            docker build -f Dockerfile.runtime --build-arg JAR_FILE="$jar" \
+              -t "$image:$TAG" -t "$image:latest" .
+            docker push "$image:$TAG"
+            docker push "$image:latest"
+          done
