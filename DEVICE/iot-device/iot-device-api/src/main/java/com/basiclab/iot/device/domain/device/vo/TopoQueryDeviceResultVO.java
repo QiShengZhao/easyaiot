@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -23,18 +22,18 @@ import java.util.List;
 @ToString(callSuper = true)
 @Accessors(chain = true)
 @Builder
-@ApiModel(value = "TopoQueryDeviceResultVO", description = "设备档案响应信息")
+@Schema(description = "设备档案响应信息")
 public class TopoQueryDeviceResultVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "请求处理的结果码。'0'表示成功。非'0'表示失败。详见附录。", required = true)
+    @Schema(description = "请求处理的结果码。'0'表示成功。非'0'表示失败。详见附录。", requiredMode = Schema.RequiredMode.REQUIRED)
     private int statusCode;
 
-    @ApiModelProperty(value = "响应状态描述。")
+    @Schema(description = "响应状态描述。")
     private String statusDesc;
 
-    @ApiModelProperty(value = "查询设备的结果信息。", required = true)
+    @Schema(description = "查询设备的结果信息。", requiredMode = Schema.RequiredMode.REQUIRED)
     private List<DataItem> data;
 
     @Data
@@ -43,16 +42,16 @@ public class TopoQueryDeviceResultVO implements Serializable {
     @Builder
     public static class DataItem {
 
-        @ApiModelProperty(value = "请求处理的结果码。'0'表示成功。非'0'表示失败。详见附录。", required = true)
+        @Schema(description = "请求处理的结果码。'0'表示成功。非'0'表示失败。详见附录。", requiredMode = Schema.RequiredMode.REQUIRED)
         private int statusCode;
 
-        @ApiModelProperty(value = "响应状态描述。")
+        @Schema(description = "响应状态描述。")
         private String statusDesc;
 
-        @ApiModelProperty(value = "平台生成的设备唯一标识", required = true)
+        @Schema(description = "平台生成的设备唯一标识", requiredMode = Schema.RequiredMode.REQUIRED)
         private String deviceId;
 
-        @ApiModelProperty(value = "设备详细信息")
+        @Schema(description = "设备详细信息")
         private DeviceInfo deviceInfo;
 
         @Data
@@ -64,94 +63,94 @@ public class TopoQueryDeviceResultVO implements Serializable {
             /**
              * 客户端标识
              */
-            @ApiModelProperty(value = "客户端标识")
+            @Schema(description = "客户端标识")
             private String clientId;
 
             /**
              * 设备名称
              */
-            @ApiModelProperty(value = "设备名称")
+            @Schema(description = "设备名称")
             private String deviceName;
             /**
              * 连接实例
              */
-            @ApiModelProperty(value = "连接实例")
+            @Schema(description = "连接实例")
             private String connector;
             /**
              * 设备描述
              */
-            @ApiModelProperty(value = "设备描述")
+            @Schema(description = "设备描述")
             private String description;
             /**
              * 设备状态:1启用ENABLE || 2禁用DISABLE||未激活NOTACTIVE 0
              */
-            @ApiModelProperty(value = "设备状态:1启用ENABLE || 2禁用DISABLE||未激活NOTACTIVE 0")
+            @Schema(description = "设备状态:1启用ENABLE || 2禁用DISABLE||未激活NOTACTIVE 0")
             private Integer deviceStatus;
             /**
              * 连接状态:在线：1ONLINE || 离线：2OFFLINE || 未连接：INIT 0
              */
-            @ApiModelProperty(value = "连接状态:在线：1ONLINE || 离线：2OFFLINE || 未连接：INIT 0")
+            @Schema(description = "连接状态:在线：1ONLINE || 离线：2OFFLINE || 未连接：INIT 0")
             private Integer connectStatus;
             /**
              * 设备标签
              */
-            @ApiModelProperty(value = "设备标签")
+            @Schema(description = "设备标签")
             private String deviceTags;
             /**
              * 产品标识
              */
-            @ApiModelProperty(value = "产品标识")
+            @Schema(description = "产品标识")
             private String productIdentification;
             /**
              * 软件版本
              */
-            @ApiModelProperty(value = "软件版本")
+            @Schema(description = "软件版本")
             private String swVersion;
             /**
              * 固件版本
              */
-            @ApiModelProperty(value = "固件版本")
+            @Schema(description = "固件版本")
             private String fwVersion;
             /**
              * sdk版本
              */
-            @ApiModelProperty(value = "sdk版本")
+            @Schema(description = "sdk版本")
             private String deviceSdkVersion;
             /**
              * 网关设备id
              */
-            @ApiModelProperty(value = "网关设备id")
+            @Schema(description = "网关设备id")
             private String gatewayId;
             /**
              * 设备类型:0普通设备 || 1网关设备 || 2子设备
              */
-            @ApiModelProperty(value = "设备类型:0普通设备 || 1网关设备 || 2子设备 ")
+            @Schema(description = "设备类型:0普通设备 || 1网关设备 || 2子设备 ")
             private Integer nodeType;
 
             /**
              * 加密密钥
              */
-            @ApiModelProperty(value = "加密密钥")
+            @Schema(description = "加密密钥")
             private String encryptKey;
             /**
              * 加密向量
              */
-            @ApiModelProperty(value = "加密向量")
+            @Schema(description = "加密向量")
             private String encryptVector;
             /**
              * 签名密钥
              */
-            @ApiModelProperty(value = "签名密钥")
+            @Schema(description = "签名密钥")
             private String signKey;
             /**
              * 传输协议的加密方式：0-明文传输、1-SM4、2-AES
              */
-            @ApiModelProperty(value = "传输协议的加密方式：0-明文传输、1-SM4、2-AES ")
+            @Schema(description = "传输协议的加密方式：0-明文传输、1-SM4、2-AES ")
             private Integer encryptMethod;
             /**
              * 备注
              */
-            @ApiModelProperty(value = "备注")
+            @Schema(description = "备注")
             private String remark;
         }
     }

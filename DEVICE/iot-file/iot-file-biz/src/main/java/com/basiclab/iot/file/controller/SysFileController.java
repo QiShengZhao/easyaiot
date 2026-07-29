@@ -9,8 +9,8 @@ import com.basiclab.iot.file.domain.vo.SysFileVo;
 import com.basiclab.iot.file.service.ISysFileService;
 import com.github.pagehelper.PageInfo;
 import io.minio.messages.DeleteObject;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +47,8 @@ public class SysFileController {
      * @return
      */
     @PostMapping("/upload")
-    @ApiOperation("文件上传请求")
-    public R<SysFileVo> upload(@ApiParam("设备上报实体") MultipartFile file) {
+    @Operation(summary = "文件上传请求")
+    public R<SysFileVo> upload(@Parameter(description = "设备上报实体") MultipartFile file) {
         try {
             // 上传并返回访问地址
             String url = sysFileService.uploadFile(file);
@@ -69,7 +69,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping("/uploadByBucket")
-    @ApiOperation("文件上传请求（根据桶名称）")
+    @Operation(summary = "文件上传请求（根据桶名称）")
     public R<SysFileVo> uploadByBucket(@RequestParam(value = "bucketName") String bucketName, @RequestParam(value = "file") MultipartFile file) {
         try {
             // 上传并返回访问地址
@@ -92,7 +92,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/objectExists")
-    @ApiOperation("判断文件是否存在")
+    @Operation(summary = "判断文件是否存在")
     R<Boolean> objectExists(String bucketName, String fileName) {
         try {
             boolean ret = sysFileService.objectExists(bucketName, fileName);
@@ -111,7 +111,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/deletes")
-    @ApiOperation("批量删除文件")
+    @Operation(summary = "批量删除文件")
     R<Boolean> deletes(String bucketName, List<DeleteObject> list) {
         try {
             boolean ret = sysFileService.deletes(bucketName, list);
@@ -129,7 +129,7 @@ public class SysFileController {
      * @param objectName
      */
     @DeleteMapping(value = "/delete")
-    @ApiOperation("删除文件")
+    @Operation(summary = "删除文件")
     R<Boolean> delete(@RequestParam("bucketName") String bucketName, @RequestParam("objectName") String objectName) {
         try {
             boolean ret = sysFileService.delete(bucketName, objectName);
@@ -147,7 +147,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/removeFile")
-    @ApiOperation("删除文件")
+    @Operation(summary = "删除文件")
     public R<String> removeFile(@RequestBody Map<String, Object> params) {
         try {
             String bucketName = (String) params.get("bucketName");
@@ -166,7 +166,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/getDataConfig")
-    @ApiOperation("获取配置文件")
+    @Operation(summary = "获取配置文件")
     public R<Object> getDataConfig() {
         try {
             Object config = sysFileService.getConfig();
@@ -191,7 +191,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/bucketExists")
-    @ApiOperation("判断Bucket是否存在")
+    @Operation(summary = "判断Bucket是否存在")
     R<Boolean> bucketExists(@RequestBody String bucketName) {
         try {
             boolean ret = sysFileService.bucketExists(bucketName);
@@ -209,7 +209,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/createBucket")
-    @ApiOperation("创建桶")
+    @Operation(summary = "创建桶")
     R<Boolean> createBucket(@RequestBody String bucketName) {
         try {
             boolean ret = sysFileService.createBucket(bucketName);
@@ -228,7 +228,7 @@ public class SysFileController {
      * @throws Exception
      */
     @PostMapping(value = "/removeBucket")
-    @ApiOperation("删除桶")
+    @Operation(summary = "删除桶")
     R<Boolean> removeBucket(@RequestBody String bucketName) throws Exception {
         try {
             sysFileService.removeBucket(bucketName);
@@ -246,7 +246,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/getAllBuckets")
-    @ApiOperation("获取所有bucket信息")
+    @Operation(summary = "获取所有bucket信息")
     R<PageInfo<BucketVo>> getAllBuckets(@RequestBody SysFileQo sysFileQo) {
         try {
             PageInfo<BucketVo> ret = sysFileService.getAllBuckets(sysFileQo.getBucketName(), sysFileQo.getPrefix(), sysFileQo.getKey(),
@@ -265,7 +265,7 @@ public class SysFileController {
      * @return
      */
     @PostMapping(value = "/getFileList")
-    @ApiOperation("获取某个bucket中所有的文件名")
+    @Operation(summary = "获取某个bucket中所有的文件名")
     R<PageInfo<Map<String, Object>>> getFileList(@RequestBody SysFileQo sysFileQo) {
         try {
             PageInfo<Map<String, Object>> ret = sysFileService.getFileList(sysFileQo.getBucketName(), sysFileQo.getPrefix(), sysFileQo.getKey(),
@@ -287,7 +287,7 @@ public class SysFileController {
      * @throws Exception
      */
     @PostMapping(value = "/download")
-    @ApiOperation("直接下载")
+    @Operation(summary = "直接下载")
     R<Boolean> download(@RequestBody String bucketName, @RequestBody String objectName, @RequestBody String fileName) {
         try {
             boolean ret = sysFileService.download(bucketName, objectName, fileName);
@@ -307,7 +307,7 @@ public class SysFileController {
      * @throws Exception
      */
     @PostMapping(value = "/folderExists")
-    @ApiOperation("判断文件夹是否存在")
+    @Operation(summary = "判断文件夹是否存在")
     R<Boolean> folderExists(@RequestBody String bucketName, @RequestBody String prefix) throws Exception {
         try {
             boolean ret = sysFileService.folderExists(bucketName, prefix);
@@ -325,7 +325,7 @@ public class SysFileController {
      * @param path       路径
      */
     @PostMapping(value = "/createFolder")
-    @ApiOperation("创建文件夹")
+    @Operation(summary = "创建文件夹")
     R<Boolean> createFolder(@RequestBody String bucketName, @RequestBody String path) throws Exception {
         try {
             sysFileService.folderExists(bucketName, path);
@@ -345,7 +345,7 @@ public class SysFileController {
      * @throws Exception
      */
     @PostMapping(value = "/getUrl")
-    @ApiOperation("获取文件在Minio在服务器上的外链")
+    @Operation(summary = "获取文件在Minio在服务器上的外链")
     R<String> getUrl(@RequestBody String objectName, @RequestBody String bucketName) throws Exception {
         try {
             String url = sysFileService.getUrl(bucketName, objectName);

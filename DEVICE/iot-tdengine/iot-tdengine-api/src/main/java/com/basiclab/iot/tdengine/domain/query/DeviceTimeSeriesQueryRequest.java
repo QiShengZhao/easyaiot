@@ -1,7 +1,6 @@
 package com.basiclab.iot.tdengine.domain.query;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * @email andywebjava@163.com
  * @wechat EasyAIoT2025
  */
-@ApiModel("设备时序数据查询请求")
+@Schema(description = "设备时序数据查询请求")
 @Data
 @Validated
 public class DeviceTimeSeriesQueryRequest {
@@ -22,7 +21,7 @@ public class DeviceTimeSeriesQueryRequest {
     /**
      * 设备标识
      */
-    @ApiModelProperty(value = "设备标识", required = true)
+    @Schema(description = "设备标识", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "设备标识不能为空")
     private String deviceIdentification;
     
@@ -36,50 +35,50 @@ public class DeviceTimeSeriesQueryRequest {
      * PROPERTY_UPSTREAM_DESIRED_SET_ACK: 属性期望值设置确认
      * PROPERTY_UPSTREAM_DESIRED_QUERY_RESPONSE: 属性期望值查询响应
      */
-    @ApiModelProperty(value = "超级表类型", required = true)
+    @Schema(description = "超级表类型", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "超级表类型不能为空")
     private String superTableType;
     
     /**
      * 标识符（用于事件和服务）
      */
-    @ApiModelProperty(value = "标识符（用于事件和服务）")
+    @Schema(description = "标识符（用于事件和服务）")
     private String identifier;
     
     /**
      * 开始时间（时间戳，毫秒）
      */
-    @ApiModelProperty(value = "开始时间（时间戳，毫秒）")
+    @Schema(description = "开始时间（时间戳，毫秒）")
     private Long startTime;
     
     /**
      * 结束时间（时间戳，毫秒）
      */
-    @ApiModelProperty(value = "结束时间（时间戳，毫秒）")
+    @Schema(description = "结束时间（时间戳，毫秒）")
     private Long endTime;
     
     /**
      * 分页页码
      */
-    @ApiModelProperty(value = "分页页码", example = "1")
+    @Schema(description = "分页页码", example = "1")
     private Integer pageNum = 1;
     
     /**
      * 每页大小
      */
-    @ApiModelProperty(value = "每页大小", example = "10")
+    @Schema(description = "每页大小", example = "10")
     private Integer pageSize = 10;
     
     /**
      * 数据库名（内部使用，不需要前端传入）
      */
-    @ApiModelProperty(value = "数据库名", hidden = true)
+    @Schema(description = "数据库名", hidden = true)
     private String tdDatabaseName;
     
     /**
      * 超级表名（内部使用，与 superTableType 对应）
      */
-    @ApiModelProperty(value = "超级表名", hidden = true)
+    @Schema(description = "超级表名", hidden = true)
     private String superTableName;
 }
 

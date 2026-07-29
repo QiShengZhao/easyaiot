@@ -4,7 +4,7 @@ package com.basiclab.iot.message.controller;
 import com.basiclab.iot.message.domain.model.vo.ResponseVo;
 import com.basiclab.iot.message.mino.service.FileService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +42,7 @@ public class FileController {
      * @throws IOException
      */
     @PostMapping("/upload")
-    @ApiOperation("将文件保存到指定文件夹")
+    @Operation(summary = "将文件保存到指定文件夹")
     public Map<String, String> uploadAndGoDownLoad(HttpServletRequest request, @RequestPart("file") MultipartFile file) throws IOException {
 //        String newFileName = "";
 //        //判断文件是否为空，不为空时，保存文件
@@ -71,7 +71,7 @@ public class FileController {
      */
     @GetMapping("/download/hutool")
     @ResponseBody
-    @ApiOperation("使用Hutool实现文件下载")
+    @Operation(summary = "使用Hutool实现文件下载")
     public void downloadByHutool(@RequestParam(value = "fileName") String fileName,
                                  HttpServletResponse response) {
 //        //防止中文乱码

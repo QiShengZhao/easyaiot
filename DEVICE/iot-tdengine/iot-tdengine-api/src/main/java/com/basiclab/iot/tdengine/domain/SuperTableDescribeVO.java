@@ -1,8 +1,7 @@
 package com.basiclab.iot.tdengine.domain;
 
 import cn.hutool.core.map.MapUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -25,7 +24,7 @@ import java.util.Map;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @Builder
-@ApiModel(value = "SuperTableDescribe", description = "超级表结构VO")
+@Schema(description = "超级表结构VO")
 public class SuperTableDescribeVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,22 +34,22 @@ public class SuperTableDescribeVO implements Serializable {
     /**
      * 标记
      */
-    @ApiModelProperty(value = "标记")
+    @Schema(description = "标记")
     private String note;
     /**
      * 字段名
      */
-    @ApiModelProperty(value = "字段名")
+    @Schema(description = "字段名")
     private String field;
     /**
      * 字段长度
      */
-    @ApiModelProperty(value = "字段长度")
+    @Schema(description = "字段长度")
     private Integer length;
     /**
      * 字段类型
      */
-    @ApiModelProperty(value = "字段类型")
+    @Schema(description = "字段类型")
     private String type;
 
 

@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
 
@@ -17,27 +17,27 @@ public class DeviceBatchInsertReq {
     /**
      * 产品标识
      */
-    @ApiModelProperty(value = "产品标识")
+    @Schema(description = "产品标识")
     @NotNull(message = "产品标识不能为空")
     private String productIdentification;
     /**
      * 添加方式
      */
-    @ApiModelProperty(value = "添加方式, 1.自动生成 2.批量上传")
+    @Schema(description = "添加方式, 1.自动生成 2.批量上传")
     @NotNull(message = "添加方式不能为空")
     private Integer addType;
     /**
      * 设备数量
      */
-    @ApiModelProperty(value = "设备数量")
+    @Schema(description = "设备数量")
     private Integer deviceCount;
     /**
      * 文件路径
      */
-    @ApiModelProperty(value = "文件id")
+    @Schema(description = "文件id")
     private String fileId;
 
-    @ApiModelProperty(value = "批次号", hidden = true)
+    @Schema(description = "批次号", hidden = true)
     private String batchNumber;
 
     @Getter

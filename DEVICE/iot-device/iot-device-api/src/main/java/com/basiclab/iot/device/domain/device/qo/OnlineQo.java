@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.device.qo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
 
@@ -16,19 +15,19 @@ import java.io.Serializable;
  */
 @Data
 @ToString
-@ApiModel(value = "终端上下线入参通知实体")
+@Schema(description = "终端上下线入参通知实体")
 public class OnlineQo implements Serializable {
 
-    @ApiModelProperty(value = "terminal", notes = "终端类型,设备端：device")
+    @Schema(description = "terminal（终端类型,设备端：device）")
     private String terminal;
 
-    @ApiModelProperty(value = "deviceIdengtification", notes = "设备唯一deviceIdengtification")
+    @Schema(description = "deviceIdengtification（设备唯一deviceIdengtification）")
     private String deviceIdengtification;
 
-    @ApiModelProperty(value = "userId", notes = "用户ID")
+    @Schema(description = "userId（用户ID）")
     private Long userId;
 
-    @ApiModelProperty(value = "online", notes = "是否上线或离线")
+    @Schema(description = "online（是否上线或离线）")
     private String status;
 
     public OnlineQo(){

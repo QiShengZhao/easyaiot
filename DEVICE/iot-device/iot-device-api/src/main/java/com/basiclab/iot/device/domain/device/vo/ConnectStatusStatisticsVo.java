@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -13,12 +13,12 @@ public class ConnectStatusStatisticsVo {
     /**
      * 在线状态数量
      */
-    @ApiModelProperty("在线状态数量")
+    @Schema(description = "在线状态数量")
     private Integer onlineStatusAmount;
 
     /**
      * 离线状态数量
      */
-    @ApiModelProperty("离线状态数量")
+    @Schema(description = "离线状态数量")
     private Integer offlineStatusAmount;
 }

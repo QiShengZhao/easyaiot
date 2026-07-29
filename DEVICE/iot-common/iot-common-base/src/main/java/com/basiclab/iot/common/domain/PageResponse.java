@@ -3,8 +3,7 @@ package com.basiclab.iot.common.domain;
 import com.basiclab.iot.common.exception.BaseException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -18,28 +17,28 @@ import java.util.List;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(value = "分页查询响应数据", description = "用于返回分页查询响应的内容")
+@Schema(description = "用于返回分页查询响应的内容")
 public class PageResponse<T> {
 
-    @ApiModelProperty(value = "请求响应状态码，0-成功，-1-未知，其他自定义", example = "0")
+    @Schema(description = "请求响应状态码，0-成功，-1-未知，其他自定义", example = "0")
     private Integer code = 0;
 
-    @ApiModelProperty(value = "请求响应消息", example = "")
+    @Schema(description = "请求响应消息", example = "")
     private String message = "";
 
-    @ApiModelProperty(value = "请求响应数据")
+    @Schema(description = "请求响应数据")
     private List<T> data;
 
-    @ApiModelProperty(value = "总记录数", example = "100")
+    @Schema(description = "总记录数", example = "100")
     private long total;
 
-    @ApiModelProperty(value = "总页数", example = "10")
+    @Schema(description = "总页数", example = "10")
     private long totalPages;
 
-    @ApiModelProperty(value = "当前页", example = "1")
+    @Schema(description = "当前页", example = "1")
     private int pageNo = 1;
 
-    @ApiModelProperty(value = "每页显示记录数", example = "10")
+    @Schema(description = "每页显示记录数", example = "10")
     private int pageSize = 10;
 
     public PageResponse() {

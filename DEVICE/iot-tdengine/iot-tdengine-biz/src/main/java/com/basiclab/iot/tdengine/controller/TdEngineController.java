@@ -18,8 +18,8 @@ import com.basiclab.iot.tdengine.domain.query.TDDeviceDataHistoryRequest;
 import com.basiclab.iot.tdengine.domain.query.TDDeviceDataRequest;
 import com.basiclab.iot.tdengine.service.TdEngineService;
 import com.basiclab.iot.tdengine.utils.TdsUtils;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.UncategorizedSQLException;
@@ -52,7 +52,7 @@ public class TdEngineController extends BaseController {
      * @param dataBaseName 数据库名称
      * @return 执行结果
      */
-    @ApiOperation(value = "创建时序数据库", notes = "创建时序数据库")
+    @Operation(summary = "创建时序数据库", description = "创建时序数据库")
     @PostMapping("/createDatabase")
     public R createDatabase(@RequestParam String dataBaseName) {
         try {
@@ -70,7 +70,7 @@ public class TdEngineController extends BaseController {
      * @param superTableName 超级表名称
      * @return 执行结果
      */
-    @ApiOperation(value = "创建超级表", notes = "创建超级表")
+    @Operation(summary = "创建超级表", description = "创建超级表")
     @PostMapping("/createSuperTable")
     public R createSuperTable(@RequestParam String superTableName) {
         try {
@@ -88,7 +88,7 @@ public class TdEngineController extends BaseController {
      * @param superTableDTO 超级表信息
      * @return 执行结果
      */
-    @ApiOperation(value = "创建超级表及字段", notes = "创建超级表及字段")
+    @Operation(summary = "创建超级表及字段", description = "创建超级表及字段")
     @PostMapping("/createSuperTableAndColumn")
     public R createSuperTableAndColumn(@RequestBody SuperTableDTO superTableDTO) {
         if (StrUtil.isBlank(superTableDTO.getDataBaseName())) {
@@ -109,7 +109,7 @@ public class TdEngineController extends BaseController {
      * @param object 超级表json信息
      * @return 执行结果
      */
-    @ApiOperation(value = "创建超级表及字段-方式二", notes = "创建超级表及字段-方式二")
+    @Operation(summary = "创建超级表及字段-方式二", description = "创建超级表及字段-方式二")
     @PostMapping("/createSuperTableAndColumnTwo")
     public R createSuperTableAndColumnOne(@RequestBody JSONObject object) {
         try {
@@ -133,7 +133,7 @@ public class TdEngineController extends BaseController {
      * @param tableDTO 子表信息
      * @return 执行结果
      */
-    @ApiOperation(value = "创建子表", notes = "创建子表")
+    @Operation(summary = "创建子表", description = "创建子表")
     @PostMapping("/createSubTable")
     public R createSubTable(@RequestBody TableDTO tableDTO) {
         try {
@@ -154,7 +154,7 @@ public class TdEngineController extends BaseController {
      * @param object 子表json信息
      * @return 执行结果
      */
-    @ApiOperation(value = "创建子表-方式二", notes = "创建子表-方式二")
+    @Operation(summary = "创建子表-方式二", description = "创建子表-方式二")
     @PostMapping("/createSubTableTwo")
     public R createSubTableTwo(@RequestBody JSONObject object) {
         try {
@@ -178,7 +178,7 @@ public class TdEngineController extends BaseController {
      * @param superTableName
      * @return
      */
-    @ApiOperation(value = "删除超级表", notes = "删除超级表")
+    @Operation(summary = "删除超级表", description = "删除超级表")
     @PostMapping("/dropSuperTable")
     public R dropSuperTable(@RequestParam(value = "superTableName") String superTableName) {
         try {
@@ -196,7 +196,7 @@ public class TdEngineController extends BaseController {
      * @param superTableDTO 数据信息
      * @return 执行结果
      */
-    @ApiOperation(value = "超级表新增字段", notes = "超级表新增字段")
+    @Operation(summary = "超级表新增字段", description = "超级表新增字段")
     @PostMapping("/alterSuperTableColumn")
     public R alterSuperTableColumn(@RequestBody SuperTableDTO superTableDTO) {
         try {
@@ -217,7 +217,7 @@ public class TdEngineController extends BaseController {
      * @param superTableDTO 数据信息
      * @return 执行结果
      */
-    @ApiOperation(value = "超级表删除字段", notes = "超级表删除字段")
+    @Operation(summary = "超级表删除字段", description = "超级表删除字段")
     @PostMapping("/dropSuperTableColumn")
     public R dropSuperTableColumn(@RequestBody SuperTableDTO superTableDTO) {
         try {
@@ -238,7 +238,7 @@ public class TdEngineController extends BaseController {
      * @param superTableDTO 数据信息
      * @return 执行结果
      */
-    @ApiOperation(value = "新增标签", notes = "新增标签")
+    @Operation(summary = "新增标签", description = "新增标签")
     @PostMapping("/alterSuperTableTag")
     public R alterSuperTableTag(@RequestBody SuperTableDTO superTableDTO) {
         try {
@@ -259,7 +259,7 @@ public class TdEngineController extends BaseController {
      * @param superTableDTO 数据信息
      * @return 执行结果
      */
-    @ApiOperation(value = "删除标签", notes = "删除标签")
+    @Operation(summary = "删除标签", description = "删除标签")
     @PostMapping("/dropSuperTableTag")
     public R dropSuperTableTag(@RequestBody SuperTableDTO superTableDTO) {
         try {
@@ -282,7 +282,7 @@ public class TdEngineController extends BaseController {
      * @param newName
      * @return
      */
-    @ApiOperation(value = "修改标签名称", notes = "修改标签名称")
+    @Operation(summary = "修改标签名称", description = "修改标签名称")
     @PostMapping("/alterSuperTableTagRename")
     public R alterSuperTableTagRename(@RequestParam(value = "superTableName") String superTableName, @RequestParam(value = "oldName") String oldName, @RequestParam(value = "newName") String newName) {
         try {
@@ -301,7 +301,7 @@ public class TdEngineController extends BaseController {
      * @param tableName
      * @return
      */
-    @ApiOperation(value = "查询超级表、子表结构", notes = "查询超级表、子表结构")
+    @Operation(summary = "查询超级表、子表结构", description = "查询超级表、子表结构")
     @GetMapping("/describeSuperOrSubTable")
     public R<List<SuperTableDescribeVO>> describeSuperOrSubTable(@RequestParam(value = "tableName") String tableName) {
         try {
@@ -322,7 +322,7 @@ public class TdEngineController extends BaseController {
      * @param tableDTO 数据信息
      * @return 执行结果
      */
-    @ApiOperation(value = "新增数据", notes = "新增数据")
+    @Operation(summary = "新增数据", description = "新增数据")
     @PostMapping("/insertTableData")
     public R insertTableData(@RequestBody TableDTO tableDTO) {
         try {
@@ -346,12 +346,12 @@ public class TdEngineController extends BaseController {
      * @param endTime   The end time for the query range (optional).
      * @return {@link R<List<Map<String,Object>>>} The query result.
      */
-    @ApiOperation(value = "Query Data from a Regular Table Within a Time Range", notes = "Fetches data within the specified time range if both start and end times are provided; otherwise, retrieves the latest record.")
+    @Operation(summary = "Query Data from a Regular Table Within a Time Range", description = "Fetches data within the specified time range if both start and end times are provided; otherwise, retrieves the latest record.")
     @GetMapping("/getDataInRangeOrLastRecord")
     public R<List<Map<String, Object>>> getDataInRangeOrLastRecord(
-            @ApiParam(value = "Name of the regular table", required = true) @RequestParam(value = "tableName") String tableName,
-            @ApiParam(value = "Start time for the query", example = "1634572800000", required = false) @RequestParam(value = "startTime", required = false) Long startTime,
-            @ApiParam(value = "End time for the query", example = "1634659200000", required = false) @RequestParam(value = "endTime", required = false) Long endTime) {
+            @Parameter(description = "Name of the regular table", required = true) @RequestParam(value = "tableName") String tableName,
+            @Parameter(description = "Start time for the query", example = "1634572800000", required = false) @RequestParam(value = "startTime", required = false) Long startTime,
+            @Parameter(description = "End time for the query", example = "1634659200000", required = false) @RequestParam(value = "endTime", required = false) Long endTime) {
         try {
             if (StringUtils.isEmpty(tableName)) {
                 return R.fail("Table name cannot be empty");
@@ -437,7 +437,7 @@ public class TdEngineController extends BaseController {
         }
     }
 
-    @ApiOperation("通过设备标识查询设备最新数据")
+    @Operation(summary = "通过设备标识查询设备最新数据")
     @PostMapping("/getLastRowsListByIdentifier")
     public R<List<DeviceData>> getLastRowsListByIdentifier(@RequestBody TDDeviceDataRequest tdDeviceDataRequest) {
         try {
@@ -456,7 +456,7 @@ public class TdEngineController extends BaseController {
         }
     }
 
-    @ApiOperation("查询运行时属性历史数据")
+    @Operation(summary = "查询运行时属性历史数据")
     @RequestMapping(value = "/deviceInfo/history", method = RequestMethod.POST)
     public TableDataInfo deviceInfoHistoryPage(@RequestBody TDDeviceDataHistoryRequest request) {
         // 无分页参数时拉最近 1000 条，避免 Feign/脏分页导致偶发空结果
@@ -471,7 +471,7 @@ public class TdEngineController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation("查询设备时序数据（通用接口）")
+    @Operation(summary = "查询设备时序数据（通用接口）")
     @PostMapping("/device/timeSeries/query")
     public R<List<Map<String, Object>>> queryDeviceTimeSeriesData(@Validated @RequestBody com.basiclab.iot.tdengine.domain.query.DeviceTimeSeriesQueryRequest request) {
         try {

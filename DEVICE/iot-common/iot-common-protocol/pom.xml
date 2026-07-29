@@ -27,8 +27,9 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <scope>provided</scope> <!-- 仅编译期需要 v3 注解 -->
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

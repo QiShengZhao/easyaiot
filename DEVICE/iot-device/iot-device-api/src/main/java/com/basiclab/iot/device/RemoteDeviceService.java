@@ -8,7 +8,7 @@ import com.basiclab.iot.device.domain.device.vo.EnsureDeviceOnUplinkParam;
 import com.basiclab.iot.device.domain.device.vo.EnsureGatewaySubDeviceParam;
 import com.basiclab.iot.device.domain.device.vo.PropertyThresholdEvaluateParam;
 import com.basiclab.iot.device.factory.RemoteDeviceFallbackFactory;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,7 +91,7 @@ public interface RemoteDeviceService {
      * @param deviceIdentification
      * @return
      */
-    @ApiOperation("通过设备标识查询设备")
+    @Operation(summary = "通过设备标识查询设备")
     @GetMapping(value = "/findOneByDeviceIdentification/{deviceIdentification}")
     public AjaxResult findOneByDeviceIdentification(@PathVariable("deviceIdentification") String deviceIdentification);
 

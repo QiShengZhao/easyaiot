@@ -11,8 +11,8 @@ import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.domain.device.vo.DeviceServiceInvokeResponse;
 import com.basiclab.iot.device.messagebus.ServiceInvokeResponseHandler;
 import com.basiclab.iot.device.service.device.DeviceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * Device service invocation log endpoints.
  */
-@Api(tags = "Device Service Log")
+@Tag(name = "Device Service Log")
 @RestController
 @RequestMapping("/deviceService")
 @RequiredArgsConstructor
@@ -38,7 +38,7 @@ public class DeviceServiceController {
     private final DeviceServiceInvokeResponseMapper responseMapper;
     private final DeviceService deviceService;
 
-    @ApiOperation("List device service invocation logs")
+    @Operation(summary = "List device service invocation logs")
     @GetMapping("/list")
     public TableDataInfo list(@RequestParam Long deviceId,
                               @RequestParam(defaultValue = "1") Integer page,

@@ -1,8 +1,7 @@
 package com.basiclab.iot.device.domain.device.qo;
 
 import com.basiclab.iot.common.domain.PageQo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
 
@@ -15,11 +14,11 @@ import lombok.ToString;
  */
 @Data
 @ToString
-@ApiModel(value = "OpsDeviceLogPageQueryQo对象", description = "分页查询设备上报日志记录接口参数模型")
+@Schema(description = "分页查询设备上报日志记录接口参数模型")
 public class OpsDeviceLogPageQueryQo extends PageQo {
 
     private static final long serialVersionUID = -5357130766490913044L;
 
-    @ApiModelProperty(value = "设备唯一ID")
+    @Schema(description = "设备唯一ID")
     private String deviceIdentification;
 }

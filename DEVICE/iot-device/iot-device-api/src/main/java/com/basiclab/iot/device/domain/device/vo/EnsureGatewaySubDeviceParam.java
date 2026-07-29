@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.device.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -16,25 +15,25 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 @Accessors(chain = true)
-@ApiModel(value = "EnsureGatewaySubDeviceParam", description = "网关确保子设备存在参数")
+@Schema(description = "网关确保子设备存在参数")
 public class EnsureGatewaySubDeviceParam implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "网关设备标识", required = true)
+    @Schema(description = "网关设备标识", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "网关设备标识不能为空")
     private String gatewayIdentification;
 
-    @ApiModelProperty(value = "子设备所属产品标识（须为 SUBSET 产品）", required = true)
+    @Schema(description = "子设备所属产品标识（须为 SUBSET 产品）", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "子设备产品标识不能为空")
     private String productIdentification;
 
-    @ApiModelProperty(value = "子设备标识", required = true)
+    @Schema(description = "子设备标识", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotEmpty(message = "子设备标识不能为空")
     private String deviceIdentification;
 
-    @ApiModelProperty(value = "子设备名称（新建时可选）")
+    @Schema(description = "子设备名称（新建时可选）")
     private String deviceName;
 
-    @ApiModelProperty(value = "租户编号")
+    @Schema(description = "租户编号")
     private Long tenantId;
 }

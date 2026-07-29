@@ -10,7 +10,6 @@ import com.basiclab.iot.dataset.dal.dataobject.DatasetDO;
 import com.basiclab.iot.dataset.domain.dataset.vo.*;
 import com.basiclab.iot.dataset.service.DatasetService;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -98,7 +97,7 @@ public class DatasetController {
     }
 
     @PostMapping("/upload-cover")
-    @ApiOperation("上传数据集封面(minio)")
+    @Operation(summary = "上传数据集封面(minio)")
     R<String> uploadCover(@RequestPart("file") MultipartFile file) {
         try {
             return R.ok(datasetService.uploadCover(file), "上传数据集封面成功");

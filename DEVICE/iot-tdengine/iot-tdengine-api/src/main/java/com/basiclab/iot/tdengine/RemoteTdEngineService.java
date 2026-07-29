@@ -11,8 +11,8 @@ import com.basiclab.iot.tdengine.domain.model.TableDTO;
 import com.basiclab.iot.tdengine.domain.model.TagsSelectDTO;
 import com.basiclab.iot.tdengine.domain.query.TDDeviceDataRequest;
 import com.basiclab.iot.tdengine.factory.RemoteTdEngineFallbackFactory;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -172,12 +172,12 @@ public interface RemoteTdEngineService {
      * @param endTime   The end time for the query range (optional).
      * @return {@link R<List<<Map<String,Object>>>} The query result.
      */
-    @ApiOperation(value = "Query Data from a Regular Table Within a Time Range", notes = "Fetches data within the specified time range if both start and end times are provided; otherwise, retrieves the latest record.")
+    @Operation(summary = "Query Data from a Regular Table Within a Time Range", description = "Fetches data within the specified time range if both start and end times are provided; otherwise, retrieves the latest record.")
     @GetMapping("/getDataInRangeOrLastRecord")
     public R<List<Map<String, Object>>> getDataInRangeOrLastRecord(
-            @ApiParam(value = "Name of the regular table", required = true) @RequestParam(value = "tableName") String tableName,
-            @ApiParam(value = "Start time for the query", example = "1634572800000", required = false) @RequestParam(value = "startTime", required = false) Long startTime,
-            @ApiParam(value = "End time for the query", example = "1634659200000", required = false) @RequestParam(value = "endTime", required = false) Long endTime);
+            @Parameter(description = "Name of the regular table", required = true) @RequestParam(value = "tableName") String tableName,
+            @Parameter(description = "Start time for the query", example = "1634572800000", required = false) @RequestParam(value = "startTime", required = false) Long startTime,
+            @Parameter(description = "End time for the query", example = "1634659200000", required = false) @RequestParam(value = "endTime", required = false) Long endTime);
 
 
     /**

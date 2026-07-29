@@ -6,7 +6,7 @@ import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.device.domain.device.vo.AssociateGatewayRequest;
 import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.service.device.DeviceAssociatedService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class DeviceAssociatedController extends BaseController {
     @Resource
     private DeviceAssociatedService deviceAssociatedService;
 
-    @ApiOperation("查询关联子设备列表（含网关拓扑合并）")
+    @Operation(summary = "查询关联子设备列表（含网关拓扑合并）")
     @GetMapping("/list")
     public TableDataInfo list(@RequestParam("centerDeviceIdentification") String centerDeviceIdentification) {
         List<Device> list = deviceAssociatedService.listAssociatedDevices(centerDeviceIdentification);
@@ -39,7 +39,7 @@ public class DeviceAssociatedController extends BaseController {
         return rsp;
     }
 
-    @ApiOperation("查询可添加的任意已存在设备")
+    @Operation(summary = "查询可添加的任意已存在设备")
     @GetMapping("/candidates")
     public TableDataInfo candidates(
             @RequestParam("centerDeviceIdentification") String centerDeviceIdentification,
@@ -62,7 +62,7 @@ public class DeviceAssociatedController extends BaseController {
         return rsp;
     }
 
-    @ApiOperation("添加关联子设备（任意设备类型）")
+    @Operation(summary = "添加关联子设备（任意设备类型）")
     @PostMapping("/associate")
     public AjaxResult associate(@RequestBody AssociateGatewayRequest request) {
         try {
@@ -77,7 +77,7 @@ public class DeviceAssociatedController extends BaseController {
         }
     }
 
-    @ApiOperation("解绑关联子设备")
+    @Operation(summary = "解绑关联子设备")
     @PostMapping("/disassociate")
     public AjaxResult disassociate(@RequestBody AssociateGatewayRequest request) {
         try {

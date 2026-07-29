@@ -1,6 +1,6 @@
 package com.basiclab.iot.common.domain;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,18 +21,18 @@ import java.time.LocalDateTime;
 public class BaseVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "id", example = "admin")
+    @Schema(description = "id", example = "admin")
     protected Long id;
 
-    @ApiModelProperty(value = "创建人", example = "admin")
+    @Schema(description = "创建人", example = "admin")
     protected String createdBy;
 
-    @ApiModelProperty(value = "创建时间", example = "2020/7/16 14:31:27")
+    @Schema(description = "创建时间", example = "2020/7/16 14:31:27")
     protected LocalDateTime createdTime;
 
-    @ApiModelProperty(value = "更新人", example = "admin")
+    @Schema(description = "更新人", example = "admin")
     protected String updatedBy;
 
-    @ApiModelProperty(value = "更新时间", example = "2020/7/16 14:31:27")
+    @Schema(description = "更新时间", example = "2020/7/16 14:31:27")
     protected LocalDateTime updatedTime;
 }

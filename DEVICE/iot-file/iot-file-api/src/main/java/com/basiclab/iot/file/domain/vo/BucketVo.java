@@ -1,7 +1,6 @@
 package com.basiclab.iot.file.domain.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
@@ -14,10 +13,10 @@ import java.time.ZonedDateTime;
  * @wechat EasyAIoT2025
  */
 @Data
-@ApiModel(value = "桶对象", description = "桶Vo")
+@Schema(description = "桶Vo")
 public class BucketVo {
-    @ApiModelProperty(value = "桶名称")
+    @Schema(description = "桶名称")
     private String name;
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     private ZonedDateTime creationDate;
 }

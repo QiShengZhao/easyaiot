@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +14,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@ApiModel("设备关联子设备")
+@Schema(description = "设备关联子设备")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,13 +26,13 @@ public class DeviceAssociatedLink implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("中心设备标识")
+    @Schema(description = "中心设备标识")
     private String centerDeviceIdentification;
 
-    @ApiModelProperty("关联设备主键")
+    @Schema(description = "关联设备主键")
     private Long associatedDeviceId;
 
-    @ApiModelProperty("关联设备标识")
+    @Schema(description = "关联设备标识")
     private String associatedDeviceIdentification;
 
     private Integer sortOrder;

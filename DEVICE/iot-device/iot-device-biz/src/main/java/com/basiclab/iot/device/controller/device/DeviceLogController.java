@@ -7,8 +7,8 @@ import com.basiclab.iot.common.domain.TableDataInfo;
 import com.basiclab.iot.common.utils.StringUtils;
 import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.service.device.DeviceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 /**
  * Device-originated MQTT log query endpoints.
  */
-@Api(tags = "Device MQTT Log")
+@Tag(name = "Device MQTT Log")
 @RestController
 @RequestMapping("/device/log")
 @RequiredArgsConstructor
@@ -44,7 +44,7 @@ public class DeviceLogController {
 
     private final DeviceService deviceService;
 
-    @ApiOperation("List device-originated MQTT logs")
+    @Operation(summary = "List device-originated MQTT logs")
     @GetMapping("/{deviceId}")
     public TableDataInfo list(@PathVariable Long deviceId,
                               @RequestParam(defaultValue = "1") Integer page,

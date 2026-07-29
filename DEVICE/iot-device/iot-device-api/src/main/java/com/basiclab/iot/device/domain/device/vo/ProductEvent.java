@@ -6,8 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -22,7 +21,7 @@ import java.time.LocalDateTime;
  * @wechat EasyAIoT2025
  */
 
-@ApiModel(value = "产品事件模型")
+@Schema(description = "产品事件模型")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,12 +39,12 @@ public class ProductEvent implements Serializable {
     /**
      * 事件名称
      */
-    @ApiModelProperty("事件名称")
+    @Schema(description = "事件名称")
     private String eventName;
     /**
      * 事件标识
      */
-    @ApiModelProperty("事件标识")
+    @Schema(description = "事件标识")
     private String eventCode;
     /**
      * 事件类型。
@@ -53,45 +52,45 @@ public class ProductEvent implements Serializable {
      * ALERT_EVENT_TYPE：告警。
      * ERROR_EVENT_TYPE：故障
      */
-    @ApiModelProperty("事件类型 INFO_EVENT_TYPE：信息。 ALERT_EVENT_TYPE：告警。 ERROR_EVENT_TYPE：故障")
+    @Schema(description = "事件类型 INFO_EVENT_TYPE：信息。 ALERT_EVENT_TYPE：告警。 ERROR_EVENT_TYPE：故障")
     private String eventType;
     /**
      * 产品模版标识
      */
-    @ApiModelProperty("产品模版标识")
+    @Schema(description = "产品模版标识")
     private String templateIdentification;
     /**
      * 产品标识
      */
-    @ApiModelProperty("产品标识")
+    @Schema(description = "产品标识")
     private String productIdentification;
     /**
      * 状态(字典值：0启用  1停用)
      */
-    @ApiModelProperty("状态(字典值：0启用  1停用)")
+    @Schema(description = "状态(字典值：0启用  1停用)")
     private String status;
     /**
      * 描述
      */
-    @ApiModelProperty("描述")
+    @Schema(description = "描述")
     private String description;
     /**
      * 创建者
      */
-    @ApiModelProperty("创建者")
+    @Schema(description = "创建者")
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
     /**
      * 创建时间
      */
-    @ApiModelProperty("创建时间")
+    @Schema(description = "创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
     /**
      * 更新者
      */
-    @ApiModelProperty("更新者")
+    @Schema(description = "更新者")
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
     /**
@@ -99,7 +98,7 @@ public class ProductEvent implements Serializable {
      */
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty("更新时间")
+    @Schema(description = "更新时间")
     private LocalDateTime updateTime;
 
 }

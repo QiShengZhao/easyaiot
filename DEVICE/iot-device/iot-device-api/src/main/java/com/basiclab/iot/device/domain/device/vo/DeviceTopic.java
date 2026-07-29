@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +26,7 @@ import java.time.LocalDateTime;
 * @UpdateRemark: 修改内容
 * @Version: V1.0
 */
-@ApiModel(value="设备Topic数据表")
+@Schema(description="设备Topic数据表")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,73 +39,73 @@ public class DeviceTopic implements Serializable {
     /**
     * id
     */
-    @ApiModelProperty(value="id")
+    @Schema(description="id")
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
     * 设备标识
     */
-    @ApiModelProperty(value="设备标识", required = true)
+    @Schema(description="设备标识", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotNull(message = "设备标识不能为空")
     private String deviceIdentification;
 
     /**
     * 类型(0:基础Topic,1:自定义Topic)
     */
-    @ApiModelProperty(value="类型(0:基础Topic,1:自定义Topic)")
+    @Schema(description="类型(0:基础Topic,1:自定义Topic)")
     private String type;
 
     /**
     * topic
     */
-    @ApiModelProperty(value="topic")
+    @Schema(description="topic")
     private String topic;
 
     /**
     * 发布者
     */
-    @ApiModelProperty(value="发布者")
+    @Schema(description="发布者")
     private String publisher;
 
     /**
     * 订阅者
     */
-    @ApiModelProperty(value="订阅者")
+    @Schema(description="订阅者")
     private String subscriber;
 
     /**
     * 创建者
     */
-    @ApiModelProperty(value="创建者")
+    @Schema(description="创建者")
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
 
     /**
     * 创建时间
     */
-    @ApiModelProperty(value="创建时间")
+    @Schema(description="创建时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     /**
     * 更新者
     */
-    @ApiModelProperty(value="更新者")
+    @Schema(description="更新者")
     @TableField(value = "update_by", fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
     * 更新时间
     */
-    @ApiModelProperty(value="更新时间")
+    @Schema(description="更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     /**
     * 备注
     */
-    @ApiModelProperty(value="备注")
+    @Schema(description="备注")
     private String remark;
 
     private static final long serialVersionUID = 1L;

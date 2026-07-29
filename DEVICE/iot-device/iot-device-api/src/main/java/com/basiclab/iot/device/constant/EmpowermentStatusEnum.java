@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.constant;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +18,7 @@ import java.util.List;
  **/
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "EmpowermentStatus", description = "赋能状态类型")
+@Schema(description = "赋能状态类型")
 public enum EmpowermentStatusEnum {
 
     /**

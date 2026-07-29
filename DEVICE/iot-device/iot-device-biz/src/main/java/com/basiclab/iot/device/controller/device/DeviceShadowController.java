@@ -5,8 +5,8 @@ import com.basiclab.iot.common.domain.R;
 import com.basiclab.iot.common.utils.StringUtils;
 import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.service.device.DeviceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +21,7 @@ import java.util.Objects;
 /**
  * Device shadow query endpoints.
  */
-@Api(tags = "Device Shadow")
+@Tag(name = "Device Shadow")
 @RestController
 @RequestMapping("/shadow")
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class DeviceShadowController {
 
     private final DeviceService deviceService;
 
-    @ApiOperation("Get the latest device shadow (reported / desired / delta)")
+    @Operation(summary = "Get the latest device shadow (reported / desired / delta)")
     @GetMapping("/{deviceId}")
     public R<?> getDeviceShadow(@PathVariable Long deviceId) {
         Device device = deviceService.findOneById(deviceId);

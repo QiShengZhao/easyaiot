@@ -45,6 +45,12 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
+        <!-- Guava 本地缓存（TokenAuthenticationFilter 使用；原经 knife4j/springfox 传递引入） -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+
         <!-- RPC 远程调用相关 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

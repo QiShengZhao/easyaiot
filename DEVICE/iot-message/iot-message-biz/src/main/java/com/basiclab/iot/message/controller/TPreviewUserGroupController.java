@@ -6,7 +6,7 @@ import com.basiclab.iot.common.domain.TableDataInfo;
 import com.basiclab.iot.message.domain.entity.TPreviewUserGroup;
 import com.basiclab.iot.message.service.TPreviewUserGroupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,25 +30,25 @@ public class TPreviewUserGroupController extends BaseController {
     private TPreviewUserGroupService tPreviewUserGroupService;
 
     @PostMapping("/add")
-    @ApiOperation("新增")
+    @Operation(summary = "新增")
     public AjaxResult add(@RequestBody TPreviewUserGroup tPreviewUserGroup){
         return tPreviewUserGroupService.add(tPreviewUserGroup);
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新")
+    @Operation(summary = "更新")
     public AjaxResult update(@RequestBody TPreviewUserGroup tPreviewUserGroup){
         return AjaxResult.success(tPreviewUserGroupService.update(tPreviewUserGroup));
     }
 
     @GetMapping("/delete")
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     public AjaxResult delete(String id){
         return AjaxResult.success(tPreviewUserGroupService.delete(id));
     }
 
     @GetMapping("/query")
-    @ApiOperation("查询")
+    @Operation(summary = "查询")
     public TableDataInfo query(@ModelAttribute TPreviewUserGroup tPreviewUserGroup){
         startPage();
         List<TPreviewUserGroup> query = tPreviewUserGroupService.query(tPreviewUserGroup);

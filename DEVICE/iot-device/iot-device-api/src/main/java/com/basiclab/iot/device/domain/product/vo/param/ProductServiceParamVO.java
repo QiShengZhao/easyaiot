@@ -1,7 +1,6 @@
 package com.basiclab.iot.device.domain.product.vo.param;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -29,7 +28,7 @@ import java.util.List;
 @Accessors(chain = true)
 @EqualsAndHashCode
 @Builder
-@ApiModel(value = "ProductServiceParamVO", description = "产品模型服务参数VO")
+@Schema(description = "产品模型服务参数VO")
 public class ProductServiceParamVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,69 +36,69 @@ public class ProductServiceParamVO implements Serializable {
     /**
      * 服务id
      */
-    @ApiModelProperty(value = "服务id")
+    @Schema(description = "服务id")
     private Long id;
 
     /**
      * 服务编码:支持英文大小写、数字、下划线和中划线
      */
-    @ApiModelProperty(value = "服务编码:支持英文大小写、数字、下划线和中划线")
+    @Schema(description = "服务编码:支持英文大小写、数字、下划线和中划线")
     @NotEmpty(message = "请填写服务编码:支持英文大小写、数字、下划线和中划线")
     @Size(max = 255, message = "服务编码:支持英文大小写、数字、下划线和中划线长度不能超过{max}")
     private String serviceCode;
     /**
      * 服务名称
      */
-    @ApiModelProperty(value = "服务名称")
+    @Schema(description = "服务名称")
     @Size(max = 255, message = "服务名称长度不能超过{max}")
     private String serviceName;
 
     /**
      * 产品模版标识
      */
-    @ApiModelProperty(value = "产品模版标识")
+    @Schema(description = "产品模版标识")
     private String templateIdentification;
 
     /**
      * 产品标识
      */
-    @ApiModelProperty(value = "产品标识")
+    @Schema(description = "产品标识")
     private String productIdentification;
 
     /**
      * 服务类型
      */
-    @ApiModelProperty(value = "服务类型")
+    @Schema(description = "服务类型")
     @Size(max = 255, message = "服务类型长度不能超过{max}")
     private String serviceType;
     /**
      * 状态(字典值：0启用  1停用)
      */
-    @ApiModelProperty(value = "状态(字典值：0启用  1停用)")
+    @Schema(description = "状态(字典值：0启用  1停用)")
     @NotNull(message = "请填写状态(字典值：0启用  1停用)")
     private Integer serviceStatus;
     /**
      * 服务的描述信息:文本描述，不影响实际功能，可配置为空字符串。
      */
-    @ApiModelProperty(value = "服务的描述信息:文本描述，不影响实际功能，可配置为空字符串。")
+    @Schema(description = "服务的描述信息:文本描述，不影响实际功能，可配置为空字符串。")
     @Size(max = 255, message = "服务的描述信息:文本描述，不影响实际功能，可配置为空字符串。长度不能超过{max}")
     private String description;
     /**
      * 备注
      */
-    @ApiModelProperty(value = "备注")
+    @Schema(description = "备注")
     @Size(max = 500, message = "备注长度不能超过{max}")
     private String remark;
     /**
      * 创建人组织
      */
-    @ApiModelProperty(value = "创建人组织")
+    @Schema(description = "创建人组织")
     private Long createdOrgId;
 
-    @ApiModelProperty(value = "产品服务命令")
+    @Schema(description = "产品服务命令")
     private List<ProductCommandParamVO> commands;
 
-    @ApiModelProperty(value = "产品服务属性")
+    @Schema(description = "产品服务属性")
     private List<ProductPropertyParamVO> properties;
 
 }

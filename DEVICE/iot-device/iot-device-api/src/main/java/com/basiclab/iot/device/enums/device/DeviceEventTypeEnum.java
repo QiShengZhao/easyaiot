@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.enums.device;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  */
 @Getter
 @NoArgsConstructor
-@ApiModel(value = "DeviceEventTypeEnum", description = "设备动作类型 枚举")
+@Schema(description = "设备动作类型 枚举")
 public enum DeviceEventTypeEnum {
 
     PUBLISH("PUBLISH", "Publishing data to a topic."),

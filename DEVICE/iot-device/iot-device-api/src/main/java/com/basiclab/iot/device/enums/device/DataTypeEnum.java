@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.enums.device;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 
 import java.util.Optional;
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 @Getter
-@ApiModel(value = "DataTypeEnum", description = "TD数据类型-枚举")
+@Schema(description = "TD数据类型-枚举")
 public enum DataTypeEnum {
     /**
      * 时间戳 缺省精度毫秒（格林威治时间开始）

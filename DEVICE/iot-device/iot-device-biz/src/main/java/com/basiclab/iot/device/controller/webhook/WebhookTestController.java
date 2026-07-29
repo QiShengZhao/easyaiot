@@ -3,7 +3,7 @@ package com.basiclab.iot.device.controller.webhook;
 import com.basiclab.iot.common.domain.AjaxResult;
 import com.basiclab.iot.device.domain.model.dto.WebhookTestDto;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +47,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @PostMapping("/testParams")
-    @ApiOperation("Webhook测试推送 - Params方式（URL参数）")
+    @Operation(summary = "Webhook测试推送 - Params方式（URL参数）")
     public AjaxResult testWebhookParams(
             @RequestParam(required = false) String webhookUrl,
             @RequestParam(required = false) String testParam1,
@@ -108,7 +108,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @GetMapping("/test")
-    @ApiOperation("Webhook测试推送 - 简单GET测试")
+    @Operation(summary = "Webhook测试推送 - 简单GET测试")
     public AjaxResult testWebhook() {
         log.info("========== Webhook测试推送 - GET测试 ==========");
         log.info("✅ 请求已到达 WebhookTestController.testWebhook 方法");
@@ -125,7 +125,7 @@ public class WebhookTestController {
      * @return 测试结果
      */
     @PostMapping("/testBody")
-    @ApiOperation("Webhook测试推送 - Body方式（请求体）")
+    @Operation(summary = "Webhook测试推送 - Body方式（请求体）")
     public AjaxResult testWebhookBody(
             @RequestBody(required = false) WebhookTestDto webhookTestDto,
             HttpServletRequest request) {

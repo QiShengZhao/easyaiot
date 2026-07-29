@@ -8,8 +8,8 @@ import com.basiclab.iot.device.domain.device.vo.Device;
 import com.basiclab.iot.device.domain.device.vo.DeviceEvent;
 import com.basiclab.iot.device.service.device.DeviceEventService;
 import com.basiclab.iot.device.service.device.DeviceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,7 +25,7 @@ import java.util.List;
  * @email andywebjava@163.com
  * @wechat EasyAIoT2025
  */
-@Api(tags = "设备事件管理")
+@Tag(name = "设备事件管理")
 @RestController
 @RequestMapping("/deviceEvent")
 public class DeviceEventController extends BaseController {
@@ -40,7 +40,7 @@ public class DeviceEventController extends BaseController {
      * 查询设备事件列表
      * 兼容前端传 deviceId：自动转换为 deviceIdentification
      */
-    @ApiOperation("查询设备事件列表")
+    @Operation(summary = "查询设备事件列表")
     @GetMapping("/list")
     public TableDataInfo list(DeviceEvent deviceEvent,
                               @RequestParam(required = false) Long deviceId,
@@ -65,25 +65,25 @@ public class DeviceEventController extends BaseController {
         return getDataTable(list);
     }
 
-    @ApiOperation("获取设备事件详细信息")
+    @Operation(summary = "获取设备事件详细信息")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(deviceEventService.selectDeviceEventById(id));
     }
 
-    @ApiOperation("新增设备事件")
+    @Operation(summary = "新增设备事件")
     @PostMapping
     public AjaxResult add(@RequestBody DeviceEvent deviceEvent) {
         return toAjax(deviceEventService.insertDeviceEvent(deviceEvent));
     }
 
-    @ApiOperation("修改设备事件")
+    @Operation(summary = "修改设备事件")
     @PutMapping
     public AjaxResult edit(@RequestBody DeviceEvent deviceEvent) {
         return toAjax(deviceEventService.updateDeviceEvent(deviceEvent));
     }
 
-    @ApiOperation("删除设备事件")
+    @Operation(summary = "删除设备事件")
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable String[] ids) {
         return toAjax(deviceEventService.deleteDeviceEventByIds(ids));

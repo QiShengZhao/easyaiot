@@ -1,6 +1,6 @@
 package com.basiclab.iot.device.enums.device;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "DeviceEventStatusEnum", description = "设备动作状态 枚举")
+@Schema(description = "设备动作状态 枚举")
 public enum DeviceEventStatusEnum {
     /**
      * 成功

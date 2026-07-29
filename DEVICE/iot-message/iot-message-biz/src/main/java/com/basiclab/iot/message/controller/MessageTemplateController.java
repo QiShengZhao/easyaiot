@@ -5,7 +5,7 @@ import com.basiclab.iot.common.domain.TableDataInfo;
 import com.basiclab.iot.common.web.controller.BaseController;
 import com.basiclab.iot.message.domain.model.vo.MessagePrepareVO;
 import com.basiclab.iot.message.service.MessageTemplateService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,7 @@ public class MessageTemplateController extends BaseController {
     private MessageTemplateService messageTemplateService;
 
     @PostMapping("/add")
-    @ApiOperation("新增消息模板")
+    @Operation(summary = "新增消息模板")
     public AjaxResult add(@RequestBody MessagePrepareVO vo) {
         try {
             return AjaxResult.success(messageTemplateService.add(vo));
@@ -35,7 +35,7 @@ public class MessageTemplateController extends BaseController {
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新消息模板")
+    @Operation(summary = "更新消息模板")
     public AjaxResult update(@RequestBody MessagePrepareVO vo) {
         try {
             return AjaxResult.success(messageTemplateService.update(vo));
@@ -45,13 +45,13 @@ public class MessageTemplateController extends BaseController {
     }
 
     @GetMapping("/delete")
-    @ApiOperation("删除消息模板")
+    @Operation(summary = "删除消息模板")
     public AjaxResult delete(@RequestParam("msgType") int msgType, @RequestParam("id") String id) {
         return AjaxResult.success(messageTemplateService.delete(msgType, id));
     }
 
     @GetMapping("/query")
-    @ApiOperation("分页查询消息模板")
+    @Operation(summary = "分页查询消息模板")
     public TableDataInfo query(@ModelAttribute MessagePrepareVO vo) {
         startPage();
         List<?> list = messageTemplateService.query(vo);
@@ -59,7 +59,7 @@ public class MessageTemplateController extends BaseController {
     }
 
     @GetMapping("/queryByType")
-    @ApiOperation("根据消息类型查询模板列表")
+    @Operation(summary = "根据消息类型查询模板列表")
     public AjaxResult queryByType(@RequestParam("msgType") Integer msgType) {
         if (msgType == null) {
             return AjaxResult.error("消息类型不能为空");
@@ -73,7 +73,7 @@ public class MessageTemplateController extends BaseController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("根据ID和消息类型获取模板详情")
+    @Operation(summary = "根据ID和消息类型获取模板详情")
     public AjaxResult get(@RequestParam("id") String id, @RequestParam("msgType") Integer msgType) {
         if (id == null || id.trim().isEmpty()) {
             return AjaxResult.error("模板ID不能为空");
@@ -93,7 +93,7 @@ public class MessageTemplateController extends BaseController {
     }
 
     @GetMapping("/queryById")
-    @ApiOperation("根据ID和消息类型获取模板详情（兼容旧接口）")
+    @Operation(summary = "根据ID和消息类型获取模板详情（兼容旧接口）")
     public AjaxResult queryById(@RequestParam("id") String id, @RequestParam("msgType") Integer msgType) {
         return get(id, msgType);
     }
