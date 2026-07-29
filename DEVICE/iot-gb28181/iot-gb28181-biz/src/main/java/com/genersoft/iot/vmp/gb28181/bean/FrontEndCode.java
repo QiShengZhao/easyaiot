@@ -1,6 +1,6 @@
 package com.genersoft.iot.vmp.gb28181.bean;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 

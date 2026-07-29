@@ -174,18 +174,6 @@
             <artifactId>javax.annotation-api</artifactId>
             <!-- 版本由父 pom 管理 -->
         </dependency>
-        <!-- Jakarta Annotation API (兼容性) -->
-        <dependency>
-            <groupId>jakarta.annotation</groupId>
-            <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <!-- Jakarta Validation API (兼容性) -->
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.2</version>
-        </dependency>
         <!-- WebSocket API - Spring Boot 2.7.18 使用 javax.websocket -->
         <dependency>
             <groupId>javax.websocket</groupId>
