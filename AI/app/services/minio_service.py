@@ -145,20 +145,30 @@ class ModelService:
         try:
             minio_client = ModelService.get_minio_client()
 
-            # 检查对象是否存在
+            # 检查对象是否存在；缺失时回退到种子目录（.scripts/minio）
             try:
-                stat = minio_client.stat_object(bucket_name, object_name)
-                if not stat:
-                    error_msg = f"Minio对象不存在: {bucket_name}/{object_name}"
-                    current_app.logger.error(error_msg)
-                    return False, error_msg
+                minio_client.stat_object(bucket_name, object_name)
             except S3Error as e:
                 if e.code == 'NoSuchKey':
+                    src = ensure_local_object(bucket_name, object_name)
+                    if src:
+                        try:
+                            os.makedirs(os.path.dirname(destination_path) or '.', exist_ok=True)
+                            if os.path.abspath(src) != os.path.abspath(destination_path):
+                                shutil.copy2(src, destination_path)
+                            current_app.logger.info(
+                                'MinIO 缺失，已从种子/本地存储回退: %s/%s -> %s',
+                                bucket_name, object_name, destination_path,
+                            )
+                            return True, None
+                        except OSError as exc:
+                            error_msg = f'种子对象复制失败: {exc}'
+                            current_app.logger.error(error_msg)
+                            return False, error_msg
                     error_msg = f"Minio对象不存在: {bucket_name}/{object_name}"
                     current_app.logger.error(error_msg)
                     return False, error_msg
-                else:
-                    raise
+                raise
 
             # 下载文件
             minio_client.fget_object(bucket_name, object_name, destination_path)

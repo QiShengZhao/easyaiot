@@ -262,6 +262,23 @@ def _is_cloud_dataset_path(dataset_path: str) -> bool:
     return '://' in dataset_path and not dataset_path.startswith('file://')
 
 
+def _remap_legacy_local_dataset_path(dataset_path: str) -> str:
+    """兼容历史 Linux 宿主机路径 /projects/easyaiot/AI -> 容器内 /app。"""
+    if not dataset_path:
+        return dataset_path
+    normalized = dataset_path.replace('\\', '/')
+    legacy_prefixes = (
+        '/projects/easyaiot/AI/',
+        '/projects/EasyAIoT/AI/',
+    )
+    for prefix in legacy_prefixes:
+        if normalized.startswith(prefix):
+            remapped = '/app/' + normalized[len(prefix):]
+            if os.path.exists(remapped) or not os.path.exists(normalized):
+                return remapped
+    return dataset_path
+
+
 def _resolve_split_path(raw_path, split_name, yaml_dir, dataset_root):
     candidate_bases = [
         dataset_root,
@@ -413,6 +430,7 @@ def _normalize_dataset_yaml(dataset_root, output_dir=None):
 def _prepare_train_dataset_in_dir(dataset_path: str, model_dir: str, log_fn):
     """将本地路径/zip 或云端 MinIO 数据集准备到 model_dir。"""
     os.makedirs(model_dir, exist_ok=True)
+    dataset_path = _remap_legacy_local_dataset_path(dataset_path)
 
     if not _is_cloud_dataset_path(dataset_path):
         if not os.path.exists(dataset_path):

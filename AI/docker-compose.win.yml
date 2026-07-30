@@ -36,6 +36,13 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=basiclab@iot975248395
       - TZ=Asia/Shanghai
+      # Windows 容器网络不能用 localhost 访问网关，统一走 Gateway 别名
+      - GATEWAY_URL=http://Gateway:48080
+      - JAVA_BACKEND_URL=http://Gateway:48080
+      - AUTH_CHECK_URL=http://Gateway:48080/admin-api/system/auth/get-permission-info
+      - MINIO_ENDPOINT=MinIO:9000
+      - MINIO_SEED_DATA_ROOT=/minio-seed-data
+      - EASYAIOT_DEPLOY_PROFILE=standard
     gpus: all
     runtime: nvidia
     extra_hosts:
