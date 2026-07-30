@@ -33,12 +33,15 @@ services:
     network_mode: host
     environment:
       TZ: Asia/Shanghai
+      ZLM_HTTP_PORT: "${ZLM_HTTP_PORT:-6080}"
     volumes:
       - /mnt/easyaiot-media/playbacks:/mnt/easyaiot-media/playbacks:rw
       - ./zlm/config.ini:/conf/config.ini:ro
+      - ../docker/zlm-healthcheck.sh:/usr/local/bin/zlm-healthcheck.sh:ro
     command: ["MediaServer", "-c", "/conf/config.ini", "-l", "0"]
+    # 与主栈一致：脚本读取 secret 并剔除 CRLF
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://127.0.0.1:${ZLM_HTTP_PORT:-6080}/index/api/getServerConfig || exit 1"]
+      test: ["CMD", "/bin/sh", "/usr/local/bin/zlm-healthcheck.sh"]
       interval: 30s
       timeout: 10s
       retries: 5
