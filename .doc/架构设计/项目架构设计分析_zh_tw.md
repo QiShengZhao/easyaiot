@@ -47,7 +47,7 @@
 
 | 模組 | 語言/框架 | 職責 | 服務數 |
 |------|-----------|------|--------|
-| **DEVICE** | Java 21 + Spring Boot 2.7 + Spring Cloud | 裝置管理、系統管理、訊息推送、資料集、檔案儲存 | 8+ 微服務 |
+| **DEVICE** | Java 21 + Spring Boot 3.5 + Spring Cloud | 裝置管理、系統管理、訊息推送、資料集、檔案儲存 | 8+ 微服務 |
 | **AI** | Python + Flask + PyTorch + YOLO | 模型訓練、推理、部署、OCR、語音、LLM | 1 主服務 + 子服務 |
 | **VIDEO** | Python + Flask + OpenCV + FFmpeg | 視訊串流處理、即時/快照演算法、錄影、告警 | 1 主服務 + 6 子服務 |
 | **TASK** | C++17 + OpenCV + ONNX Runtime + FFmpeg | 邊緣端即時推理引擎 | 獨立程序 |
@@ -60,7 +60,7 @@
 ### 3.1 DEVICE 模組（Java 微服務叢集）
 
 **技術棧：**
-- **框架**：Spring Boot 2.7.18 + Spring Cloud 2021.0.5 + Spring Cloud Alibaba 2021.0.4.0
+- **框架**：Spring Boot 3.5.16 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0
 - **JDK**：Java 21
 - **閘道**：Spring Cloud Gateway
 - **註冊/設定中心**：Nacos
@@ -71,7 +71,7 @@
 - **物件儲存**：MinIO
 - **工作流程**：Flowable 6.8.0
 - **定時任務**：XXL-Job 2.3.1
-- **API 文件**：Knife4j 4.3.0 + SpringDoc
+- **API 文件**：springdoc-openapi 2.8.x + Knife4j 4.5 (Jakarta / OpenAPI 3)
 - **監控**：SkyWalking 8.12.0 + Spring Boot Admin
 - **工具庫**：Hutool 5.8.25、MapStruct 1.5.5、EasyExcel 3.3.3
 
@@ -370,14 +370,14 @@ main.cpp → Manage (Server) → Config → ConfigParser
 |------|--------|------|
 | **單點貢獻者** | 🔴 高 | 95%+ 程式碼由一人完成，存在核心人員風險 |
 | **測試覆蓋不足** | 🟡 中 | 缺乏系統化的單元測試和整合測試 |
-| **Spring Boot 2.7** | 🟡 中 | 已 EOL，建議升級到 Spring Boot 3.x |
-| **Java 21 + Spring Boot 2.7** | 🟡 中 | 非標準組合，可能存在相容性問題 |
+| **AI/VIDEO 全量鏡像構建** | 🟡 中 | 官方 Dockerfile apt/pip 依賴外網；受限網路可用 localize 鏡像 |
+| **中介軟體與業務鏡像版本漂移** | 🟡 中 | 需避免混用 Boot2 備份鏡像與 Boot3 業務包 |
 | **依賴版本管理** | 🟡 中 | 部分依賴版本較舊（如 FastJSON 1.x） |
 
 ### 7.2 改進建議
 
 1. **測試體系建設**：補充單元測試、整合測試，建立 CI/CD 流水線
-2. **框架升級**：逐步遷移到 Spring Boot 3.x + Java 21 LTS
+2. **框架跟進**：DEVICE 已升級至 Spring Boot 3.5.16 + JDK 21；持續跟進 Boot/Cloud 小版本與安全補丁
 3. **文件完善**：補充 API 文件、部署文件、開發者指南
 4. **程式碼審查**：建立 PR 審查機制，降低單人風險
 5. **監控完善**：補充 Prometheus + Grafana 監控體系

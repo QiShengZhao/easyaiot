@@ -153,3 +153,10 @@ VIDEO/ffmpeg-master-*.tar.xz
 
 # install 脚本按架构自动生成的 Docker 构建配置（DOCKER_PLATFORM / BASE_IMAGE）
 **/.env.arch
+
+# 本地运行时/联调产物（勿提交）
+WEB/_app.config.runtime.js
+**/.env.docker.win
+**/docker-compose.druid-fix.yml
+**/NUL
+AI/NUL

@@ -61,7 +61,7 @@ EasyAIoT — это платформа для анализа видео с ис�
 | Gateway | Spring Cloud | 48080 | API-шлюз |
 | VIDEO | Python Flask | 6000 | Видеосервис |
 | AI | Python FastAPI | 8100 | Сервис вывода ИИ |
-| DEVICE | Spring Boot | Несколько | Микросервисы управления устройствами |
+| DEVICE | Spring Boot 3.5.16 + JDK 21 | Несколько | Микросервисы управления устройствами (Boot3 / Jakarta) |
 
 
 ## 2. Подготовка окружения

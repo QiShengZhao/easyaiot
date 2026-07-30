@@ -47,7 +47,7 @@
 
 | 모듈 | 언어/프레임워크 | 책임 | 서비스 수 |
 |------|-----------|------|--------|
-| **DEVICE** | Java 21 + Spring Boot 2.7 + Spring Cloud | 디바이스 관리、시스템 관리、메시지 푸시、데이터셋、파일 저장 | 8+ 마이크로서비스 |
+| **DEVICE** | Java 21 + Spring Boot 3.5 + Spring Cloud | 디바이스 관리、시스템 관리、메시지 푸시、데이터셋、파일 저장 | 8+ 마이크로서비스 |
 | **AI** | Python + Flask + PyTorch + YOLO | 모델 학습、추론、배포、OCR、음성、LLM | 1개 메인 서비스 + 하위 서비스 |
 | **VIDEO** | Python + Flask + OpenCV + FFmpeg | 영상 스트림 처리、실시간/스냅샷 알고리즘、녹화、알람 | 1개 메인 서비스 + 6개 하위 서비스 |
 | **TASK** | C++17 + OpenCV + ONNX Runtime + FFmpeg | 엣지 실시간 추론 엔진 | 독립 프로세스 |
@@ -60,7 +60,7 @@
 ### 3.1 DEVICE 모듈（Java 마이크로서비스 클러스터）
 
 **기술 스택：**
-- **프레임워크**：Spring Boot 2.7.18 + Spring Cloud 2021.0.5 + Spring Cloud Alibaba 2021.0.4.0
+- **프레임워크**：Spring Boot 3.5.16 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0
 - **JDK**：Java 21
 - **게이트웨이**：Spring Cloud Gateway
 - **등록/설정 센터**：Nacos
@@ -71,7 +71,7 @@
 - **객체 저장**：MinIO
 - **워크플로**：Flowable 6.8.0
 - **예약 작업**：XXL-Job 2.3.1
-- **API 문서**：Knife4j 4.3.0 + SpringDoc
+- **API 문서**：springdoc-openapi 2.8.x + Knife4j 4.5 (Jakarta / OpenAPI 3)
 - **모니터링**：SkyWalking 8.12.0 + Spring Boot Admin
 - **유틸리티 라이브러리**：Hutool 5.8.25、MapStruct 1.5.5、EasyExcel 3.3.3
 
@@ -370,8 +370,8 @@ main.cpp → Manage (Server) → Config → ConfigParser
 |------|--------|------|
 | **단일 기여자** | 🔴 높음 | 95%+ 코드가 한 명에 의해 작성, 핵심 인력 위험 존재 |
 | **테스트 커버리지 부족** | 🟡 중간 | 체계적인 단위 테스트 및 통합 테스트 부재 |
-| **Spring Boot 2.7** | 🟡 중간 | EOL 상태, Spring Boot 3.x 업그레이드 권장 |
-| **Java 21 + Spring Boot 2.7** | 🟡 중간 | 비표준 조합, 호환성 문제 가능 |
+| **AI/VIDEO 전체 이미지 빌드** | 🟡 중간 | 공식 Dockerfile apt/pip는 외망 필요; 제한 환경에서는 localize 이미지 사용 |
+| **미들웨어/앱 이미지 버전 드리프트** | 🟡 중간 | Boot2 백업 이미지와 Boot3 앱 jar 혼용 금지 |
 | **의존성 버전 관리** | 🟡 중간 | 일부 의존성 버전 구식（예：FastJSON 1.x） |
 
 ### 7.2 개선 제안

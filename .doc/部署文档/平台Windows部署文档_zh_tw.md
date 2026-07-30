@@ -61,7 +61,7 @@ EasyAIoT 是一個物聯網+AI視頻分析平台，支持攝像頭接入、視�
 | Gateway | Spring Cloud | 48080 | API網關 |
 | VIDEO | Python Flask | 6000 | 視頻服務 |
 | AI | Python FastAPI | 8100 | AI推理服務 |
-| DEVICE | Spring Boot | 多個 | 設備管理微服務 |
+| DEVICE | Spring Boot 3.5.16 + JDK 21 | 多個 | 設備管理微服務（Boot3 / Jakarta） |
 
 
 ## 2. 環境準備

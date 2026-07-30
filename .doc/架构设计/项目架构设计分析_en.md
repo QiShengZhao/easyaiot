@@ -47,7 +47,7 @@ The project adopts a **multi-language microservice architecture**, decomposed in
 
 | Module | Language/Framework | Responsibility | Service Count |
 |------|-----------|------|--------|
-| **DEVICE** | Java 21 + Spring Boot 2.7 + Spring Cloud | Device management, system management, message push, datasets, file storage | 8+ microservices |
+| **DEVICE** | Java 21 + Spring Boot 3.5 + Spring Cloud | Device management, system management, message push, datasets, file storage | 8+ microservices |
 | **AI** | Python + Flask + PyTorch + YOLO | Model training, inference, deployment, OCR, speech, LLM | 1 main service + sub-services |
 | **VIDEO** | Python + Flask + OpenCV + FFmpeg | Video stream processing, real-time/snapshot algorithms, recording, alerts | 1 main service + 6 sub-services |
 | **TASK** | C++17 + OpenCV + ONNX Runtime + FFmpeg | Edge real-time inference engine | Standalone process |
@@ -60,7 +60,7 @@ The project adopts a **multi-language microservice architecture**, decomposed in
 ### 3.1 DEVICE Module (Java Microservice Cluster)
 
 **Technology Stack:**
-- **Framework**: Spring Boot 2.7.18 + Spring Cloud 2021.0.5 + Spring Cloud Alibaba 2021.0.4.0
+- **Framework**: Spring Boot 3.5.16 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0
 - **JDK**: Java 21
 - **Gateway**: Spring Cloud Gateway
 - **Registry/Config Center**: Nacos
@@ -71,7 +71,7 @@ The project adopts a **multi-language microservice architecture**, decomposed in
 - **Object Storage**: MinIO
 - **Workflow**: Flowable 6.8.0
 - **Scheduled Tasks**: XXL-Job 2.3.1
-- **API Documentation**: Knife4j 4.3.0 + SpringDoc
+- **API Documentation**: springdoc-openapi 2.8.x + Knife4j 4.5 (Jakarta / OpenAPI 3)
 - **Monitoring**: SkyWalking 8.12.0 + Spring Boot Admin
 - **Utility Libraries**: Hutool 5.8.25, MapStruct 1.5.5, EasyExcel 3.3.3
 
@@ -370,14 +370,14 @@ Camera → Stream Pull → Frame Extraction → AI Inference → Result Sorting 
 |------|--------|------|
 | **Single Contributor** | 🔴 High | 95%+ of code by one person, core personnel risk |
 | **Insufficient Test Coverage** | 🟡 Medium | Lack of systematic unit and integration tests |
-| **Spring Boot 2.7** | 🟡 Medium | EOL reached, recommend upgrading to Spring Boot 3.x |
-| **Java 21 + Spring Boot 2.7** | 🟡 Medium | Non-standard combination, potential compatibility issues |
+| **AI/VIDEO full image rebuild** | 🟡 Medium | Official Dockerfile apt/pip needs external network; use localize images when offline |
+| **Middleware vs app image drift** | 🟡 Medium | Avoid mixing Boot2 backup images with Boot3 app jars |
 | **Dependency Version Management** | 🟡 Medium | Some dependency versions are outdated (e.g., FastJSON 1.x) |
 
 ### 7.2 Improvement Recommendations
 
 1. **Test System Development**: Add unit tests, integration tests, establish CI/CD pipeline
-2. **Framework Upgrade**: Gradually migrate to Spring Boot 3.x + Java 21 LTS
+2. **Framework upkeep**: DEVICE is on Spring Boot 3.5.16 + JDK 21; keep Boot/Cloud patch levels current
 3. **Documentation Enhancement**: Add API documentation, deployment documentation, developer guides
 4. **Code Review**: Establish PR review mechanism to reduce single-person risk
 5. **Monitoring Enhancement**: Add Prometheus + Grafana monitoring system

@@ -47,7 +47,7 @@ Le projet adopte une **architecture microservices multilingue**, décomposée en
 
 | Module | Langage/Framework | Responsabilité | Nombre de services |
 |------|-----------|------|--------|
-| **DEVICE** | Java 21 + Spring Boot 2.7 + Spring Cloud | Gestion des appareils, gestion système, push de messages, jeux de données, stockage de fichiers | 8+ microservices |
+| **DEVICE** | Java 21 + Spring Boot 3.5 + Spring Cloud | Gestion des appareils, gestion système, push de messages, jeux de données, stockage de fichiers | 8+ microservices |
 | **AI** | Python + Flask + PyTorch + YOLO | Entraînement, inférence, déploiement de modèles, OCR, voix, LLM | 1 service principal + sous-services |
 | **VIDEO** | Python + Flask + OpenCV + FFmpeg | Traitement des flux vidéo, algorithmes temps réel/instantané, enregistrement, alertes | 1 service principal + 6 sous-services |
 | **TASK** | C++17 + OpenCV + ONNX Runtime + FFmpeg | Moteur d'inférence temps réel en périphérie | Processus autonome |
@@ -60,7 +60,7 @@ Le projet adopte une **architecture microservices multilingue**, décomposée en
 ### 3.1 Module DEVICE (Cluster de microservices Java)
 
 **Stack technologique :**
-- **Framework** : Spring Boot 2.7.18 + Spring Cloud 2021.0.5 + Spring Cloud Alibaba 2021.0.4.0
+- **Framework** : Spring Boot 3.5.16 + Spring Cloud 2025.0.3 + Spring Cloud Alibaba 2025.0.0.0
 - **JDK** : Java 21
 - **Passerelle** : Spring Cloud Gateway
 - **Registre/Centre de configuration** : Nacos
@@ -71,7 +71,7 @@ Le projet adopte une **architecture microservices multilingue**, décomposée en
 - **Stockage objet** : MinIO
 - **Workflow** : Flowable 6.8.0
 - **Tâches planifiées** : XXL-Job 2.3.1
-- **Documentation API** : Knife4j 4.3.0 + SpringDoc
+- **Documentation API** : springdoc-openapi 2.8.x + Knife4j 4.5 (Jakarta / OpenAPI 3)
 - **Monitoring** : SkyWalking 8.12.0 + Spring Boot Admin
 - **Bibliothèques utilitaires** : Hutool 5.8.25, MapStruct 1.5.5, EasyExcel 3.3.3
 
@@ -370,14 +370,14 @@ Caméra → Pull de flux → Extraction de trames → Inférence IA → Tri des 
 |------|--------|------|
 | **Contributeur unique** | 🔴 Élevée | 95 %+ du code par une seule personne, risque de dépendance aux personnes clés |
 | **Couverture de tests insuffisante** | 🟡 Moyenne | Absence de tests unitaires et d'intégration systématiques |
-| **Spring Boot 2.7** | 🟡 Moyenne | Fin de vie atteinte, migration vers Spring Boot 3.x recommandée |
-| **Java 21 + Spring Boot 2.7** | 🟡 Moyenne | Combinaison non standard, problèmes de compatibilité possibles |
+| **Reconstruction complète AI/VIDEO** | 🟡 Moyenne | Dockerfile officiel apt/pip dépend du réseau ; images localize en environnement restreint |
+| **Dérive versions middleware/apps** | 🟡 Moyenne | Éviter de mélanger images Boot2 de secours et jars Boot3 |
 | **Gestion des versions de dépendances** | 🟡 Moyenne | Certaines dépendances sont obsolètes (ex. FastJSON 1.x) |
 
 ### 7.2 Recommandations d'amélioration
 
 1. **Construction du système de tests** : Ajouter tests unitaires et d'intégration, établir un pipeline CI/CD
-2. **Mise à niveau du framework** : Migration progressive vers Spring Boot 3.x + Java 21 LTS
+2. **Suivi du framework** : DEVICE est sur Spring Boot 3.5.16 + JDK 21 ; maintenir les correctifs Boot/Cloud
 3. **Enrichissement de la documentation** : Compléter la documentation API, de déploiement et le guide développeur
 4. **Revue de code** : Mettre en place un mécanisme de revue de PR pour réduire le risque lié à une seule personne
 5. **Amélioration du monitoring** : Ajouter un système de monitoring Prometheus + Grafana
