@@ -78,7 +78,9 @@ RUN --mount=type=bind,from=pip-cache,source=.,target=/mnt/pip-cache,rw \
     rm -rf /mnt/pip-cache/wheels && \
     ln -sfn /tmp/pip-wheels-build /mnt/pip-cache/wheels && \
     export PIP_CACHE_DIR=/mnt/pip-cache && \
-    pip install --upgrade pip -i "${PIP_INDEX_URL}" && \
+    # 镜像站偶发 403/断连时，已有 pip 可继续；勿因 upgrade 失败中断整层构建
+    pip install --upgrade pip -i "${PIP_INDEX_URL}" || \
+        echo "WARN: pip upgrade skipped (index may return 403); using existing pip" && \
     if [ -n "$(find /opt/offline-pip -maxdepth 1 -type f 2>/dev/null)" ]; then \
         py_tag="$(python -c 'import sys; print("cp{}{}".format(sys.version_info.major, sys.version_info.minor))')" && \
         if grep -Eq '^torch([<>= ].*)?$' requirements-docker.txt && ls /opt/offline-pip/torch-*.whl >/dev/null 2>&1; then \
