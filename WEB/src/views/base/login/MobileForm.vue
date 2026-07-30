@@ -63,7 +63,7 @@ async function getCode() {
 async function getTenantId() {
   if (tenantEnable === 'true') {
     const res = await getTenantIdByName(formData.tenantName)
-    authUtil.setTenantId(res)
+    authUtil.setTenantId(res?.id ?? res ?? 1)
   }
 }
 

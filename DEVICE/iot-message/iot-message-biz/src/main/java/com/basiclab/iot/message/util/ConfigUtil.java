@@ -213,7 +213,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMsgType(int msgType) {
-        setting.put("msg", "msgType", String.valueOf(msgType));
+        setting.setByGroup("msgType", String.valueOf(msgType), "msg");
     }
 
     public String getMsgName() {
@@ -221,7 +221,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMsgName(String msgName) {
-        setting.put("msg", "msgName", msgName);
+        setting.setByGroup("msgName", msgName, "msg");
     }
 
     public String getMemberSql() {
@@ -229,7 +229,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMemberSql(String memberSql) {
-        setting.put("member", "sql", memberSql);
+        setting.setByGroup("sql", memberSql, "member");
     }
 
     public String getMemberFilePath() {
@@ -237,7 +237,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMemberFilePath(String memberFilePath) {
-        setting.put("member", "filePath", memberFilePath);
+        setting.setByGroup("filePath", memberFilePath, "member");
     }
 
     public int getInfinityThreadCount() {
@@ -245,7 +245,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setInfinityThreadCount(int infinityThreadCount) {
-        setting.put("push", "infinityThreadCount", String.valueOf(infinityThreadCount));
+        setting.setByGroup("infinityThreadCount", String.valueOf(infinityThreadCount), "push");
     }
 
     public int getThreadCount() {
@@ -253,7 +253,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setThreadCount(int threadCount) {
-        setting.put("push", "threadCount", String.valueOf(threadCount));
+        setting.setByGroup("threadCount", String.valueOf(threadCount), "push");
     }
 
     public boolean isDryRun() {
@@ -261,7 +261,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setDryRun(boolean dryRun) {
-        setting.put("push", "dryRun", String.valueOf(dryRun));
+        setting.setByGroup("dryRun", String.valueOf(dryRun), "push");
     }
 
     public boolean isRadioStartAt() {
@@ -269,7 +269,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setRadioStartAt(boolean radioStartAt) {
-        setting.put("schedule", "radioStartAt", String.valueOf(radioStartAt));
+        setting.setByGroup("radioStartAt", String.valueOf(radioStartAt), "schedule");
     }
 
     public String getTextStartAt() {
@@ -277,7 +277,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTextStartAt(String textStartAt) {
-        setting.put("schedule", "textStartAt", textStartAt);
+        setting.setByGroup("textStartAt", textStartAt, "schedule");
     }
 
     public boolean isRadioPerDay() {
@@ -285,7 +285,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setRadioPerDay(boolean radioPerDay) {
-        setting.put("schedule", "radioPerDay", String.valueOf(radioPerDay));
+        setting.setByGroup("radioPerDay", String.valueOf(radioPerDay), "schedule");
     }
 
     public String getTextPerDay() {
@@ -293,7 +293,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTextPerDay(String textPerDay) {
-        setting.put("schedule", "textPerDay", textPerDay);
+        setting.setByGroup("textPerDay", textPerDay, "schedule");
     }
 
     public boolean isRadioPerWeek() {
@@ -301,7 +301,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setRadioPerWeek(boolean radioPerWeek) {
-        setting.put("schedule", "radioPerWeek", String.valueOf(radioPerWeek));
+        setting.setByGroup("radioPerWeek", String.valueOf(radioPerWeek), "schedule");
     }
 
     public String getTextPerWeekWeek() {
@@ -309,7 +309,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTextPerWeekWeek(String textPerWeekWeek) {
-        setting.put("schedule", "textPerWeek.week", textPerWeekWeek);
+        setting.setByGroup("textPerWeek.week", textPerWeekWeek, "schedule");
     }
 
     public String getTextPerWeekTime() {
@@ -317,7 +317,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTextPerWeekTime(String textPerWeekTime) {
-        setting.put("schedule", "textPerWeek.time", textPerWeekTime);
+        setting.setByGroup("textPerWeek.time", textPerWeekTime, "schedule");
     }
 
     public boolean isRadioCron() {
@@ -325,7 +325,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setRadioCron(boolean radioCron) {
-        setting.put("schedule", "radioCron", String.valueOf(radioCron));
+        setting.setByGroup("radioCron", String.valueOf(radioCron), "schedule");
     }
 
     public String getTextCron() {
@@ -333,7 +333,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTextCron(String textCron) {
-        setting.put("schedule", "textCron", textCron);
+        setting.setByGroup("textCron", textCron, "schedule");
     }
 
     public boolean isNeedReimport() {
@@ -341,7 +341,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setNeedReimport(boolean needReimport) {
-        setting.put("schedule", "reimportCheckBox", String.valueOf(needReimport));
+        setting.setByGroup("reimportCheckBox", String.valueOf(needReimport), "schedule");
     }
 
     public String getReimportWay() {
@@ -349,7 +349,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setReimportWay(String reimportWay) {
-        setting.put("schedule", "reimportComboBox", reimportWay);
+        setting.setByGroup("reimportComboBox", reimportWay, "schedule");
     }
 
     public boolean isSendPushResult() {
@@ -357,7 +357,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setSendPushResult(boolean sendPushResult) {
-        setting.put("schedule", "sendPushResult", String.valueOf(sendPushResult));
+        setting.setByGroup("sendPushResult", String.valueOf(sendPushResult), "schedule");
     }
 
     public String getMailResultTos() {
@@ -365,7 +365,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailResultTos(String mailResultTos) {
-        setting.put("schedule", "mailResultTos", mailResultTos);
+        setting.setByGroup("mailResultTos", mailResultTos, "schedule");
     }
 
     public boolean isAutoCheckUpdate() {
@@ -373,7 +373,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAutoCheckUpdate(boolean autoCheckUpdate) {
-        setting.put("setting.normal", "autoCheckUpdate", String.valueOf(autoCheckUpdate));
+        setting.setByGroup("autoCheckUpdate", String.valueOf(autoCheckUpdate), "setting.normal");
     }
 
     public boolean isUseTray() {
@@ -381,7 +381,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setUseTray(boolean useTray) {
-        setting.put("setting.normal", "useTray", String.valueOf(useTray));
+        setting.setByGroup("useTray", String.valueOf(useTray), "setting.normal");
     }
 
     public boolean isCloseToTray() {
@@ -389,7 +389,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setCloseToTray(boolean closeToTray) {
-        setting.put("setting.normal", "closeToTray", String.valueOf(closeToTray));
+        setting.setByGroup("closeToTray", String.valueOf(closeToTray), "setting.normal");
     }
 
     public boolean isDefaultMaxWindow() {
@@ -397,7 +397,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setDefaultMaxWindow(boolean defaultMaxWindow) {
-        setting.put("setting.normal", "defaultMaxWindow", String.valueOf(defaultMaxWindow));
+        setting.setByGroup("defaultMaxWindow", String.valueOf(defaultMaxWindow), "setting.normal");
     }
 
     public Integer getMaxThreads() {
@@ -405,7 +405,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaxThreads(Integer maxThreads) {
-        setting.put("setting.normal", "maxThreads", String.valueOf(maxThreads));
+        setting.setByGroup("maxThreads", String.valueOf(maxThreads), "setting.normal");
     }
 
     public long getPushTotal() {
@@ -413,7 +413,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setPushTotal(long pushTotal) {
-        setting.put("setting.normal", "pushTotal", String.valueOf(pushTotal));
+        setting.setByGroup("pushTotal", String.valueOf(pushTotal), "setting.normal");
     }
 
     public String getBeforeVersion() {
@@ -421,7 +421,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setBeforeVersion(String beforeVersion) {
-        setting.put("setting.normal", "beforeVersion", beforeVersion);
+        setting.setByGroup("beforeVersion", beforeVersion, "setting.normal");
     }
 
     public String getWechatMpName() {
@@ -429,7 +429,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWechatMpName(String wechatMpName) {
-        setting.put("setting.wechat", "mpName", wechatMpName);
+        setting.setByGroup("mpName", wechatMpName, "setting.wechat");
     }
 
     public String getWechatAppId() {
@@ -437,7 +437,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWechatAppId(String wechatAppId) {
-        setting.put("setting.wechat", "appId", wechatAppId);
+        setting.setByGroup("appId", wechatAppId, "setting.wechat");
     }
 
     public String getWechatAppSecret() {
@@ -445,7 +445,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWechatAppSecret(String wechatAppSecret) {
-        setting.put("setting.wechat", "AppSecret", wechatAppSecret);
+        setting.setByGroup("AppSecret", wechatAppSecret, "setting.wechat");
     }
 
     public String getWechatToken() {
@@ -453,7 +453,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWechatToken(String wechatToken) {
-        setting.put("setting.wechat", "token", wechatToken);
+        setting.setByGroup("token", wechatToken, "setting.wechat");
     }
 
     public String getWechatAesKey() {
@@ -461,7 +461,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWechatAesKey(String wechatAesKey) {
-        setting.put("setting.wechat", "aesKey", wechatAesKey);
+        setting.setByGroup("aesKey", wechatAesKey, "setting.wechat");
     }
 
     public boolean isMpUseProxy() {
@@ -469,7 +469,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpUseProxy(boolean mpUseProxy) {
-        setting.put("setting.wechat", "mpUseProxy", String.valueOf(mpUseProxy));
+        setting.setByGroup("mpUseProxy", String.valueOf(mpUseProxy), "setting.wechat");
     }
 
     public String getMpProxyHost() {
@@ -477,7 +477,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpProxyHost(String mpProxyHost) {
-        setting.put("setting.wechat", "mpProxyHost", mpProxyHost);
+        setting.setByGroup("mpProxyHost", mpProxyHost, "setting.wechat");
     }
 
     public String getMpProxyPort() {
@@ -485,7 +485,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpProxyPort(String mpProxyPort) {
-        setting.put("setting.wechat", "mpProxyPort", mpProxyPort);
+        setting.setByGroup("mpProxyPort", mpProxyPort, "setting.wechat");
     }
 
     public String getMpProxyUserName() {
@@ -493,7 +493,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpProxyUserName(String mpProxyUserName) {
-        setting.put("setting.wechat", "mpProxyUserName", mpProxyUserName);
+        setting.setByGroup("mpProxyUserName", mpProxyUserName, "setting.wechat");
     }
 
     public String getMpProxyPassword() {
@@ -501,7 +501,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpProxyPassword(String mpProxyPassword) {
-        setting.put("setting.wechat", "mpProxyPassword", mpProxyPassword);
+        setting.setByGroup("mpProxyPassword", mpProxyPassword, "setting.wechat");
     }
 
     public boolean isMpUseOutSideAt() {
@@ -509,7 +509,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpUseOutSideAt(boolean mpUseOutSideAt) {
-        setting.put("setting.wechat", "mpUseOutSideAt", String.valueOf(mpUseOutSideAt));
+        setting.setByGroup("mpUseOutSideAt", String.valueOf(mpUseOutSideAt), "setting.wechat");
     }
 
     public boolean isMpManualAt() {
@@ -517,7 +517,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpManualAt(boolean mpManualAt) {
-        setting.put("setting.wechat", "mpManualAt", String.valueOf(mpManualAt));
+        setting.setByGroup("mpManualAt", String.valueOf(mpManualAt), "setting.wechat");
     }
 
     public boolean isMpApiAt() {
@@ -525,7 +525,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpApiAt(boolean mpApiAt) {
-        setting.put("setting.wechat", "mpApiAt", String.valueOf(mpApiAt));
+        setting.setByGroup("mpApiAt", String.valueOf(mpApiAt), "setting.wechat");
     }
 
     public String getMpAt() {
@@ -533,7 +533,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpAt(String mpAt) {
-        setting.put("setting.wechat", "mpAt", mpAt);
+        setting.setByGroup("mpAt", mpAt, "setting.wechat");
     }
 
     public String getMpAtExpiresIn() {
@@ -541,7 +541,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpAtExpiresIn(String mpAtExpiresIn) {
-        setting.put("setting.wechat", "mpAtExpiresIn", mpAtExpiresIn);
+        setting.setByGroup("mpAtExpiresIn", mpAtExpiresIn, "setting.wechat");
     }
 
     public String getMpAtApiUrl() {
@@ -549,7 +549,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMpAtApiUrl(String mpAtApiUrl) {
-        setting.put("setting.wechat", "mpAtApiUrl", mpAtApiUrl);
+        setting.setByGroup("mpAtApiUrl", mpAtApiUrl, "setting.wechat");
     }
 
     public String getAliServerUrl() {
@@ -557,7 +557,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliServerUrl(String aliServerUrl) {
-        setting.put("setting.ali", "serverUrl", aliServerUrl);
+        setting.setByGroup("serverUrl", aliServerUrl, "setting.ali");
     }
 
     public String getAliAppKey() {
@@ -565,7 +565,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliAppKey(String aliAppKey) {
-        setting.put("setting.ali", "appKey", aliAppKey);
+        setting.setByGroup("appKey", aliAppKey, "setting.ali");
     }
 
     public String getAliAppSecret() {
@@ -573,7 +573,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliAppSecret(String aliAppSecret) {
-        setting.put("setting.ali", "appSecret", aliAppSecret);
+        setting.setByGroup("appSecret", aliAppSecret, "setting.ali");
     }
 
     public String getAliSign() {
@@ -581,7 +581,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliSign(String aliSign) {
-        setting.put("setting.ali", "sign", aliSign);
+        setting.setByGroup("sign", aliSign, "setting.ali");
     }
 
     public String getMailHost() {
@@ -589,7 +589,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailHost(String mailHost) {
-        setting.put("setting.mail", "mailHost", mailHost);
+        setting.setByGroup("mailHost", mailHost, "setting.mail");
     }
 
     public String getMailPort() {
@@ -597,7 +597,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailPort(String mailPort) {
-        setting.put("setting.mail", "mailPort", mailPort);
+        setting.setByGroup("mailPort", mailPort, "setting.mail");
     }
 
     public String getMailFrom() {
@@ -605,7 +605,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailFrom(String mailFrom) {
-        setting.put("setting.mail", "mailFrom", mailFrom);
+        setting.setByGroup("mailFrom", mailFrom, "setting.mail");
     }
 
     public String getMailUser() {
@@ -613,7 +613,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailUser(String mailUser) {
-        setting.put("setting.mail", "mailUser", mailUser);
+        setting.setByGroup("mailUser", mailUser, "setting.mail");
     }
 
     public String getMailPassword() {
@@ -621,7 +621,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailPassword(String mailPassword) {
-        setting.put("setting.mail", "mailPassword", mailPassword);
+        setting.setByGroup("mailPassword", mailPassword, "setting.mail");
     }
 
     public boolean isMailUseStartTLS() {
@@ -629,7 +629,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailUseStartTLS(boolean mailUseStartTLS) {
-        setting.put("setting.mail", "mailUseStartTLS", String.valueOf(mailUseStartTLS));
+        setting.setByGroup("mailUseStartTLS", String.valueOf(mailUseStartTLS), "setting.mail");
     }
 
     public boolean isMailUseSSL() {
@@ -637,7 +637,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMailUseSSL(boolean mailUseSSL) {
-        setting.put("setting.mail", "mailUseSSL", String.valueOf(mailUseSSL));
+        setting.setByGroup("mailUseSSL", String.valueOf(mailUseSSL), "setting.mail");
     }
 
     public String getMysqlUrl() {
@@ -645,7 +645,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMysqlUrl(String mysqlUrl) {
-        setting.put("setting.mysql", "url", mysqlUrl);
+        setting.setByGroup("url", mysqlUrl, "setting.mysql");
     }
 
     public String getMysqlDatabase() {
@@ -653,7 +653,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMysqlDatabase(String mysqlDatabase) {
-        setting.put("setting.mysql", "database", mysqlDatabase);
+        setting.setByGroup("database", mysqlDatabase, "setting.mysql");
     }
 
     public String getMysqlUser() {
@@ -661,7 +661,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMysqlUser(String mysqlUser) {
-        setting.put("setting.mysql", "user", mysqlUser);
+        setting.setByGroup("user", mysqlUser, "setting.mysql");
     }
 
     public String getMysqlPassword() {
@@ -669,7 +669,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMysqlPassword(String mysqlPassword) {
-        setting.put("setting.mysql", "password", mysqlPassword);
+        setting.setByGroup("password", mysqlPassword, "setting.mysql");
     }
 
     public String getTheme() {
@@ -677,7 +677,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTheme(String theme) {
-        setting.put("setting.appearance", "theme", theme);
+        setting.setByGroup("theme", theme, "setting.appearance");
     }
 
     public String getFont() {
@@ -689,7 +689,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setFont(String font) {
-        setting.put("setting.appearance", "font", font);
+        setting.setByGroup("font", font, "setting.appearance");
     }
 
     public int getFontSize() {
@@ -697,7 +697,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setFontSize(int fontSize) {
-        setting.put("setting.appearance", "fontSize", String.valueOf(fontSize));
+        setting.setByGroup("fontSize", String.valueOf(fontSize), "setting.appearance");
     }
 
     public String getAliyunAccessKeyId() {
@@ -705,7 +705,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliyunAccessKeyId(String aliyunAccessKeyId) {
-        setting.put("setting.aliyun", "accessKeyId", aliyunAccessKeyId);
+        setting.setByGroup("accessKeyId", aliyunAccessKeyId, "setting.aliyun");
     }
 
     public String getAliyunAccessKeySecret() {
@@ -713,7 +713,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliyunAccessKeySecret(String aliyunAccessKeySecret) {
-        setting.put("setting.aliyun", "accessKeySecret", aliyunAccessKeySecret);
+        setting.setByGroup("accessKeySecret", aliyunAccessKeySecret, "setting.aliyun");
     }
 
     public String getAliyunSign() {
@@ -721,7 +721,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setAliyunSign(String aliyunSign) {
-        setting.put("setting.aliyun", "aliyunSign", aliyunSign);
+        setting.setByGroup("aliyunSign", aliyunSign, "setting.aliyun");
     }
 
     public String getMiniAppName() {
@@ -729,7 +729,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMiniAppName(String miniAppName) {
-        setting.put("setting.miniApp", "name", miniAppName);
+        setting.setByGroup("name", miniAppName, "setting.miniApp");
     }
 
     public String getMiniAppAppId() {
@@ -737,7 +737,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMiniAppAppId(String miniAppAppId) {
-        setting.put("setting.miniApp", "appId", miniAppAppId);
+        setting.setByGroup("appId", miniAppAppId, "setting.miniApp");
     }
 
     public String getMiniAppAppSecret() {
@@ -745,7 +745,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMiniAppAppSecret(String miniAppAppSecret) {
-        setting.put("setting.miniApp", "AppSecret", miniAppAppSecret);
+        setting.setByGroup("AppSecret", miniAppAppSecret, "setting.miniApp");
     }
 
     public String getMiniAppToken() {
@@ -753,7 +753,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMiniAppToken(String miniAppToken) {
-        setting.put("setting.miniApp", "token", miniAppToken);
+        setting.setByGroup("token", miniAppToken, "setting.miniApp");
     }
 
     public String getMiniAppAesKey() {
@@ -761,7 +761,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMiniAppAesKey(String miniAppAesKey) {
-        setting.put("setting.miniApp", "aesKey", miniAppAesKey);
+        setting.setByGroup("aesKey", miniAppAesKey, "setting.miniApp");
     }
 
     public boolean isMaUseProxy() {
@@ -769,7 +769,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaUseProxy(boolean maUseProxy) {
-        setting.put("setting.wechat", "maUseProxy", String.valueOf(maUseProxy));
+        setting.setByGroup("maUseProxy", String.valueOf(maUseProxy), "setting.wechat");
     }
 
     public String getMaProxyHost() {
@@ -777,7 +777,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaProxyHost(String maProxyHost) {
-        setting.put("setting.wechat", "maProxyHost", maProxyHost);
+        setting.setByGroup("maProxyHost", maProxyHost, "setting.wechat");
     }
 
     public String getMaProxyPort() {
@@ -785,7 +785,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaProxyPort(String maProxyPort) {
-        setting.put("setting.wechat", "maProxyPort", maProxyPort);
+        setting.setByGroup("maProxyPort", maProxyPort, "setting.wechat");
     }
 
     public String getMaProxyUserName() {
@@ -793,7 +793,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaProxyUserName(String maProxyUserName) {
-        setting.put("setting.wechat", "maProxyUserName", maProxyUserName);
+        setting.setByGroup("maProxyUserName", maProxyUserName, "setting.wechat");
     }
 
     public String getMaProxyPassword() {
@@ -801,7 +801,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setMaProxyPassword(String maProxyPassword) {
-        setting.put("setting.wechat", "maProxyPassword", maProxyPassword);
+        setting.setByGroup("maProxyPassword", maProxyPassword, "setting.wechat");
     }
 
     public String getWxCpCorpId() {
@@ -809,7 +809,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWxCpCorpId(String wxCpCorpId) {
-        setting.put("setting.wechat", "wxCpCorpId", wxCpCorpId);
+        setting.setByGroup("wxCpCorpId", wxCpCorpId, "setting.wechat");
     }
 
     public String getTxyunAppId() {
@@ -817,7 +817,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTxyunAppId(String txyunAppId) {
-        setting.put("setting.txyun", "appId", txyunAppId);
+        setting.setByGroup("appId", txyunAppId, "setting.txyun");
     }
 
     public String getTxyunAppKey() {
@@ -825,7 +825,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTxyunAppKey(String txyunAppKey) {
-        setting.put("setting.txyun", "appKey", txyunAppKey);
+        setting.setByGroup("appKey", txyunAppKey, "setting.txyun");
     }
 
     public String getTxyunSign() {
@@ -833,7 +833,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setTxyunSign(String txyunSign) {
-        setting.put("setting.txyun", "txyunSign", txyunSign);
+        setting.setByGroup("txyunSign", txyunSign, "setting.txyun");
     }
 
     public String getHwAppKey() {
@@ -841,7 +841,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHwAppKey(String hwAppKey) {
-        setting.put("setting.hwyun", "hwAppKey", hwAppKey);
+        setting.setByGroup("hwAppKey", hwAppKey, "setting.hwyun");
     }
 
     public String getHwAppSecretPassword() {
@@ -849,7 +849,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHwAppSecretPassword(String hwAppSecretPassword) {
-        setting.put("setting.hwyun", "hwAppSecretPassword", hwAppSecretPassword);
+        setting.setByGroup("hwAppSecretPassword", hwAppSecretPassword, "setting.hwyun");
     }
 
     public String getHwAccessUrl() {
@@ -857,7 +857,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHwAccessUrl(String hwAccessUrl) {
-        setting.put("setting.hwyun", "hwAccessUrl", hwAccessUrl);
+        setting.setByGroup("hwAccessUrl", hwAccessUrl, "setting.hwyun");
     }
 
     public String getHwSignature() {
@@ -865,7 +865,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHwSignature(String hwSignature) {
-        setting.put("setting.hwyun", "hwSignature", hwSignature);
+        setting.setByGroup("hwSignature", hwSignature, "setting.hwyun");
     }
 
     public String getHwSenderCode() {
@@ -873,7 +873,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHwSenderCode(String hwSenderCode) {
-        setting.put("setting.hwyun", "hwSenderCode", hwSenderCode);
+        setting.setByGroup("hwSenderCode", hwSenderCode, "setting.hwyun");
     }
 
     public String getBdSecretAccessKey() {
@@ -881,7 +881,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setBdSecretAccessKey(String bdSecretAccessKey) {
-        setting.put("setting.bdyun", "bdSecretAccessKey", bdSecretAccessKey);
+        setting.setByGroup("bdSecretAccessKey", bdSecretAccessKey, "setting.bdyun");
     }
 
     public String getBdAccessKeyId() {
@@ -889,7 +889,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setBdAccessKeyId(String bdAccessKeyId) {
-        setting.put("setting.bdyun", "bdAccessKeyId", bdAccessKeyId);
+        setting.setByGroup("bdAccessKeyId", bdAccessKeyId, "setting.bdyun");
     }
 
     public String getBdEndPoint() {
@@ -897,7 +897,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setBdEndPoint(String bdEndPoint) {
-        setting.put("setting.bdyun", "bdEndPoint", bdEndPoint);
+        setting.setByGroup("bdEndPoint", bdEndPoint, "setting.bdyun");
     }
 
     public String getBdInvokeId() {
@@ -905,7 +905,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setBdInvokeId(String bdInvokeId) {
-        setting.put("setting.bdyun", "bdInvokeId", bdInvokeId);
+        setting.setByGroup("bdInvokeId", bdInvokeId, "setting.bdyun");
     }
 
     public String getUpAuthorizationToken() {
@@ -913,7 +913,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setUpAuthorizationToken(String upAuthorizationToken) {
-        setting.put("setting.upyun", "upAuthorizationToken", upAuthorizationToken);
+        setting.setByGroup("upAuthorizationToken", upAuthorizationToken, "setting.upyun");
     }
 
     public String getQiniuAccessKey() {
@@ -921,7 +921,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setQiniuAccessKey(String qiniuAccessKey) {
-        setting.put("setting.qiniu", "qiniuAccessKey", qiniuAccessKey);
+        setting.setByGroup("qiniuAccessKey", qiniuAccessKey, "setting.qiniu");
     }
 
     public String getQiniuSecretKey() {
@@ -929,7 +929,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setQiniuSecretKey(String qiniuSecretKey) {
-        setting.put("setting.qiniu", "qiniuSecretKey", qiniuSecretKey);
+        setting.setByGroup("qiniuSecretKey", qiniuSecretKey, "setting.qiniu");
     }
 
     public String getYunpianApiKey() {
@@ -937,7 +937,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setYunpianApiKey(String yunpianApiKey) {
-        setting.put("setting.yunpian", "apiKey", yunpianApiKey);
+        setting.setByGroup("apiKey", yunpianApiKey, "setting.yunpian");
     }
 
     public boolean isHttpUseProxy() {
@@ -945,7 +945,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHttpUseProxy(boolean httpUseProxy) {
-        setting.put("setting.http", "httpUseProxy", String.valueOf(httpUseProxy));
+        setting.setByGroup("httpUseProxy", String.valueOf(httpUseProxy), "setting.http");
     }
 
     public String getHttpProxyHost() {
@@ -953,7 +953,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHttpProxyHost(String httpProxyHost) {
-        setting.put("setting.http", "httpProxyHost", httpProxyHost);
+        setting.setByGroup("httpProxyHost", httpProxyHost, "setting.http");
     }
 
     public String getHttpProxyPort() {
@@ -961,7 +961,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHttpProxyPort(String httpProxyPort) {
-        setting.put("setting.http", "httpProxyPort", httpProxyPort);
+        setting.setByGroup("httpProxyPort", httpProxyPort, "setting.http");
     }
 
     public String getHttpProxyUserName() {
@@ -969,7 +969,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHttpProxyUserName(String httpProxyUserName) {
-        setting.put("setting.http", "httpProxyUserName", httpProxyUserName);
+        setting.setByGroup("httpProxyUserName", httpProxyUserName, "setting.http");
     }
 
     public String getHttpProxyPassword() {
@@ -977,7 +977,7 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setHttpProxyPassword(String httpProxyPassword) {
-        setting.put("setting.http", "httpProxyPassword", httpProxyPassword);
+        setting.setByGroup("httpProxyPassword", httpProxyPassword, "setting.http");
     }
 
     public Integer getWxAccountId() {
@@ -985,6 +985,6 @@ public class ConfigUtil extends ConfigBaseUtil {
     }
 
     public void setWxAccountId(Integer wxAccountId) {
-        setting.put("setting.wechat", "wxAccountId", String.valueOf(wxAccountId));
+        setting.setByGroup("wxAccountId", String.valueOf(wxAccountId), "setting.wechat");
     }
 }

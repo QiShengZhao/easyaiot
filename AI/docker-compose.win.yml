@@ -1,0 +1,63 @@
+# Windows Docker Desktop 测试编排（不使用 network_mode:host）
+# docker compose -f docker-compose.win.yml up -d
+services:
+  ai-service:
+    image: ai-service:latest
+    container_name: ai-service
+    user: root
+    entrypoint: ["/bin/sh", "/app/docker-entrypoint.sh"]
+    command: ["python", "run.py"]
+    env_file:
+      - .env.docker.win
+    ports:
+      - "0.0.0.0:5000:5000"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ~/easyaiot/data:/data:rw
+      - ./static:/app/static
+      - ./temp_uploads:/app/temp_uploads
+      - ./model:/app/model
+      - ./yolo11n:/app/yolo11n
+      - ./yolo11n.pt:/app/yolo11n.pt
+      - ./yolov8n.pt:/app/yolov8n.pt
+      - ./yolo26n.pt:/app/yolo26n.pt
+      - ./yolo26n-pose.pt:/app/yolo26n-pose.pt
+      - ./.env.docker.win:/app/.env:ro
+      - ../.scripts/minio:/minio-seed-data:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - FLASK_RUN_PORT=5000
+      - FLASK_RUN_HOST=0.0.0.0
+      - USE_GPU=True
+      - DATABASE_URL=postgresql://postgres:iot45722414822@PostgresSQL:5432/iot-ai20
+      - REDIS_HOST=Redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=basiclab@iot975248395
+      - TZ=Asia/Shanghai
+    gpus: all
+    runtime: nvidia
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+    networks:
+      easyaiot-network:
+        aliases:
+          - ai-host
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  easyaiot-network:
+    name: easyaiot-network
+    external: true

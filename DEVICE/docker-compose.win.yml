@@ -1,0 +1,54 @@
+# Windows Docker Desktop：gateway/gb28181 不用 host 网络，改为端口映射
+# docker compose -f docker-compose.yml -f docker-compose.win.yml up -d
+services:
+  iot-gateway:
+    network_mode: !reset null
+    ports:
+      - "0.0.0.0:48080:48080"
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms256m -Xmx320m
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=Nacos:8848
+      - SPRING_CLOUD_NACOS_CONFIG_NAMESPACE=
+      - SPRING_CLOUD_NACOS_SERVER_ADDR=Nacos:8848
+      - SPRING_CLOUD_NACOS_DISCOVERY_NAMESPACE=
+    networks:
+      easyaiot-network:
+        aliases:
+          - gateway
+
+  iot-system:
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+
+  iot-sink:
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+
+  iot-gb28181:
+    network_mode: !reset null
+    # 清除 host 网络下的 Redis/Postgres → host-gateway 映射，改走 Docker DNS
+    extra_hosts: !reset []
+    ports:
+      - "0.0.0.0:8116:8116"
+      - "0.0.0.0:48088:48088"
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms256m -Xmx320m
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=Nacos:8848
+      - SPRING_CLOUD_NACOS_CONFIG_NAMESPACE=
+      - SPRING_CLOUD_NACOS_SERVER_ADDR=Nacos:8848
+      - SPRING_CLOUD_NACOS_DISCOVERY_NAMESPACE=
+      - SPRING_DATASOURCE_DYNAMIC_DATASOURCE_MASTER_URL=jdbc:postgresql://PostgresSQL:5432/iot-gb2818120?autoReconnect=true&autoReconnectForPools=true&useUnicode=true&characterEncoding=utf8&createDatabaseIfNotExist=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&stringtype=unspecified
+      - SPRING_REDIS_HOST=Redis
+      - SPRING_REDIS_PASSWORD=basiclab@iot975248395
+      - SPRING_DATA_REDIS_PASSWORD=basiclab@iot975248395
+    networks:
+      - easyaiot-network
+
+networks:
+  easyaiot-network:
+    name: easyaiot-network
+    external: true

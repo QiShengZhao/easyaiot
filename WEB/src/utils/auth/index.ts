@@ -97,8 +97,9 @@ export function clearAuthCache(immediate = true) {
   Persistent.clearSession(immediate)
 }
 
-/** 登录时根据 rememberMe 切换存储介质并清理旧 Token */
+/** 登录时根据 rememberMe 切换存储介质并清理旧 Token（保留已解析的租户 ID，避免登录请求丢 tenant-id） */
 export function switchAuthStorage(remember: boolean) {
+  const tenantId = getTenantId()
   setRememberMe(remember)
   if (remember) {
     Persistent.clearSession(true)
@@ -106,4 +107,6 @@ export function switchAuthStorage(remember: boolean) {
   else {
     Persistent.clearLocal(true)
   }
+  if (tenantId !== undefined && tenantId !== null && tenantId !== '')
+    setTenantId(tenantId)
 }

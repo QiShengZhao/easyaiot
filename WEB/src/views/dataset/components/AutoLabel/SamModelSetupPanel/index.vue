@@ -1,6 +1,6 @@
 <template>
   <div class="sam-model-setup">
-    <div v-if="checking" class="setup-loading">
+    <div v-if="checkingEffective" class="setup-loading">
       <Spin size="large" />
       <p>正在检测 SAM 模型环境…</p>
     </div>
@@ -47,21 +47,21 @@
                 <Icon icon="ant-design:experiment-outlined" :size="22" />
               </div>
               <div class="panel-model-meta">
-                <div class="panel-model-name">{{ modelStatus?.filename || 'sam3.1_multiplex.pt' }}</div>
+                <div class="panel-model-name">{{ statusEffective?.filename || 'sam3.1_multiplex.pt' }}</div>
                 <div class="panel-model-sub">Meta SAM 3.1 · 魔搭 ModelScope · 文本/框选开放词汇分割</div>
               </div>
-              <Tag v-if="!showProgress && modelStatus?.resumable" color="warning">可续传</Tag>
-              <Tag v-else-if="!showProgress && modelStatus?.stage !== 'error'" color="blue">待安装</Tag>
-              <Tag v-else-if="modelStatus?.stage === 'error'" color="error">安装失败</Tag>
-              <Tag v-else-if="finished" color="success">已完成</Tag>
+              <Tag v-if="!showProgressEffective && statusEffective?.resumable" color="warning">可续传</Tag>
+              <Tag v-else-if="!showProgressEffective && statusEffective?.stage !== 'error'" color="blue">待安装</Tag>
+              <Tag v-else-if="statusEffective?.stage === 'error'" color="error">安装失败</Tag>
+              <Tag v-else-if="finishedEffective" color="success">已完成</Tag>
               <Tag v-else color="processing">安装中</Tag>
             </div>
 
-            <div v-if="showProgress" class="panel-progress-zone">
+            <div v-if="showProgressEffective" class="panel-progress-zone">
               <div class="progress-ring-wrap">
                 <Progress
                   type="circle"
-                  :percent="progress"
+                  :percent="progressEffective"
                   :width="120"
                   :stroke-width="8"
                   :status="progressStatus"
@@ -71,9 +71,9 @@
 
               <div class="progress-headline">{{ stageText }}</div>
               <div v-if="showBytes" class="progress-bytes">
-                {{ formatSize(modelStatus?.downloaded_bytes) }}
+                {{ formatSize(statusEffective?.downloaded_bytes) }}
                 <span class="progress-bytes-sep">/</span>
-                {{ formatSize(modelStatus?.total_bytes) }}
+                {{ formatSize(statusEffective?.total_bytes) }}
               </div>
 
               <div class="setup-stepper">
@@ -82,14 +82,14 @@
                   :key="step.key"
                   class="setup-step"
                   :class="{
-                    'setup-step--done': finished || idx < currentStep,
-                    'setup-step--active': !finished && idx === currentStep,
-                    'setup-step--pending': !finished && idx > currentStep,
+                    'setup-step--done': finishedEffective || idx < currentStepEffective,
+                    'setup-step--active': !finishedEffective && idx === currentStepEffective,
+                    'setup-step--pending': !finishedEffective && idx > currentStepEffective,
                   }"
                 >
                   <div class="setup-step-node">
-                    <CheckOutlined v-if="finished || idx < currentStep" />
-                    <LoadingOutlined v-else-if="idx === currentStep" spin />
+                    <CheckOutlined v-if="finishedEffective || idx < currentStepEffective" />
+                    <LoadingOutlined v-else-if="idx === currentStepEffective" spin />
                     <span v-else>{{ idx + 1 }}</span>
                   </div>
                   <div class="setup-step-text">
@@ -106,13 +106,13 @@
               </p>
             </div>
 
-            <div v-else-if="modelStatus?.stage === 'error'" class="panel-error">
+            <div v-else-if="statusEffective?.stage === 'error'" class="panel-error">
               <div class="panel-error-icon">
                 <CloseCircleFilled />
               </div>
-              <p class="panel-error-msg">{{ modelStatus.error || '下载失败，请检查网络或 ModelScope 连接后重试' }}</p>
-              <p v-if="modelStatus?.resumable && showPartialProgress" class="panel-resume-hint">
-                已下载 {{ formatSize(modelStatus?.downloaded_bytes) }}，点击「继续下载」将从断点续传
+              <p class="panel-error-msg">{{ statusEffective.error || '下载失败，请检查网络或 ModelScope 连接后重试' }}</p>
+              <p v-if="statusEffective?.resumable && showPartialProgress" class="panel-resume-hint">
+                已下载 {{ formatSize(statusEffective?.downloaded_bytes) }}，点击「继续下载」将从断点续传
               </p>
             </div>
 
@@ -123,8 +123,8 @@
                 <CloudDownloadOutlined class="panel-idle-icon" />
               </div>
               <p class="panel-idle-text">
-                检测到未完成下载：<strong>{{ formatSize(modelStatus?.downloaded_bytes) }}</strong>
-                <span v-if="modelStatus?.total_bytes"> / {{ formatSize(modelStatus?.total_bytes) }}</span>
+                检测到未完成下载：<strong>{{ formatSize(statusEffective?.downloaded_bytes) }}</strong>
+                <span v-if="statusEffective?.total_bytes"> / {{ formatSize(statusEffective?.total_bytes) }}</span>
               </p>
               <p class="panel-resume-hint">下载在 AI 服务端后台进行，可关闭页面后稍后回来继续</p>
             </div>
@@ -138,18 +138,18 @@
               <p class="panel-idle-text">
                 模型约 <strong>3.3 GB</strong>，首次下载预计 <strong>5–30 分钟</strong>，将从魔搭 ModelScope 拉取并写入 AI 服务本地目录。
               </p>
-              <p v-if="modelStatus?.path" class="panel-path">目标路径：{{ modelStatus.path }}</p>
+              <p v-if="statusEffective?.path" class="panel-path">目标路径：{{ statusEffective.path }}</p>
             </div>
 
             <div class="panel-actions">
               <Button
-                v-if="!showProgress"
+                v-if="!showProgressEffective"
                 type="primary"
                 size="large"
                 block
                 class="panel-cta"
-                :loading="starting"
-                @click="$emit('download')"
+                :loading="startingEffective"
+                @click="onDownloadClick"
               >
                 <template #icon><CloudDownloadOutlined /></template>
                 {{ downloadButtonText }}
@@ -163,7 +163,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, getCurrentInstance, onMounted } from 'vue';
 import {
   CheckCircleFilled,
   CheckOutlined,
@@ -176,6 +176,7 @@ import { Progress, Spin, Tag } from 'ant-design-vue';
 import { Icon } from '@/components/Icon';
 import { Button } from '@/components/Button';
 import type { SamModelStatus } from '@/api/device/sam';
+import { useSamModelSetup } from '@/views/dataset/components/AutoLabel/useSamModelSetup';
 
 defineOptions({ name: 'SamModelSetupPanel' });
 
@@ -189,7 +190,60 @@ const props = defineProps<{
   starting?: boolean;
 }>();
 
-defineEmits<{ download: [] }>();
+const emit = defineEmits<{ download: []; ready: [] }>();
+
+const instance = getCurrentInstance();
+const hasExternalDownload = computed(() => {
+  const p = instance?.vnode.props as Record<string, unknown> | null | undefined;
+  return !!(p?.onDownload || p?.onDownloadOnce || p?.['onDownload']);
+});
+
+const {
+  modelStatusChecked,
+  modelStatus: internalStatus,
+  showProgressPanel,
+  displayProgress,
+  downloadStepCurrent,
+  modelDownloadJustFinished,
+  downloadStarting,
+  refreshModelStatus,
+  handleDownloadModel,
+} = useSamModelSetup(() => emit('ready'));
+
+const statusEffective = computed(() => props.modelStatus ?? internalStatus.value);
+const checkingEffective = computed(() =>
+  props.checking !== undefined ? props.checking : !modelStatusChecked.value,
+);
+const showProgressEffective = computed(() =>
+  props.showProgress !== undefined ? props.showProgress : showProgressPanel.value,
+);
+const progressEffective = computed(() =>
+  props.progress !== undefined ? props.progress : displayProgress.value,
+);
+const currentStepEffective = computed(() =>
+  props.currentStep !== undefined ? props.currentStep : downloadStepCurrent.value,
+);
+const finishedEffective = computed(() =>
+  props.finished !== undefined ? props.finished : modelDownloadJustFinished.value,
+);
+const startingEffective = computed(() =>
+  props.starting !== undefined ? props.starting : downloadStarting.value,
+);
+
+async function onDownloadClick() {
+  emit('download');
+  // 父组件未绑定时自行触发下载，避免「点了没反应」
+  if (!hasExternalDownload.value) {
+    await handleDownloadModel();
+  }
+}
+
+onMounted(async () => {
+  if (props.modelStatus == null) {
+    const ready = await refreshModelStatus();
+    if (ready) emit('ready');
+  }
+});
 
 const metricItems = [
   { value: '~3.3 GB', label: '模型体积' },
@@ -210,48 +264,48 @@ const steps = [
 ];
 
 const progressStatus = computed(() => {
-  if (props.finished) return 'success';
-  if (props.modelStatus?.stage === 'error') return 'exception';
+  if (finishedEffective.value) return 'success';
+  if (statusEffective.value?.stage === 'error') return 'exception';
   return 'active';
 });
 
 const progressColor = computed(() => {
-  if (props.finished) return '#52c41a';
+  if (finishedEffective.value) return '#52c41a';
   return { '0%': '#266cfb', '100%': '#5ba3f5' };
 });
 
 const stageText = computed(() => {
-  if (props.finished) return '安装完成，可开始 SAM 标注';
-  const stage = props.modelStatus?.stage;
+  if (finishedEffective.value) return '安装完成，可开始 SAM 标注';
+  const stage = statusEffective.value?.stage;
   if (stage === 'installing') return '正在写入模型文件';
   if (stage === 'downloading') return '正在从魔搭下载 SAM 3.1 权重';
   return '正在准备安装';
 });
 
 const tipText = computed(() => {
-  if (props.finished) return '请稍候，系统正在刷新模型状态';
-  const stage = props.modelStatus?.stage;
+  if (finishedEffective.value) return '请稍候，系统正在刷新模型状态';
+  const stage = statusEffective.value?.stage;
   if (stage === 'installing') return '写入阶段通常只需数秒，请勿关闭页面';
-  if (props.modelStatus?.resumable) {
+  if (statusEffective.value?.resumable) {
     return '下载在服务端后台进行，支持断点续传；关闭或刷新页面后可再次点击继续下载';
   }
   return '下载在服务端后台进行，支持断点续传；网络中断后可继续下载';
 });
 
 const showPartialProgress = computed(() => {
-  const downloaded = props.modelStatus?.downloaded_bytes ?? 0;
-  return !!props.modelStatus?.resumable && downloaded > 0 && !props.showProgress;
+  const downloaded = statusEffective.value?.downloaded_bytes ?? 0;
+  return !!statusEffective.value?.resumable && downloaded > 0 && !showProgressEffective.value;
 });
 
 const downloadButtonText = computed(() => {
-  if (props.modelStatus?.resumable) return '继续下载';
-  if (props.modelStatus?.stage === 'error') return '重新下载模型';
+  if (statusEffective.value?.resumable) return '继续下载';
+  if (statusEffective.value?.stage === 'error') return '重新下载模型';
   return '立即下载并安装';
 });
 
 const showBytes = computed(() => {
-  const total = props.modelStatus?.total_bytes ?? 0;
-  return total > 0 && props.showProgress;
+  const total = statusEffective.value?.total_bytes ?? 0;
+  return total > 0 && showProgressEffective.value;
 });
 
 function formatSize(bytes?: number) {

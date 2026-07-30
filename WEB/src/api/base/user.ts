@@ -1,5 +1,6 @@
 import type { GetUserInfoModel, LoginParams, LoginResultModel, SmsLoginParams } from './model/userModel'
 import { defHttp } from '@/utils/http/axios'
+import { getTenantId } from '@/utils/auth'
 
 import type { ErrorMessageMode } from '@/types/axios'
 
@@ -14,7 +15,15 @@ enum Api {
  * @description: user login api
  */
 export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') {
-  return defHttp.post<LoginResultModel>({ url: Api.Login, params }, { errorMessageMode: mode })
+  const tenantId = getTenantId() || '1'
+  return defHttp.post<LoginResultModel>(
+    {
+      url: Api.Login,
+      params,
+      headers: { 'tenant-id': tenantId },
+    },
+    { errorMessageMode: mode },
+  )
 }
 
 /**

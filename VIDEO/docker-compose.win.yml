@@ -1,0 +1,57 @@
+# Windows Docker Desktop 测试编排（不使用 network_mode:host）
+# docker compose -f docker-compose.win.yml up -d
+services:
+  video-service:
+    image: video-service:latest
+    container_name: video-service
+    user: root
+    entrypoint: ["/bin/sh", "/app/docker-entrypoint.sh"]
+    command: ["python", "run.py"]
+    env_file:
+      - .env.docker.win
+    ports:
+      - "0.0.0.0:6000:6000"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ./static:/app/static
+      - ./temp_uploads:/app/temp_uploads
+      - ./model:/app/model
+      - ./alert_images:/app/alert_images
+      - ~/easyaiot/data:/data:rw
+      - ./.env.docker.win:/app/.env:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+      - FLASK_RUN_PORT=6000
+      - FLASK_RUN_HOST=0.0.0.0
+      - DEBUG=False
+      - DATABASE_URL=postgresql://postgres:iot45722414822@PostgresSQL:5432/iot-video20
+      - REDIS_HOST=Redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=basiclab@iot975248395
+      - ALERT_IMAGES_DIR=/app/alert_images
+      - TZ=Asia/Shanghai
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6000/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+    networks:
+      easyaiot-network:
+        aliases:
+          - video-host
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  easyaiot-network:
+    name: easyaiot-network
+    external: true

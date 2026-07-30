@@ -21,7 +21,6 @@ import { AxiosRetry } from '@/utils/http/axios/axiosRetry'
 
 const globSetting = useGlobSetting()
 const urlPrefix = globSetting.urlPrefix
-const tenantEnable = globSetting.tenantEnable
 const { createMessage, createErrorModal, createSuccessModal } = useMessage()
 
 // 请求白名单，无须token的接口
@@ -257,11 +256,11 @@ const transform: AxiosTransform = {
         ? `${options.authenticationScheme} ${token}`
         : token
     }
-    // 设置租户
-    if (tenantEnable && tenantEnable === 'true') {
-      const tenantId = getTenantId()
-      if (tenantId)
-        (config as Recordable).headers['tenant-id'] = tenantId
+    // 设置租户（每次请求重新读取配置，避免模块加载时 _app.config 尚未生效）
+    const tenantEnable = useGlobSetting().tenantEnable
+    if (tenantEnable === 'true') {
+      const tenantId = getTenantId() || '1'
+      ;(config as Recordable).headers['tenant-id'] = tenantId
     }
     return config
   },

@@ -1,7 +1,16 @@
 <template>
   <div class="sam-workbench model-workbench">
     <div v-if="!modelReady" class="sam-setup-wrap">
-      <SamModelSetupPanel />
+      <SamModelSetupPanel
+        :checking="!modelStatusChecked"
+        :model-status="modelStatus"
+        :show-progress="showProgressPanel"
+        :progress="displayProgress"
+        :current-step="downloadStepCurrent"
+        :finished="modelDownloadJustFinished"
+        :starting="downloadStarting"
+        @download="handleDownloadModel"
+      />
     </div>
 
     <div v-else class="main-content">
@@ -169,7 +178,18 @@ import SamResultPanel from './SamResultPanel.vue';
 defineOptions({ name: 'SamInferencePage' });
 
 const { createMessage } = useMessage();
-const { modelReady, refreshModelStatus } = useSamModelSetup();
+const {
+  modelStatusChecked,
+  modelStatus,
+  modelReady,
+  showProgressPanel,
+  displayProgress,
+  downloadStepCurrent,
+  modelDownloadJustFinished,
+  downloadStarting,
+  refreshModelStatus,
+  handleDownloadModel,
+} = useSamModelSetup();
 
 const textPrompts = ref<string[]>([]);
 const conf = ref(0.45);

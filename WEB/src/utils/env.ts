@@ -13,8 +13,27 @@ export function getStorageShortName() {
   return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase()
 }
 
+function getProductionConfigKey(shortName?: string) {
+  return `__PRODUCTION__${shortName || '__APP'}__CONF__`.toUpperCase().replace(/\s/g, '')
+}
+
+/**
+ * 生产环境优先读 index.html 注入的 _app.config.js（可运行时覆盖），
+ * 开发环境读 Vite 注入的 import.meta.env。
+ */
 export function getAppEnvConfig() {
-  const ENV = import.meta.env as unknown as GlobEnvConfig
+  const metaEnv = import.meta.env as unknown as GlobEnvConfig
+  let ENV = metaEnv
+
+  if (import.meta.env.PROD && typeof window !== 'undefined') {
+    const keyFromMeta = getProductionConfigKey(metaEnv.VITE_GLOB_APP_SHORT_NAME)
+    const runtimeConf =
+      (window as any)[keyFromMeta]
+      || (window as any).__PRODUCTION____APP__CONF__
+      || (window as any).__PRODUCTION__IOT_ADMIN__CONF__
+    if (runtimeConf)
+      ENV = { ...metaEnv, ...runtimeConf } as GlobEnvConfig
+  }
 
   const {
     VITE_GLOB_APP_TITLE,
@@ -27,7 +46,7 @@ export function getAppEnvConfig() {
     VITE_GLOB_APP_CAPTCHA_ENABLE,
   } = ENV
 
-  if (!/^[a-zA-Z\_]*$/.test(VITE_GLOB_APP_SHORT_NAME)) {
+  if (VITE_GLOB_APP_SHORT_NAME && !/^[a-zA-Z\_]*$/.test(VITE_GLOB_APP_SHORT_NAME)) {
     warn(
       'VITE_GLOB_APP_SHORT_NAME Variables can only be characters/underscores, please modify in the environment variables and re-running.',
     )
@@ -57,8 +76,6 @@ export const prodMode = 'production'
 
 /**
  * @description: Get environment variables
- * @returns:
- * @example:
  */
 export function getEnv(): string {
   return import.meta.env.MODE
@@ -66,8 +83,6 @@ export function getEnv(): string {
 
 /**
  * @description: Is it a development mode
- * @returns:
- * @example:
  */
 export function isDevMode(): boolean {
   return import.meta.env.DEV
@@ -75,8 +90,6 @@ export function isDevMode(): boolean {
 
 /**
  * @description: Is it a production mode
- * @returns:
- * @example:
  */
 export function isProdMode(): boolean {
   return import.meta.env.PROD

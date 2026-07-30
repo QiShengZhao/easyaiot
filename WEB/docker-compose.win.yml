@@ -1,0 +1,20 @@
+# Windows：覆盖 extra_hosts
+# - 去掉 video-host/ai-host（改由 VIDEO/AI 容器网络别名解析）
+# - gateway 仍走 host-gateway（宿主机已发布 48080；容器名是 iot-gateway 而非 gateway）
+# - 挂载运行时 _app.config.js（镜像内该文件常为空）
+services:
+  web-service:
+    extra_hosts: !override
+      - "gateway:host-gateway"
+      - "system-host:host-gateway"
+      - "srs-host:host-gateway"
+      - "zlm-host:host-gateway"
+    volumes:
+      - ./_app.config.runtime.js:/usr/share/nginx/html/_app.config.js:ro
+    environment:
+      - TZ=Asia/Shanghai
+
+networks:
+  easyaiot-network:
+    name: easyaiot-network
+    external: true

@@ -76,14 +76,15 @@ async function getTenantId() {
   if (tenantEnable === 'true') {
     const website = location.host
     const tenant = await getTenantByWebsite(website)
-    if (tenant.id != null) {
+    // get-by-website 无匹配时 transform 可能返回整包 {code,data:null}，需判空
+    if (tenant && tenant.id != null) {
       formData.tenantName = tenant.name
       authUtil.setTenantId(tenant.id)
+      return
     }
-    else {
-      const res = await getTenantIdByName(formData.tenantName)
-      authUtil.setTenantId(res.id)
-    }
+    const res = await getTenantIdByName(formData.tenantName)
+    const id = res?.id ?? res ?? 1
+    authUtil.setTenantId(id)
   }
 }
 

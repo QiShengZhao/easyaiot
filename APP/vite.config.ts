@@ -189,7 +189,8 @@ export default defineConfig(({ command, mode }) => {
       && mode === 'production'
       && visualizer({
         filename: './node_modules/.cache/visualizer/stats.html',
-        open: true,
+        // CI/Docker 构建禁止 open，否则会尝试 spawn 宿主机 powershell 导致失败
+        open: false,
         gzipSize: true,
         brotliSize: true,
       }),

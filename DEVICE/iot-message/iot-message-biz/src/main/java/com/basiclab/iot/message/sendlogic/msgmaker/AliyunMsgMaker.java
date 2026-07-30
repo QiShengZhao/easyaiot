@@ -121,7 +121,7 @@ public class AliyunMsgMaker extends BaseMsgMaker implements IMsgMaker {
             paramMap.put(templateData.getName(),templateData.getValue());
         }
 
-        request.setTemplateParam(JSONUtil.parseFromMap(paramMap).toJSONString(0));
+        request.setTemplateParam(JSONUtil.toJsonStr(paramMap));
 
         // 短信模板ID，传入的模板必须是在阿里阿里云短信中的可用模板。示例：SMS_585014
         request.setTemplateCode(tMsgSms.getTemplateId());

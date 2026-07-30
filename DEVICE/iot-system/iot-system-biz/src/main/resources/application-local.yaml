@@ -41,9 +41,9 @@ spring:
         testWhileIdle: true
         testOnBorrow: false
         testOnReturn: false
-        poolPreparedStatements: true
-        maxPoolPreparedStatementPerConnectionSize: 20
-        filters: stat,slf4j
+        poolPreparedStatements: false
+        maxPoolPreparedStatementPerConnectionSize: -1
+        filters: slf4j
         connectionProperties: druid.stat.mergeSql\=true;druid.stat.slowSqlMillis\=5000
       primary: master
       datasource:

@@ -27,7 +27,8 @@ public class SpringDocConfig {
     private boolean enable;
 
     @Bean
-    @Primary
+    // 勿加 @Primary：与 iot-common-web YudaoSwaggerAutoConfiguration#createApi 冲突，
+    // Boot3 下会出现 NoUniqueBeanDefinitionException（两个 primary OpenAPI）
     public OpenAPI springShopOpenApi() {
         Contact contact = new Contact();
         contact.setName("pan");
