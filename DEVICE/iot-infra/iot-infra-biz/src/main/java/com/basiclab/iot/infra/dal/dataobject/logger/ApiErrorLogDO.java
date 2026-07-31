@@ -31,6 +31,15 @@ public class ApiErrorLogDO extends BaseDO {
      * {@link #requestParams} 的最大长度
      */
     public static final Integer REQUEST_PARAMS_MAX_LENGTH = 8000;
+    /**
+     * 异常栈轨迹最大长度。须远小于 Jackson 默认单字符串上限（20MB），
+     * 否则 Feign 上报 create 时会 HttpMessageNotReadableException，错误日志写不进去。
+     */
+    public static final Integer EXCEPTION_STACK_TRACE_MAX_LENGTH = 100_000;
+    /**
+     * 异常消息最大长度
+     */
+    public static final Integer EXCEPTION_MESSAGE_MAX_LENGTH = 4000;
 
     /**
      * 编号

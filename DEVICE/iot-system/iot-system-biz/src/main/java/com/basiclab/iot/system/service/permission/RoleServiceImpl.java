@@ -54,6 +54,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @LogRecord(type = SYSTEM_ROLE_TYPE, subType = SYSTEM_ROLE_CREATE_SUB_TYPE, bizNo = "{{#role.id}}",
+            success = SYSTEM_ROLE_CREATE_SUCCESS)
     public Long createRole(RoleSaveReqVO createReqVO, Integer type) {
         // 1. 校验角色
         validateRoleDuplicate(createReqVO.getName(), createReqVO.getCode(), null);
@@ -72,6 +74,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @CacheEvict(value = RedisKeyConstants.ROLE, key = "#updateReqVO.id")
+    @LogRecord(type = SYSTEM_ROLE_TYPE, subType = SYSTEM_ROLE_UPDATE_SUB_TYPE, bizNo = "{{#updateReqVO.id}}",
+            success = SYSTEM_ROLE_UPDATE_SUCCESS)
     public void updateRole(RoleSaveReqVO updateReqVO) {
         // 1.1 校验是否可以更新
         RoleDO role = validateRoleForUpdate(updateReqVO.getId());
@@ -82,7 +86,8 @@ public class RoleServiceImpl implements RoleService {
         RoleDO updateObj = BeanUtils.toBean(updateReqVO, RoleDO.class);
         roleMapper.updateById(updateObj);
 
-        // 3. 记录操作日志上下文
+        // 3. 记录操作日志上下文（DIFF 需要 OLD_OBJECT）
+        LogRecordContext.putVariable(DiffParseFunction.OLD_OBJECT, BeanUtils.toBean(role, RoleSaveReqVO.class));
         LogRecordContext.putVariable("role", role);
     }
 
@@ -103,6 +108,8 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = RedisKeyConstants.ROLE, key = "#id")
+    @LogRecord(type = SYSTEM_ROLE_TYPE, subType = SYSTEM_ROLE_DELETE_SUB_TYPE, bizNo = "{{#id}}",
+            success = SYSTEM_ROLE_DELETE_SUCCESS)
     public void deleteRole(Long id) {
         // 1. 校验是否可以更新
         RoleDO role = validateRoleForUpdate(id);
@@ -113,7 +120,6 @@ public class RoleServiceImpl implements RoleService {
         permissionService.processRoleDeleted(id);
 
         // 3. 记录操作日志上下文
-        LogRecordContext.putVariable(DiffParseFunction.OLD_OBJECT, BeanUtils.toBean(role, RoleSaveReqVO.class));
         LogRecordContext.putVariable("role", role);
     }
 

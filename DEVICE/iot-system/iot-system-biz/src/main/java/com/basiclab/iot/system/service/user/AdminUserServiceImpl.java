@@ -85,6 +85,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @LogRecord(type = SYSTEM_USER_TYPE, subType = SYSTEM_USER_CREATE_SUB_TYPE, bizNo = "{{#user.id}}",
+            success = SYSTEM_USER_CREATE_SUCCESS)
     public Long createUser(UserSaveReqVO createReqVO) {
         // 1.1 校验账户配合
         tenantService.handleTenantInfo(tenant -> {
@@ -116,6 +118,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @LogRecord(type = SYSTEM_USER_TYPE, subType = SYSTEM_USER_UPDATE_SUB_TYPE, bizNo = "{{#updateReqVO.id}}",
+            success = SYSTEM_USER_UPDATE_SUCCESS)
     public void updateUser(UserSaveReqVO updateReqVO) {
         updateReqVO.setPassword(null); // 特殊：此处不更新密码
         // 1. 校验正确性
@@ -189,6 +193,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
+    @LogRecord(type = SYSTEM_USER_TYPE, subType = SYSTEM_USER_UPDATE_PASSWORD_SUB_TYPE, bizNo = "{{#id}}",
+            success = SYSTEM_USER_UPDATE_PASSWORD_SUCCESS)
     public void updateUserPassword(Long id, String password) {
         // 1. 校验用户存在
         AdminUserDO user = validateUserExists(id);
@@ -217,6 +223,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @LogRecord(type = SYSTEM_USER_TYPE, subType = SYSTEM_USER_DELETE_SUB_TYPE, bizNo = "{{#id}}",
+            success = SYSTEM_USER_DELETE_SUCCESS)
     public void deleteUser(Long id) {
         // 1. 校验用户存在
         AdminUserDO user = validateUserExists(id);

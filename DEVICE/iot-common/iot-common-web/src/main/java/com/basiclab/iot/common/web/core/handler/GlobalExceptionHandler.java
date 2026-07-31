@@ -15,7 +15,6 @@ import com.basiclab.iot.infra.api.logger.dto.ApiErrorLogCreateReqDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -263,33 +262,44 @@ public class GlobalExceptionHandler {
         }
     }
 
+    /** 与 ApiErrorLogDO 对齐：Feign/Jackson 单字符串默认上限约 20MB，栈轨迹必须截断 */
+    private static final int EXCEPTION_STACK_TRACE_MAX_LENGTH = 100_000;
+    private static final int EXCEPTION_MESSAGE_MAX_LENGTH = 4000;
+    private static final int REQUEST_PARAMS_MAX_LENGTH = 8000;
+
     private void buildExceptionLog(ApiErrorLogCreateReqDTO errorLog, HttpServletRequest request, Throwable e) {
         // 处理用户信息
         errorLog.setUserId(WebFrameworkUtils.getLoginUserId(request));
         errorLog.setUserType(WebFrameworkUtils.getLoginUserType(request));
-        // 设置异常字段
+        // 设置异常字段（长度截断，避免 create RPC 因超大 JSON 失败，导致错误日志“不更新”）
         errorLog.setExceptionName(e.getClass().getName());
-        errorLog.setExceptionMessage(ExceptionUtil.getMessage(e));
-        errorLog.setExceptionRootCauseMessage(ExceptionUtil.getRootCauseMessage(e));
-        errorLog.setExceptionStackTrace(ExceptionUtil.stacktraceToString(e));
+        errorLog.setExceptionMessage(StrUtil.maxLength(ExceptionUtil.getMessage(e), EXCEPTION_MESSAGE_MAX_LENGTH));
+        errorLog.setExceptionRootCauseMessage(StrUtil.maxLength(ExceptionUtil.getRootCauseMessage(e), EXCEPTION_MESSAGE_MAX_LENGTH));
+        errorLog.setExceptionStackTrace(StrUtil.maxLength(ExceptionUtil.stacktraceToString(e), EXCEPTION_STACK_TRACE_MAX_LENGTH));
         StackTraceElement[] stackTraceElements = e.getStackTrace();
-        Assert.notEmpty(stackTraceElements, "异常 stackTraceElements 不能为空");
-        StackTraceElement stackTraceElement = stackTraceElements[0];
-        errorLog.setExceptionClassName(stackTraceElement.getClassName());
-        errorLog.setExceptionFileName(stackTraceElement.getFileName());
-        errorLog.setExceptionMethodName(stackTraceElement.getMethodName());
-        errorLog.setExceptionLineNumber(stackTraceElement.getLineNumber());
+        if (stackTraceElements != null && stackTraceElements.length > 0) {
+            StackTraceElement stackTraceElement = stackTraceElements[0];
+            errorLog.setExceptionClassName(StrUtil.blankToDefault(stackTraceElement.getClassName(), "-"));
+            errorLog.setExceptionFileName(StrUtil.blankToDefault(stackTraceElement.getFileName(), "-"));
+            errorLog.setExceptionMethodName(StrUtil.blankToDefault(stackTraceElement.getMethodName(), "-"));
+            errorLog.setExceptionLineNumber(stackTraceElement.getLineNumber());
+        } else {
+            errorLog.setExceptionClassName("-");
+            errorLog.setExceptionFileName("-");
+            errorLog.setExceptionMethodName("-");
+            errorLog.setExceptionLineNumber(0);
+        }
         // 设置其它字段
-        errorLog.setTraceId(null);
+        errorLog.setTraceId("");
         errorLog.setApplicationName(applicationName);
-        errorLog.setRequestUrl(request.getRequestURI());
+        errorLog.setRequestUrl(StrUtil.blankToDefault(request.getRequestURI(), "-"));
         Map<String, Object> requestParams = MapUtil.<String, Object>builder()
                 .put("query", ServletUtils.getParamMap(request))
                 .put("body", ServletUtils.getBody(request)).build();
-        errorLog.setRequestParams(JsonUtils.toJsonString(requestParams));
-        errorLog.setRequestMethod(request.getMethod());
-        errorLog.setUserAgent(ServletUtils.getUserAgent(request));
-        errorLog.setUserIp(ServletUtils.getClientIP(request));
+        errorLog.setRequestParams(StrUtil.maxLength(JsonUtils.toJsonString(requestParams), REQUEST_PARAMS_MAX_LENGTH));
+        errorLog.setRequestMethod(StrUtil.blankToDefault(request.getMethod(), "-"));
+        errorLog.setUserAgent(StrUtil.blankToDefault(ServletUtils.getUserAgent(request), "-"));
+        errorLog.setUserIp(StrUtil.blankToDefault(ServletUtils.getClientIP(request), "127.0.0.1"));
         errorLog.setExceptionTime(LocalDateTime.now());
     }
 

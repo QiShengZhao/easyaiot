@@ -63,13 +63,14 @@ export const searchFormSchema: FormSchema[] = [
     colProps: { span: 8 },
   },
   {
+    // 后端 LoginLogPageReqVO 字段为 status（Boolean），不是 result
     label: '结果',
-    field: 'result',
+    field: 'status',
     component: 'Select',
     componentProps: {
       options: [
-        { label: '成功', value: 'true', key: 'true' },
-        { label: '失败', value: 'false', key: 'false' },
+        { label: '成功', value: true, key: 'true' },
+        { label: '失败', value: false, key: 'false' },
       ],
     },
     colProps: { span: 8 },

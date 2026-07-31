@@ -16,6 +16,7 @@ export interface LoginLogVO {
 export interface LoginLogReqVO extends PageParam {
   userIp?: string
   username?: string
+  /** 对应后端 LoginLogPageReqVO.status：true=成功，false=失败 */
   status?: boolean
   createTime?: Date[]
 }

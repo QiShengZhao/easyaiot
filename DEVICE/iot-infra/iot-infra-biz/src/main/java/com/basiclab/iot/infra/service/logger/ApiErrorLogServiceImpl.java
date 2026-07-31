@@ -37,6 +37,15 @@ public class ApiErrorLogServiceImpl implements ApiErrorLogService {
         ApiErrorLogDO apiErrorLog = BeanUtils.toBean(createDTO, ApiErrorLogDO.class)
                 .setProcessStatus(ApiErrorLogProcessStatusEnum.INIT.getStatus());
         apiErrorLog.setRequestParams(StrUtil.maxLength(apiErrorLog.getRequestParams(), ApiErrorLogDO.REQUEST_PARAMS_MAX_LENGTH));
+        apiErrorLog.setExceptionMessage(StrUtil.maxLength(apiErrorLog.getExceptionMessage(), ApiErrorLogDO.EXCEPTION_MESSAGE_MAX_LENGTH));
+        apiErrorLog.setExceptionRootCauseMessage(StrUtil.maxLength(apiErrorLog.getExceptionRootCauseMessage(), ApiErrorLogDO.EXCEPTION_MESSAGE_MAX_LENGTH));
+        apiErrorLog.setExceptionStackTrace(StrUtil.maxLength(apiErrorLog.getExceptionStackTrace(), ApiErrorLogDO.EXCEPTION_STACK_TRACE_MAX_LENGTH));
+        if (StrUtil.isEmpty(apiErrorLog.getExceptionFileName())) {
+            apiErrorLog.setExceptionFileName("-");
+        }
+        if (StrUtil.isEmpty(apiErrorLog.getTraceId())) {
+            apiErrorLog.setTraceId("");
+        }
         apiErrorLogMapper.insert(apiErrorLog);
     }
 
