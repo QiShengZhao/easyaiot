@@ -156,7 +156,8 @@ iot:
       - infra_file_content
       - infra_job
       - infra_job_log
-      - infra_job_log
       - infra_data_source_config
+      - infra_api_access_log
+      - infra_api_error_log
 
 debug: false
