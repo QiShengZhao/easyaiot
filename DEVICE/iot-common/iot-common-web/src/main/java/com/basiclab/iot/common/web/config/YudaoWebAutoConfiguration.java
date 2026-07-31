@@ -1,5 +1,6 @@
 package com.basiclab.iot.common.web.config;
 
+import com.basiclab.iot.common.apilog.core.service.ApiErrorLogFrameworkService;
 import com.basiclab.iot.common.enums.WebFilterOrderEnum;
 import com.basiclab.iot.common.web.core.filter.CacheRequestBodyFilter;
 import com.basiclab.iot.common.web.core.filter.DemoFilter;
@@ -58,8 +59,8 @@ public class YudaoWebAutoConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public GlobalExceptionHandler globalExceptionHandler() {
-        return new GlobalExceptionHandler(applicationName);
+    public GlobalExceptionHandler globalExceptionHandler(ApiErrorLogFrameworkService apiErrorLogFrameworkService) {
+        return new GlobalExceptionHandler(applicationName, apiErrorLogFrameworkService);
     }
 
     @Bean

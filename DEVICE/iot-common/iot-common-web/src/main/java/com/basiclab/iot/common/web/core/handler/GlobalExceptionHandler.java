@@ -9,6 +9,7 @@ import com.basiclab.iot.common.exception.ServiceException;
 import com.basiclab.iot.common.utils.collection.SetUtils;
 import com.basiclab.iot.common.utils.json.JsonUtils;
 import com.basiclab.iot.common.utils.servlet.ServletUtils;
+import com.basiclab.iot.common.apilog.core.service.ApiErrorLogFrameworkService;
 import com.basiclab.iot.common.web.core.util.WebFrameworkUtils;
 import com.basiclab.iot.infra.api.logger.dto.ApiErrorLogCreateReqDTO;
 import lombok.AllArgsConstructor;
@@ -57,6 +58,8 @@ public class GlobalExceptionHandler {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     private final String applicationName;
+
+    private final ApiErrorLogFrameworkService apiErrorLogFrameworkService;
 
     /**
      * 处理所有异常，主要是提供给 Filter 使用
@@ -253,6 +256,8 @@ public class GlobalExceptionHandler {
         try {
             // 初始化 errorLog
             buildExceptionLog(errorLog, req, e);
+            // 执行插入 errorLog
+            apiErrorLogFrameworkService.createApiErrorLog(errorLog);
         } catch (Throwable th) {
             log.error("[createExceptionLog][url({}) log({}) 发生异常]", req.getRequestURI(), JsonUtils.toJsonString(errorLog), th);
         }
