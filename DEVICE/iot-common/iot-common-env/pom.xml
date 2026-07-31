@@ -18,11 +18,6 @@
     </description>
     <url>https://github.com/soaring-xiongkulu/easyaiot</url>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.basiclab.iot</groupId>

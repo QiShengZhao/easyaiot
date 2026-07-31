@@ -15,7 +15,7 @@
         <project.build.outputTimestamp>2026-01-01T00:00:00Z</project.build.outputTimestamp>
         <spring.boot.version>3.5.16</spring.boot.version>
         <!-- Maven编译时的依赖 -->
-        <java.version>21</java.version>
+        <java.version>17</java.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <swagger.start.version>3.0</swagger.start.version>
@@ -27,8 +27,8 @@
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <!-- 编译时的编码 -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <modules>
